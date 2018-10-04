@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-project_id = attribute('project_id', required: true, type: :string).to_s
+project_id = attribute('project_id', required: true, type: :string)
 zone = attribute('zone', required: true, type: :string)
 instance_name = attribute('instance_name', required: true, type: :string)
 network = attribute('network', type: :string, default: "default")
