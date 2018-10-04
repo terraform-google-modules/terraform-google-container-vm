@@ -23,7 +23,7 @@ machine_type = attribute('machine_type', type: :string, default: "n1-standard-1"
 control "gce" do
   title "Google Compute Engine instance configuration"
 
-  describe command("gcloud --project=#{project_id} compute instances describe #{instance_name} --format json") do
+  describe command("gcloud --project=#{project_id} compute instances describe #{instance_name} --zone=#{zone} --format json") do
     its('exit_status') { should be 0 }
     its('stderr') { should eq '' }
 
