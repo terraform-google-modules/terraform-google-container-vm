@@ -1,0 +1,3 @@
+.kitchen/
+credentials.json
+test/fixtures/default/config.sh

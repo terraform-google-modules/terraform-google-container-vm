@@ -1,0 +1,32 @@
+name: default
+attributes:
+  - name: project_id
+    required: true
+    type: string
+
+  - name: zone
+    required: true
+    type: string
+
+  - name: instance_name
+    required: true
+    type: string
+
+  - name: network
+    required: false
+    default: "default"
+    type: string
+
+  - name: subnetwork
+    required: false
+    default: "default"
+    type: string
+
+  - name: image
+    required: true
+    type: string
+
+  - name: machine_type
+    required: false
+    default: "n1-standard-1"
+    type: string
