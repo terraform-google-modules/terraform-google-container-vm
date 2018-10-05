@@ -25,6 +25,9 @@ attributes:
   - name: image
     required: true
     type: string
+  - name: restart_policy
+    required: true
+    type: string
 
   - name: machine_type
     required: false

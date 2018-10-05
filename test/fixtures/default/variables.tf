@@ -21,6 +21,7 @@
 
  variable "instance_name" {}
  variable "image" {}
+ variable "restart_policy" {}
  variable "machine_type" {}
  variable "region" {}
  variable "zone" {}

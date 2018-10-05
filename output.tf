@@ -3,7 +3,7 @@ output "metadata_key" {
 }
 
 output "metadata_value" {
-	value = "${data.template_file.konlet.rendered}"
+	value = "${data.external.spec_as_yaml.result["rendered"]}"
 }
 
 output "source_image" {
@@ -16,4 +16,10 @@ output "vm_container_label_key" {
 
 output "vm_container_label" {
 	value = "cos-stable-63-10032-88-0" // TODO can this be fetched dynamically?
+}
+
+// DEBUGGING
+
+output "original_spec" {
+	value = "${jsonencode(local.spec)}"
 }

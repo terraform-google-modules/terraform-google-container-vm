@@ -22,6 +22,10 @@ output "image" {
   value = "${var.image}"
 }
 
+output "restart_policy" {
+	value = "${var.restart_policy}"
+}
+
 output "machine_type" {
   value = "${var.machine_type}"
 }
@@ -34,3 +38,6 @@ output "zone" {
   value = "${var.zone}"
 }
 
+output "ipv4" {
+  value = "${google_compute_instance.vm.network_interface.0.access_config.0.assigned_nat_ip }"
+}

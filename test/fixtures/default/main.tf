@@ -22,7 +22,47 @@ provider "google" {
 module "gce-container" {
   source = "../../../"
 
-  image = "${var.image}"
+  containers = [
+    {
+      image = "${var.image}"
+      volumeMounts = [
+	{
+	  mountPath = "/cache"
+	  name = "tempfs-0"
+	  readOnly = "false"
+	},
+	{
+	  mountPath = "/persistent-data"
+	  name = "data-disk-0"
+	  readOnly = "false"
+	}
+      ]
+    }
+  ]
+  volumes = [
+    {
+      name = "tempfs-0"
+      emptyDir = {
+	medium = "Memory"
+      }
+    },
+    {
+      name = "data-disk-0"
+      gcePersistentDisk = {
+	pdName = "data-disk-0"
+	fsType = "ext4"
+      }
+    }
+  ]
+  restart_policy = "${var.restart_policy}"
+}
+
+resource "google_compute_disk" "pd" {
+  project = "${var.project_id}"
+  name = "data-disk"
+  type = "pd-ssd"
+  zone = "${var.zone}"
+  size = 10
 }
 
 resource "google_compute_instance" "vm" {
@@ -37,6 +77,12 @@ resource "google_compute_instance" "vm" {
     }
   }
 
+  attached_disk {
+    source = "${google_compute_disk.pd.self_link}"
+    device_name = "data-disk-0"
+    mode = "READ_WRITE"
+  }
+
   network_interface {
     subnetwork_project = "${var.subnetwork_project}"
     subnetwork = "${var.subnetwork}"
@@ -49,5 +95,17 @@ resource "google_compute_instance" "vm" {
 
   labels {
     "container-vm" = "${module.gce-container.vm_container_label}"
+  }
+
+  service_account {
+    scopes = [
+      "https://www.googleapis.com/auth/devstorage.read_only",
+      "https://www.googleapis.com/auth/logging.write",
+      "https://www.googleapis.com/auth/monitoring.write",
+      "https://www.googleapis.com/auth/servicecontrol",
+      "https://www.googleapis.com/auth/service.management.readonly",
+      "https://www.googleapis.com/auth/trace.append",
+      "https://www.googleapis.com/auth/cloud-platform",
+    ]
   }
 }

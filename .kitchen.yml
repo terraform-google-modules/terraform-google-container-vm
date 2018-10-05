@@ -29,6 +29,17 @@ verifier:
   systems:
     - name: system
       backend: local
+      controls:
+        - gce
+        - terraform
+    - name: remote
+      backend: ssh
+      controls:
+        - docker
+      hosts_output: ipv4
+      key_files:
+        - ~/.ssh/google_compute_engine
+      user: jberlinsky  # TODO FIXME
 
 suites:
   - name: "default"

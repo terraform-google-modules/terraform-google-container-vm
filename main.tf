@@ -1,6 +1,14 @@
 locals {
 	coreos_image_family = "cos-stable"
 	coreos_project = "cos-cloud"
+	invalid_restart_policy = "${var.restart_policy != "OnFailure" && var.restart_policy != "UnlessStopped" && var.restart_policy != "Always" && var.restart_policy != "No" ? 1 : 0}"
+	spec = {
+		spec = {
+			containers = "${var.containers}"
+			volumes = "${var.volumes}"
+			restartPolicy = "${var.restart_policy}"
+		}
+	}
 }
 
 data "google_compute_image" "coreos" {
@@ -8,47 +16,15 @@ data "google_compute_image" "coreos" {
 	project = "${local.coreos_project}"
 }
 
-data "template_file" "konlet" {
-	# TODO get from variables!
-	template = <<EOF
-spec:
-	containers:
-	- name: busybox-vm
-		image: gcr.io/google-containers/busybox
-		command:
-		- ls
-		args:
-		- '-l'
-		stdin: true
-		tty: true
-		securityContext:
-			privileged: true
-		env:
-		- name: TEST_1
-			value: "Hello world"
-		volumeMounts:
-		- mountPath: /cache
-			name: tempfs-0
-		- mountPath: /tmp-host
-			name: host-path-0
-		- mountPath: /persistent-data
-			name: data-disk-0
-			readOnly: false
-	volumes:
-	- name: tmpfs-0
-		emptyDir:
-			medium: "Memory"
-	- name: host-path-0
-		hostPath:
-			path: "/tmp"
-	- name: data-disk-0
-		gcePersistentDisk:
-			pdName: "data-disk"
-			fsType: ext4
-	restartPolicy: OnFailure
-EOF
+resource "null_resource" "validate_restart_policy" {
+	count = "${local.invalid_restart_policy}"
+	"ERROR: Invalid `restart_policy` ${var.restart_policy} was provided. Must be one of `OnFailure`, `UnlessStopped`, `Always`, or `No`" = true
+}
 
-	vars {
+data "external" "spec_as_yaml" {
+	program = ["ruby", "${path.module}/helpers/map_to_yaml.rb"]
 
+	query = {
+		root = "${jsonencode(local.spec)}"
 	}
 }

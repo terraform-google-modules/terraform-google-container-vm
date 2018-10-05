@@ -14,6 +14,29 @@
  * limitations under the License.
  */
 
-variable "image" {
-	description = "The path to the Docker image (e.g. `gcr.io/cloud-marketplace/google/nginx1:1.12`) to deploy"
+variable "containers" {
+	type = "list"
+	description = "..."
+	default = [
+		{
+			image = "gcr.io/google-containers/busybox"
+			command = "ls"
+		}
+	]
+}
+
+variable "volumes" {
+	type = "list"
+	// TODO note in README that disks will NOT be provisioned, and have to already exist and be mounted
+	description = "..."
+	default = [
+		{
+			name = "tempfs-0"
+		}
+	]
+}
+
+variable "restart_policy" {
+	description = "The restart policy for a Docker container. Defaults to `OnFailure`"
+	default = "OnFailure"
 }
