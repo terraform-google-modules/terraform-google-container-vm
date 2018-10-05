@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-project_id = attribute('project_id', required: true, type: :string).to_s
+project_id = attribute('project_id', required: true, type: :string)
 zone = attribute('zone', required: true, type: :string)
 instance_name = attribute('instance_name', required: true, type: :string)
 network = attribute('network', type: :string, default: "default")
@@ -23,7 +23,7 @@ machine_type = attribute('machine_type', type: :string, default: "n1-standard-1"
 control "gce" do
   title "Google Compute Engine instance configuration"
 
-  describe command("gcloud --project=#{project_id} compute instances describe #{instance_name} --format json") do
+  describe command("gcloud --project=#{project_id} compute instances describe #{instance_name} --zone=#{zone} --format json") do
     its('exit_status') { should be 0 }
     its('stderr') { should eq '' }
 
