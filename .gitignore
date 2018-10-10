@@ -1,6 +1,7 @@
 .kitchen/
 credentials.json
-test/fixtures/*/config.sh
-test/fixtures/*/ssh/key
-/terraform.tfvars
+test/**/terraform.tfvars
+test/**/.terraform
+test/**/terraform.tfstate.d
+test/**/ssh/key
 *.pyc
