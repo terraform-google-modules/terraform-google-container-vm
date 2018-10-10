@@ -113,20 +113,19 @@ Be sure you have the correct Terraform version (0.10.x), you can choose the bina
 The project has the following folders and files:
 
 - /: root folder
+- /build: Dockerfiles and other build manifests
 - /examples: examples for using this module
 - /helpers: Scripts that the module invokes
 - /test: Folders with files for testing the module (see Testing section of this file)
 - /main.tf: main file for this module, contains all the resources to create
 - /variables.tf: all the variables for the module
 - /output.tf: the outputs of the module
-- /readme.MD: this file
+- /readme.md: this file
 
 ## Testing
 
 ### Requirements
-- [bundler](https://github.com/bundler/bundler)
-- [gcloud](https://cloud.google.com/sdk/install)
-- [jq](https://stedolan.github.io/jq/) 1.5
+- [docker](https://www.docker.com/)
 - [terraform-docs](https://github.com/segmentio/terraform-docs/releases) 0.3.0
 
 ### Autogeneration of documentation from .tf files
@@ -137,7 +136,7 @@ make generate_docs
 
 ### Integration test
 #### Terraform integration tests
-The integration tests for this module leverage [kitchen-terraform](https://github.com/newcontext-oss/kitchen-terraform) and [kitchen-inspec](https://github.com/inspec/kitchen-inspec).
+The integration tests for this module leverage [kitchen-terraform](https://github.com/newcontext-oss/kitchen-terraform) and [kitchen-inspec](https://github.com/inspec/kitchen-inspec), and run entirely within `docker` containers.
 
 The tests will do the following:
 - Perform `bundle install` command
@@ -151,12 +150,12 @@ The tests will do the following:
     - Shell out to `gcloud` to validate expected resources in GCP.
     - Shell out to `kubectl` to validate expected resource in Kubernetes.
     - Shell out to `terraform` to validate outputs.
-- Permos `kitchen destroy` command
+- Perform `kitchen destroy` command
   - Performs a `terraform destroy -force`
 
 You can use the following command to run the integration test in the root folder
 
-  `make test_integration`
+  `make test_integration_docker`
 
 ### Linting
 The makefile in this project will lint or sometimes just format any shell,
@@ -177,24 +176,23 @@ Running shellcheck
 Running flake8
 Running go fmt and go vet
 Running terraform validate
+Running terraform fmt
 Running hadolint on Dockerfiles
 Checking for required files
 Testing the validity of the header check
 ..
 ----------------------------------------------------------------------
-Ran 2 tests in 0.026s
+Ran 2 tests in 0.024s
 
 OK
 Checking file headers
 The following lines have trailing whitespace
+Generating markdown docs with terraform-docs
 ```
 
-The linters
-are as follows:
+The linters are as follows:
 * Shell - shellcheck. Can be found in homebrew
 * Python - flake8. Can be installed with 'pip install flake8'
-* Golang - gofmt. gofmt comes with the standard golang installation. golang
-is a compiled language so there is no standard linter.
-* Terraform - terraform has a built-in linter in the 'terraform validate'
-command.
+* Golang - gofmt. gofmt comes with the standard golang installation. golang is a compiled language so there is no standard linter.
+* Terraform - terraform has a built-in linter in the 'terraform fmt' command.
 * Dockerfiles - hadolint. Can be found in homebrew
