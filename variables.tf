@@ -14,29 +14,25 @@
  * limitations under the License.
  */
 
-variable "containers" {
-	type = "list"
-	description = "..."
-	default = [
-		{
-			image = "gcr.io/google-containers/busybox"
-			command = "ls"
-		}
-	]
+variable "container" {
+  type        = "map"
+  description = "A description of the container to deploy"
+
+  default = {
+    image   = "gcr.io/google-containers/busybox"
+    command = "ls"
+  }
 }
 
 variable "volumes" {
-	type = "list"
-	// TODO note in README that disks will NOT be provisioned, and have to already exist and be mounted
-	description = "..."
-	default = [
-		{
-			name = "tempfs-0"
-		}
-	]
+  type        = "list"
+  description = "A set of Docker Volumes to configure"
+
+  default = []
 }
 
 variable "restart_policy" {
-	description = "The restart policy for a Docker container. Defaults to `OnFailure`"
-	default = "OnFailure"
+  description = "The restart policy for a Docker container. Defaults to `OnFailure`"
+
+  default = "OnFailure"
 }

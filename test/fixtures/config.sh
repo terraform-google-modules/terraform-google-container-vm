@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright 2018 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,6 +14,5 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-source 'https://rubygems.org/' do
-  gem 'kitchen-terraform', '4.0.2'
-end
+CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE="$(pwd)/credentials.json"
+export CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE

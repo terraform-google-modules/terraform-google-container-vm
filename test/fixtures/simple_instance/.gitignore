@@ -1,0 +1,5 @@
+config.sh
+inspec-attributes.yml
+terraform.tfvars
+.terraform
+terraform.tfstate.d

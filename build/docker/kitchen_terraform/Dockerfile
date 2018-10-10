@@ -14,6 +14,7 @@
 
 ARG BUILD_TERRAFORM_IMAGE
 ARG BUILD_RUBY_VERSION
+# hadolint ignore=DL3006
 FROM $BUILD_TERRAFORM_IMAGE as cfkt_terraform
 
 
@@ -21,14 +22,16 @@ FROM $BUILD_TERRAFORM_IMAGE as cfkt_terraform
 FROM ruby:$BUILD_RUBY_VERSION-alpine
 
 RUN apk add --no-cache \
-        bash \
-        curl \
-        git \
-        g++ \
-        jq \
-        make \
-        musl-dev \
-        python
+        bash=4.3.42-r5 \
+        curl=7.60.0-r1 \
+        git=2.8.6-r0 \
+        g++=5.3.0-r0 \
+        jq=1.5-r2 \
+        make=4.1-r1 \
+        musl-dev=1.1.14-r16 \
+        python=2.7.14-r0 \
+        python-dev=2.7.14-r0 \
+        py-pip=8.1.2-r0
 
 SHELL ["/bin/bash", "-c"]
 
@@ -51,9 +54,11 @@ RUN terraform --version && \
     bundle --version
 
 COPY ./Gemfile /opt/kitchen/
+COPY ./requirements.txt /opt/kitchen
 
-RUN cd /opt/kitchen && \
-    bundle install
+WORKDIR /opt/kitchen
+RUN bundle install
+RUN pip install -r requirements.txt
 
 RUN gcloud components install beta --quiet
 

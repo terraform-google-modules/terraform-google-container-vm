@@ -240,7 +240,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  kitchen-terraform (~> 4.0.2)!
+  kitchen-terraform (= 4.0.2)!
 
 BUNDLED WITH
    1.16.3

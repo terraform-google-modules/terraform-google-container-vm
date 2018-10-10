@@ -4,7 +4,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http://www.apache.org/licenses/LICENSE-2.0
+#     https://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -20,6 +20,7 @@ subnetwork = attribute('subnetwork', type: :string, default: "default")
 image = attribute('image', required: true, type: :string)
 restart_policy = attribute('restart_policy', required: true, type: :string)
 machine_type = attribute('machine_type', type: :string, default: "n1-standard-1")
+vm_container_label = attribute('vm_container_label', required: true, type: :string)
 
 control "gce" do
   title "Google Compute Engine instance configuration"
@@ -37,7 +38,7 @@ control "gce" do
     end
 
     let(:container_declaration) do
-      YAML.load(metadata['metadata']['items'].first { |k, _| k == "gce-container-declaration" }['value'].gsub("\t", "  "))
+      YAML.load(metadata['metadata']['items'].select { |h| h['key'] == 'gce-container-declaration' }.first['value'].gsub("\t", "  "))
     end
 
     it "is in a running state" do
@@ -58,6 +59,7 @@ control "gce" do
 
     it "has the expected labels" do
       expect(metadata['labels'].keys).to include "container-vm"
+      expect(metadata['labels']['container-vm']).to eq vm_container_label
     end
 
     it "is configured with the expected container(s), volumes, and restart policy" do
@@ -113,11 +115,15 @@ control "gce" do
       end
     end
 
-    let(:created_disk_metadata) { metadata.last }
+    let(:created_disk_metadata) { metadata.select { |m| m['name'] == "simple-instance-data-disk" }.first }
+
+    it "exists" do
+      expect(created_disk_metadata).not_to be_nil
+    end
 
     it "creates and attaches a disk to the instance" do
       expect(created_disk_metadata).to include({
-        "name" => "data-disk",
+        "name" => "simple-instance-data-disk",
         "sizeGb" => "10",
         "status" => "READY",
         "type" => "https://www.googleapis.com/compute/v1/projects/#{project_id}/zones/#{zone}/diskTypes/pd-ssd",

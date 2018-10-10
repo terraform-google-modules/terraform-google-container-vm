@@ -16,60 +16,73 @@
 
 provider "google" {
   credentials = "${file(var.credentials_path)}"
-  region = "${var.region}"
+  region      = "${var.region}"
 }
 
 module "gce-container" {
   source = "../../../"
 
-  containers = [
-    {
-      image = "${var.image}"
-      volumeMounts = [
-	{
-	  mountPath = "/cache"
-	  name = "tempfs-0"
-	  readOnly = "false"
-	},
-	{
-	  mountPath = "/persistent-data"
-	  name = "data-disk-0"
-	  readOnly = "false"
-	}
-      ]
-    }
-  ]
+  container = {
+    image = "${var.image}"
+
+    volumeMounts = [
+      {
+        mountPath = "/cache"
+        name      = "tempfs-0"
+        readOnly  = "false"
+      },
+      {
+        mountPath = "/persistent-data"
+        name      = "data-disk-0"
+        readOnly  = "false"
+      },
+    ]
+  }
+
   volumes = [
     {
       name = "tempfs-0"
+
       emptyDir = {
-	medium = "Memory"
+        medium = "Memory"
       }
     },
     {
       name = "data-disk-0"
+
       gcePersistentDisk = {
-	pdName = "data-disk-0"
-	fsType = "ext4"
+        pdName = "data-disk-0"
+        fsType = "ext4"
       }
-    }
+    },
   ]
+
   restart_policy = "${var.restart_policy}"
+}
+
+resource "tls_private_key" "gce-keypair" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "local_file" "gce-keypair-pk" {
+  content  = "${tls_private_key.gce-keypair.private_key_pem}"
+  filename = "${path.module}/ssh/key"
 }
 
 resource "google_compute_disk" "pd" {
   project = "${var.project_id}"
-  name = "data-disk"
-  type = "pd-ssd"
-  zone = "${var.zone}"
-  size = 10
+  name    = "simple-instance-data-disk"
+  type    = "pd-ssd"
+  zone    = "${var.zone}"
+  size    = 10
 }
 
 resource "google_compute_instance" "vm" {
-  project = "${var.project_id}"
-  name = "${var.instance_name}"
+  project      = "${var.project_id}"
+  name         = "${var.instance_name}"
   machine_type = "${var.machine_type}"
-  zone = "${var.zone}"
+  zone         = "${var.zone}"
 
   boot_disk {
     initialize_params {
@@ -78,24 +91,27 @@ resource "google_compute_instance" "vm" {
   }
 
   attached_disk {
-    source = "${google_compute_disk.pd.self_link}"
+    source      = "${google_compute_disk.pd.self_link}"
     device_name = "data-disk-0"
-    mode = "READ_WRITE"
+    mode        = "READ_WRITE"
   }
 
   network_interface {
     subnetwork_project = "${var.subnetwork_project}"
-    subnetwork = "${var.subnetwork}"
-    access_config {}
+    subnetwork         = "${var.subnetwork}"
+    access_config      = {}
   }
 
   metadata {
     "gce-container-declaration" = "${module.gce-container.metadata_value}"
+    sshKeys                     = "${var.gce_ssh_user}:${tls_private_key.gce-keypair.public_key_openssh}"
   }
 
   labels {
     "container-vm" = "${module.gce-container.vm_container_label}"
   }
+
+  tags = ["container-vm-test-simple-instance"]
 
   service_account {
     scopes = [
@@ -108,4 +124,18 @@ resource "google_compute_instance" "vm" {
       "https://www.googleapis.com/auth/cloud-platform",
     ]
   }
+}
+
+resource "google_compute_firewall" "http-access" {
+  name    = "${var.instance_name}-http"
+  project = "${var.project_id}"
+  network = "${var.subnetwork}"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["${var.image_port}"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["container-vm-test-simple-instance"]
 }

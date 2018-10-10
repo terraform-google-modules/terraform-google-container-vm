@@ -16,7 +16,6 @@
 driver:
   name: "terraform"
   command_timeout: 1800
-  root_module_directory: test/fixtures/default
 
 provisioner:
   name: "terraform"
@@ -26,20 +25,49 @@ platforms:
 
 verifier:
   name: terraform
-  systems:
-    - name: system
-      backend: local
-      controls:
-        - gce
-        - terraform
-    - name: remote
-      backend: ssh
-      controls:
-        - docker
-      hosts_output: ipv4
-      key_files:
-        - ~/.ssh/google_compute_engine
-      user: jberlinsky  # TODO FIXME
 
 suites:
-  - name: "default"
+  - name: "simple_instance"
+    driver:
+      name: "terraform"
+      command_timeout: 1800
+      root_module_directory: test/fixtures/simple_instance
+    verifier:
+      name: terraform
+      systems:
+      - name: system
+        backend: local
+        controls:
+          - gce
+          - terraform
+          - www
+      - name: remote
+        backend: ssh
+        controls:
+          - docker
+        hosts_output: ipv4
+        key_files:
+          - ./test/fixtures/simple_instance/ssh/key
+        user: user
+  - name: "managed_instance_group"
+    driver:
+      name: "terraform"
+      command_timeout: 1800
+      root_module_directory: test/fixtures/managed_instance_group
+    verifier:
+      name: terraform
+      systems:
+      - name: system
+        backend: local
+        controls:
+          - gce
+          - terraform
+          - www
+      - name: remote
+        backend: ssh
+        controls:
+          - docker
+        hosts_output: ipv4
+        key_files:
+          - ./test/fixtures/managed_instance_group/ssh/key
+        user: user

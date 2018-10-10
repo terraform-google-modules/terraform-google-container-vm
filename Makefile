@@ -25,9 +25,11 @@ DOCKER_TAG_TERRAFORM ?= ${BUILD_TERRAFORM_VERSION}_${BUILD_CLOUD_SDK_VERSION}_${
 BUILD_RUBY_VERSION := 2.4.2
 DOCKER_IMAGE_KITCHEN_TERRAFORM := cftk/kitchen_terraform
 DOCKER_TAG_KITCHEN_TERRAFORM ?= ${BUILD_TERRAFORM_VERSION}_${BUILD_CLOUD_SDK_VERSION}_${BUILD_PROVIDER_GOOGLE_VERSION}_${BUILD_PROVIDER_GSUITE_VERSION}
+TEST_CONFIG_FILE_LOCATION := "./test/fixtures/config.sh"
+GCE_INSTANCE_INIT_WAIT_TIME := 400
 
 # All is the first target in the file so it will get picked up when you just run 'make' on its own
-all: check_shell check_python check_golang check_terraform check_docker check_base_files test_check_headers check_headers check_trailing_whitespace generate_docs
+all: check_shell check_python check_golang check_terraform check_docker check_base_files test_check_headers check_headers check_trailing_whitespace generate_examples generate_docs
 
 # The .PHONY directive tells make that this isn't a real target and so
 # the presence of a file named 'check_shell' won't cause this target to stop
@@ -77,10 +79,13 @@ check_headers:
 # Integration tests
 .PHONY: test_integration
 test_integration:
+	source ${TEST_CONFIG_FILE_LOCATION}
 	bundle install
 	bundle exec kitchen create
 	bundle exec kitchen converge
 	bundle exec kitchen converge
+	@echo "Waiting ${GCE_INSTANCE_INIT_WAIT_TIME} seconds for load balancer to come online..."
+	@sleep ${GCE_INSTANCE_INIT_WAIT_TIME}
 	bundle exec kitchen verify
 	bundle exec kitchen destroy
 
@@ -119,33 +124,42 @@ docker_run:
 		/bin/bash
 
 .PHONY: docker_create
-docker_create:
+docker_create: docker_build_terraform docker_build_kitchen_terraform
 	docker run --rm -it \
 		-v $(CURDIR):/cftk/workdir \
 		${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} \
-		/bin/bash -c "source mine.sh && kitchen create"
+		/bin/bash -c "source ${TEST_CONFIG_FILE_LOCATION} && kitchen create"
 
 .PHONY: docker_converge
 docker_converge:
 	docker run --rm -it \
 		-v $(CURDIR):/cftk/workdir \
 		${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} \
-		/bin/bash -c "source mine.sh && kitchen converge && kitchen converge"
+		/bin/bash -c "source ${TEST_CONFIG_FILE_LOCATION} && kitchen converge && kitchen converge"
 
 .PHONY: docker_verify
 docker_verify:
 	docker run --rm -it \
 		-v $(CURDIR):/cftk/workdir \
 		${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} \
-		/bin/bash -c "source mine.sh && kitchen verify"
+		/bin/bash -c "source ${TEST_CONFIG_FILE_LOCATION} && kitchen verify"
 
 .PHONY: docker_destroy
 docker_destroy:
 	docker run --rm -it \
 		-v $(CURDIR):/cftk/workdir \
 		${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} \
-		/bin/bash -c "source mine.sh && kitchen destroy"
+		/bin/bash -c "source ${TEST_CONFIG_FILE_LOCATION} && kitchen destroy"
+
+.PHONY: wait_for_gce_instance_init
+wait_for_gce_instance_init:
+	@echo "Waiting ${GCE_INSTANCE_INIT_WAIT_TIME} seconds for load balancer to come online..."
+	@sleep ${GCE_INSTANCE_INIT_WAIT_TIME}
 
 .PHONY: test_integration_docker
-test_integration_docker: docker_create docker_converge docker_verify docker_destroy
+test_integration_docker: docker_create docker_converge wait_for_gce_instance_init docker_verify docker_destroy
 	@echo "Running test-kitchen tests in docker"
+
+.PHONY: generate_examples
+generate_examples:
+	@python helpers/generate_examples.py

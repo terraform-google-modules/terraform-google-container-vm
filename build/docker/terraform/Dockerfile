@@ -15,11 +15,11 @@
 FROM alpine:3.8 as builder
 
 RUN apk add --no-cache \
-        bash \
-        git \
-        go \
-        make \
-        musl-dev
+        bash=4.4.19-r1 \
+        git=2.18.0-r0 \
+        go=1.10.1-r0 \
+        make=4.2.1-r2 \
+        musl-dev=1.1.19-r10
 
 ENV APP_BASE_DIR="/cftk"
 
@@ -34,10 +34,10 @@ ENV PROVIDER_GOOGLE_VERSION="${BUILD_PROVIDER_GOOGLE_VERSION}"
 
 RUN mkdir -p $APP_BASE_DIR/home/.terraform.d/plugins && \
     mkdir -p $GOPATH/src/github.com/terraform-providers && \
-    cd $GOPATH/src/github.com/terraform-providers && \
-    git clone https://github.com/terraform-providers/terraform-provider-google.git && \
-    cd terraform-provider-google && \
-    git fetch --all --tags --prune && \
+    git clone https://github.com/terraform-providers/terraform-provider-google.git $GOPATH/src/github.com/terraform-providers/terraform-provider-google
+
+WORKDIR $GOPATH/src/github.com/terraform-providers/terraform-provider-google
+RUN git fetch --all --tags --prune && \
     git checkout tags/v${PROVIDER_GOOGLE_VERSION} -b v${PROVIDER_GOOGLE_VERSION} && \
     make build && \
     mv $GOPATH/bin/terraform-provider-google $APP_BASE_DIR/home/.terraform.d/plugins
@@ -47,12 +47,12 @@ RUN mkdir -p $APP_BASE_DIR/home/.terraform.d/plugins && \
 FROM alpine:3.8
 
 RUN apk add --no-cache \
-        bash \
-        curl \
-        git \
-        jq \
-        make \
-        python2
+        bash=4.4.19-r1 \
+        curl=7.61.1-r0 \
+        git=2.18.0-r0 \
+        jq=1.6_rc1-r1 \
+        make=4.2.1-r2 \
+        python2=2.7.15-r1
 
 ENV APP_BASE_DIR="/cftk"
 
@@ -70,8 +70,8 @@ RUN echo 'base64() { if [[ $@ == "--decode" ]]; then command base64 -d | more; e
 ARG BUILD_CLOUD_SDK_VERSION
 ENV CLOUD_SDK_VERSION="${BUILD_CLOUD_SDK_VERSION}"
 
-RUN cd cftk && \
-    curl -LO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
+WORKDIR $APP_BASE_DIR
+RUN curl -LO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
     tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
     rm google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
     ln -s /lib /lib64 && \

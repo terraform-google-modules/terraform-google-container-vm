@@ -1,0 +1,64 @@
+name: default
+attributes:
+  - name: project_id
+    required: true
+    type: string
+
+  - name: zone
+    required: true
+    type: string
+
+  - name: mig_name
+    required: true
+    type: string
+
+  - name: instance_template_link
+    required: true
+    type: string
+
+  - name: network
+    required: false
+    default: "default"
+    type: string
+
+  - name: subnetwork
+    required: false
+    default: "default"
+    type: string
+
+  - name: image
+    required: true
+    type: string
+
+  - name: machine_type
+    required: false
+    default: "n1-standard-1"
+    type: string
+
+  - name: vm_container_label
+    required: true
+    type: string
+
+  - name: ipv4
+    required: true
+    type: string
+
+  - name: http_address
+    required: true
+    type: string
+
+  - name: http_port
+    required: true
+    type: string
+
+  - name: container
+    required: true
+    type: string
+
+  - name: volumes
+    required: true
+    type: string
+
+  - name: restart_policy
+    required: true
+    type: string
