@@ -135,6 +135,7 @@ make generate_docs
 ```
 
 ### Integration test
+
 #### Terraform integration tests
 The integration tests for this module leverage [kitchen-terraform](https://github.com/newcontext-oss/kitchen-terraform) and [kitchen-inspec](https://github.com/inspec/kitchen-inspec), and run entirely within `docker` containers.
 
@@ -153,7 +154,9 @@ The tests will do the following:
 - Perform `kitchen destroy` command
   - Performs a `terraform destroy -force`
 
-You can use the following command to run the integration test in the root folder
+Before running integration tests, you need to configure `terraform.tfvars` for each integration test case. To do so, run: `cp test/fixtures/simple_instance/terraform.tfvars.sample test/fixtures/simple_instance/terraform.tfvars && cp test/fixtures/managed_instance_group/terraform.tfvars.sample test/fixtures/managed_instance_group/terraform.tfvars` and edit the resulting files `test/fixtures/simple_instance/terraform.tfvars` and `test/fixtures/managed_instance_group/terraform.tfvars` to reflect your testing environment.
+
+You can then use the following command to run the integration test in the root folder
 
   `make test_integration_docker`
 
