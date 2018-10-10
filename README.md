@@ -149,8 +149,8 @@ The tests will do the following:
 - Perform `kitchen validate` command
   - Performs inspec tests.
     - Shell out to `gcloud` to validate expected resources in GCP.
-    - Shell out to `kubectl` to validate expected resource in Kubernetes.
-    - Shell out to `terraform` to validate outputs.
+    - Log into deployed resources to validate Docker configuration.
+    - Make HTTP requests to endpoints that are expected to be online.
 - Perform `kitchen destroy` command
   - Performs a `terraform destroy -force`
 
