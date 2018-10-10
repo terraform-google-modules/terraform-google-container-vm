@@ -39,7 +39,6 @@ suites:
         backend: local
         controls:
           - gce
-          - terraform
           - www
       - name: remote
         backend: ssh
@@ -61,7 +60,6 @@ suites:
         backend: local
         controls:
           - gce
-          - terraform
           - www
       - name: remote
         backend: ssh
