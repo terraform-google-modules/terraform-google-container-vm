@@ -12,15 +12,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-project_id = attribute('project_id', required: true, type: :string)
-zone = attribute('zone', required: true, type: :string)
-instance_name = attribute('instance_name', required: true, type: :string)
-network = attribute('network', type: :string, default: "default")
-subnetwork = attribute('subnetwork', type: :string, default: "default")
-image = attribute('image', required: true, type: :string)
-restart_policy = attribute('restart_policy', required: true, type: :string)
-machine_type = attribute('machine_type', type: :string, default: "n1-standard-1")
-vm_container_label = attribute('vm_container_label', required: true, type: :string)
+project_id = attribute('project_id')
+zone = attribute('zone')
+instance_name = attribute('instance_name')
+network = attribute('network')
+subnetwork = attribute('subnetwork')
+image = attribute('image')
+restart_policy = attribute('restart_policy')
+machine_type = attribute('machine_type')
+vm_container_label = attribute('vm_container_label')
 
 control "gce" do
   title "Google Compute Engine instance configuration"

@@ -12,14 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-project_id = attribute('project_id', required: true, type: :string)
-instance_template_link = attribute('instance_template_link', required: true, type: :string)
+project_id = attribute('project_id')
+instance_template_link = attribute('instance_template_link')
 instance_template_name = instance_template_link.split("/").last
-network = attribute('network', type: :string, default: "default")
-subnetwork = attribute('subnetwork', type: :string, default: "default")
-image = attribute('image', required: true, type: :string)
-machine_type = attribute('machine_type', type: :string, default: "n1-standard-1")
-vm_container_label = attribute('vm_container_label', required: true, type: :string)
+network = attribute('network')
+subnetwork = attribute('subnetwork')
+image = attribute('image')
+machine_type = attribute('machine_type')
+vm_container_label = attribute('vm_container_label')
 
 control "gce" do
   title "Google Compute Engine MIG configuration"

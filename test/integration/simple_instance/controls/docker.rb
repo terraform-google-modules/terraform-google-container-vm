@@ -12,10 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-image = attribute('image', required: true, type: :string)
-container_definition = attribute('container', required: true, type: :hash)
-volume_definitions = attribute('volumes', required: true, type: :array)
-restart_policy = attribute('restart_policy', required: true, type: :string)
+image = attribute('image')
+container_definition = attribute('container')
+volume_definitions = attribute('volumes')
+restart_policy = attribute('restart_policy')
 
 control "docker" do
   title "Docker containers"
@@ -35,11 +35,11 @@ control "docker" do
     end
 
     it "should have a properly configured restart policy" do
-      expect(container.HostConfig.RestartPolicy.Name).to eq restart_policy.downcase
+      expect(container.HostConfig.RestartPolicy.Name).to eq restart_policy.downcase.gsub("onfailure", "on-failure")
     end
 
-    let(:mounts) { container.Mounts }
-    let(:mount_definitions) { container_definition["volumeMounts"] }
+    let(:mounts) { container.Mounts ? container.Mounts : [] }
+    let(:mount_definitions) { container_definition["volumeMounts"] ? container_definition["volumeMounts"] : [] }
     let(:persistent_volume_definitions) { volume_definitions.select { |v| v.keys.include?("gcePersistentDisk") } }
     let(:temporary_volume_definitions) { volume_definitions.select { |v| v.keys.include?("emptyDir") } }
 

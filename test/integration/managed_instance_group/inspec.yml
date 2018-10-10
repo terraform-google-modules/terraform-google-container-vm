@@ -1,4 +1,4 @@
-name: default
+name: managed_instance_group
 attributes:
   - name: project_id
     required: true
@@ -22,8 +22,7 @@ attributes:
     type: string
 
   - name: subnetwork
-    required: false
-    default: "default"
+    required: true
     type: string
 
   - name: image
@@ -31,8 +30,7 @@ attributes:
     type: string
 
   - name: machine_type
-    required: false
-    default: "n1-standard-1"
+    required: true
     type: string
 
   - name: vm_container_label
@@ -53,11 +51,11 @@ attributes:
 
   - name: container
     required: true
-    type: string
+    type: hash
 
   - name: volumes
     required: true
-    type: string
+    type: array
 
   - name: restart_policy
     required: true

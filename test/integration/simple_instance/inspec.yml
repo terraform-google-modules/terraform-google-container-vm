@@ -1,4 +1,4 @@
-name: default
+name: simple_instance
 attributes:
   - name: project_id
     required: true
@@ -49,11 +49,11 @@ attributes:
 
   - name: container
     required: true
-    type: string
+    type: hash
 
   - name: volumes
     required: true
-    type: string
+    type: array
 
   - name: restart_policy
     required: true
