@@ -1,6 +1,6 @@
-# Simple Instance
+# Instance with Attached Disk
 
-This example illustrates how to deploy a container to a Google Compute Engine instance in GCP.
+This example illustrates how to deploy and expose a container to a Google Compute Engine instance in GCP, with an attached disk. Also includes SSH configuration, so a user can be provisioned on the fly for future logins.
 
 [^]: (autogen_docs_start)
 

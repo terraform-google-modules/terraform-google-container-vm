@@ -1,7 +1,7 @@
 project_id="container-vm-test"
 subnetwork="default"
 credentials_path="../../../credentials.json"
-instance_name="simple-instance-vm-test"
+instance_name="disk-instance-vm-test"
 image="gcr.io/google-samples/hello-app:1.0"
 image_port="8080"
 restart_policy="Always"
