@@ -1,0 +1,7 @@
+.kitchen/
+credentials.json
+test/**/terraform.tfvars
+test/**/.terraform
+test/**/terraform.tfstate.d
+test/**/ssh/key
+*.pyc
