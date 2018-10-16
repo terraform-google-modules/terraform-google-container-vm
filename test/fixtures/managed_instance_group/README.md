@@ -1,6 +1,6 @@
 # Managed Instance Group
 
-This example illustrates how to deploy a container to a [managed instance group](https://cloud.google.com/compute/docs/instance-groups/#managed_instance_groups) in GCP.
+This example illustrates how to deploy a container to a [managed instance group](https://cloud.google.com/compute/docs/instance-groups/#managed_instance_groups) in GCP. Also includes SSH key configuration, so a user can be provisioned on the fly for future logins.
 
 ## Requirements
 

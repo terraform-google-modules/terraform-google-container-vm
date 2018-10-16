@@ -72,7 +72,7 @@ resource "local_file" "gce-keypair-pk" {
 
 resource "google_compute_disk" "pd" {
   project = "${var.project_id}"
-  name    = "simple-instance-data-disk"
+  name    = "disk-instance-data-disk"
   type    = "pd-ssd"
   zone    = "${var.zone}"
   size    = 10
@@ -111,7 +111,7 @@ resource "google_compute_instance" "vm" {
     "container-vm" = "${module.gce-container.vm_container_label}"
   }
 
-  tags = ["container-vm-test-simple-instance"]
+  tags = ["container-vm-test-disk-instance"]
 
   service_account {
     scopes = [
@@ -137,5 +137,5 @@ resource "google_compute_firewall" "http-access" {
   }
 
   source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["container-vm-test-simple-instance"]
+  target_tags   = ["container-vm-test-disk-instance"]
 }

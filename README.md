@@ -154,7 +154,7 @@ The tests will do the following:
 - Perform `kitchen destroy` command
   - Performs a `terraform destroy -force`
 
-Before running integration tests, you need to configure `terraform.tfvars` for each integration test case. To do so, run: `cp test/fixtures/simple_instance/terraform.tfvars.sample test/fixtures/simple_instance/terraform.tfvars && cp test/fixtures/managed_instance_group/terraform.tfvars.sample test/fixtures/managed_instance_group/terraform.tfvars` and edit the resulting files `test/fixtures/simple_instance/terraform.tfvars` and `test/fixtures/managed_instance_group/terraform.tfvars` to reflect your testing environment.
+Before running integration tests, you need to configure `terraform.tfvars` for each integration test case. To do so, run: `cp test/fixtures/instance_with_attached_disk/terraform.tfvars.sample test/fixtures/instance_with_attached_disk/terraform.tfvars && cp test/fixtures/managed_instance_group/terraform.tfvars.sample test/fixtures/managed_instance_group/terraform.tfvars` and edit the resulting files `test/fixtures/instance_with_attached_disk/terraform.tfvars` and `test/fixtures/managed_instance_group/terraform.tfvars` to reflect your testing environment.
 
 You can then use the following command to run the integration test in the root folder
 

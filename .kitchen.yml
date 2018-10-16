@@ -27,11 +27,11 @@ verifier:
   name: terraform
 
 suites:
-  - name: "simple_instance"
+  - name: "instance_with_attached_disk"
     driver:
       name: "terraform"
       command_timeout: 1800
-      root_module_directory: test/fixtures/simple_instance
+      root_module_directory: test/fixtures/instance_with_attached_disk
     verifier:
       name: terraform
       systems:
@@ -46,7 +46,7 @@ suites:
           - docker
         hosts_output: ipv4
         key_files:
-          - ./test/fixtures/simple_instance/ssh/key
+          - ./test/fixtures/instance_with_attached_disk/ssh/key
         user: user
   - name: "managed_instance_group"
     driver:
