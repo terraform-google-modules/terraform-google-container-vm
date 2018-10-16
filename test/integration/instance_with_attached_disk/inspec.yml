@@ -1,4 +1,4 @@
-name: simple_instance
+name: instance_with_attached_disk
 attributes:
   - name: project_id
     required: true
