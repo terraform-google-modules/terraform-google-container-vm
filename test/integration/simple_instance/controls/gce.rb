@@ -68,10 +68,24 @@ control "gce" do
           "containers" => [
             {
               "image" => image,
+              "volumeMounts" => [
+                {
+                  "mountPath" => "/cache",
+                  "name" => "tempfs-0",
+                  "readOnly" => false,
+                },
+              ],
             },
           ],
           "restartPolicy" => restart_policy,
-          "volumes" => [],
+          "volumes" => [
+            {
+              "name" => "tempfs-0",
+              "emptyDir" => {
+                "medium" => "Memory",
+              },
+            },
+          ],
         },
       })
     end
