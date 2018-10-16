@@ -10,9 +10,7 @@ This example illustrates how to deploy a container to a Google Compute Engine in
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | credentials_path | The path to a valid service account JSON credentials file | string | - | yes |
-| gce_ssh_user | The username to provision with an auto-generated SSH keypair. | string | `user` | no |
 | image | The Docker image to deploy to GCE instances | string | - | yes |
-| image_port | The port the image exposes for HTTP requests | string | - | yes |
 | instance_name | The desired name to assign to the deployed instance | string | - | yes |
 | machine_type | The GCP machine type to deploy | string | - | yes |
 | project_id | The project ID to deploy resource into | string | - | yes |
@@ -29,7 +27,6 @@ This example illustrates how to deploy a container to a Google Compute Engine in
 | container |  |
 | credentials_path |  |
 | http_address |  |
-| http_port |  |
 | image |  |
 | instance_name |  |
 | ipv4 |  |

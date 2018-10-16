@@ -38,10 +38,6 @@ variable "image" {
   description = "The Docker image to deploy to GCE instances"
 }
 
-variable "image_port" {
-  description = "The port the image exposes for HTTP requests"
-}
-
 variable "restart_policy" {
   description = "The desired Docker restart policy for the deployed image"
 }
@@ -56,9 +52,4 @@ variable "region" {
 
 variable "zone" {
   description = "The GCP zone to deploy instances into"
-}
-
-variable "gce_ssh_user" {
-  description = "The username to provision with an auto-generated SSH keypair."
-  default     = "user"
 }
