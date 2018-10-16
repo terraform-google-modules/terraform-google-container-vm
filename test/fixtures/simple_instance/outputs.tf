@@ -62,10 +62,6 @@ output "http_address" {
   value = "${google_compute_instance.vm.network_interface.0.access_config.0.assigned_nat_ip }"
 }
 
-output "http_port" {
-  value = "${var.image_port}"
-}
-
 output "container" {
   value = "${module.gce-container.container}"
 }
