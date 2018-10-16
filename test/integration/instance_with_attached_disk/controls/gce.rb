@@ -115,7 +115,7 @@ control "gce" do
       end
     end
 
-    let(:created_disk_metadata) { metadata.select { |m| m['name'] == "simple-instance-data-disk" }.first }
+    let(:created_disk_metadata) { metadata.select { |m| m['name'] == "disk-instance-data-disk" }.first }
 
     it "exists" do
       expect(created_disk_metadata).not_to be_nil
@@ -123,7 +123,7 @@ control "gce" do
 
     it "creates and attaches a disk to the instance" do
       expect(created_disk_metadata).to include({
-        "name" => "simple-instance-data-disk",
+        "name" => "disk-instance-data-disk",
         "sizeGb" => "10",
         "status" => "READY",
         "type" => "https://www.googleapis.com/compute/v1/projects/#{project_id}/zones/#{zone}/diskTypes/pd-ssd",
