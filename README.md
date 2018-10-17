@@ -114,7 +114,7 @@ The project has the following folders and files:
 
 - /: root folder
 - /build: Dockerfiles and other build manifests
-- /examples: examples for using this module
+- /examples: Examples for using this module
 - /helpers: Scripts that the module invokes
 - /test: Folders with files for testing the module (see Testing section of this file)
 - /main.tf: main file for this module, contains all the resources to create
@@ -199,3 +199,7 @@ The linters are as follows:
 * Golang - gofmt. gofmt comes with the standard golang installation. golang is a compiled language so there is no standard linter.
 * Terraform - terraform has a built-in linter in the 'terraform fmt' command.
 * Dockerfiles - hadolint. Can be found in homebrew
+
+### Examples
+
+In this repository, all of the examples in `examples/` are automatically generated from the integration test fixtures in `test/fixtures/`. When `make -s` is run, the contents of `examples/` will be deleted and replaced with the integration test fixtures (sans some testing-specific files). This ensures that our examples are always tested in tandem with other changes throughout the module.
