@@ -28,13 +28,13 @@ module "gce-container" {
     volumeMounts = [
       {
         mountPath = "/cache"
-        name = "tempfs-0"
-        readOnly = "false"
+        name      = "tempfs-0"
+        readOnly  = "false"
       },
     ]
   }
 
-  volumes        = [
+  volumes = [
     {
       name = "tempfs-0"
 
@@ -43,6 +43,7 @@ module "gce-container" {
       }
     },
   ]
+
   restart_policy = "${var.restart_policy}"
 }
 

@@ -24,9 +24,26 @@ module "gce-container" {
 
   container = {
     image = "${var.image}"
+
+    volumeMounts = [
+      {
+        mountPath = "/cache"
+        name      = "tempfs-0"
+        readOnly  = "false"
+      },
+    ]
   }
 
-  volumes        = []
+  volumes = [
+    {
+      name = "tempfs-0"
+
+      emptyDir = {
+        medium = "Memory"
+      }
+    },
+  ]
+
   restart_policy = "${var.restart_policy}"
 }
 
