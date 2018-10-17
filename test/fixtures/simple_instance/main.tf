@@ -23,7 +23,7 @@ module "gce-container" {
   source = "../../../"
 
   container = {
-    image = "${var.image}"
+    image = "gcr.io/google-samples/hello-app:1.0"
 
     volumeMounts = [
       {
@@ -44,13 +44,13 @@ module "gce-container" {
     },
   ]
 
-  restart_policy = "${var.restart_policy}"
+  restart_policy = "Always"
 }
 
 resource "google_compute_instance" "vm" {
   project      = "${var.project_id}"
   name         = "${var.instance_name}"
-  machine_type = "${var.machine_type}"
+  machine_type = "n1-standard-1"
   zone         = "${var.zone}"
 
   boot_disk {
@@ -72,8 +72,6 @@ resource "google_compute_instance" "vm" {
   labels {
     "container-vm" = "${module.gce-container.vm_container_label}"
   }
-
-  tags = ["container-vm-test-simple-instance"]
 
   service_account {
     scopes = [

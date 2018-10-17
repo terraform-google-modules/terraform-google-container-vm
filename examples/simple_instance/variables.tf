@@ -32,18 +32,7 @@ variable "credentials_path" {
 
 variable "instance_name" {
   description = "The desired name to assign to the deployed instance"
-}
-
-variable "image" {
-  description = "The Docker image to deploy to GCE instances"
-}
-
-variable "restart_policy" {
-  description = "The desired Docker restart policy for the deployed image"
-}
-
-variable "machine_type" {
-  description = "The GCP machine type to deploy"
+  default     = "hello-world-container-vm"
 }
 
 variable "region" {
