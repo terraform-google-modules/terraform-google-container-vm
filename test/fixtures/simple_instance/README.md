@@ -23,6 +23,7 @@ This example illustrates how to deploy a container to a Google Compute Engine in
 |------|-------------|
 | instance_name |  |
 | ipv4 |  |
+| metadata |  |
 | project_id |  |
 | region |  |
 | subnetwork |  |

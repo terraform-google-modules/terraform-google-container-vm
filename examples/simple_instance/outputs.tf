@@ -42,6 +42,10 @@ output "vm_container_label" {
   value = "${module.gce-container.vm_container_label}"
 }
 
+output "metadata" {
+  value = "${module.gce-container.metadata_value}"
+}
+
 output "ipv4" {
   value = "${google_compute_instance.vm.network_interface.0.access_config.0.assigned_nat_ip }"
 }
