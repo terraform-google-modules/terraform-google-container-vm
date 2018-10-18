@@ -29,7 +29,7 @@ TEST_CONFIG_FILE_LOCATION := "./test/fixtures/config.sh"
 GCE_INSTANCE_INIT_WAIT_TIME := 400
 
 # All is the first target in the file so it will get picked up when you just run 'make' on its own
-all: check_shell check_python check_golang check_terraform check_docker check_base_files test_check_headers check_headers check_trailing_whitespace generate_examples generate_docs
+all: check_shell check_python check_golang check_terraform check_docker check_base_files test_check_headers check_headers check_trailing_whitespace generate_docs
 
 # The .PHONY directive tells make that this isn't a real target and so
 # the presence of a file named 'check_shell' won't cause this target to stop
@@ -159,7 +159,3 @@ wait_for_gce_instance_init:
 .PHONY: test_integration_docker
 test_integration_docker: docker_create docker_converge wait_for_gce_instance_init docker_verify docker_destroy
 	@echo "Running test-kitchen tests in docker"
-
-.PHONY: generate_examples
-generate_examples:
-	@python helpers/generate_examples.py

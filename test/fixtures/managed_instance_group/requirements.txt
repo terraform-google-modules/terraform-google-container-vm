@@ -1,3 +1,0 @@
-terraform_external_data
-apache-libcloud
-pycrypto
