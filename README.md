@@ -154,7 +154,7 @@ The tests will do the following:
 - Perform `kitchen destroy` command
   - Performs a `terraform destroy -force`
 
-Before running integration tests, you need to configure `terraform.tfvars` for each integration test case. To do so, run: `cp test/fixtures/instance_with_attached_disk/terraform.tfvars.sample test/fixtures/instance_with_attached_disk/terraform.tfvars && cp test/fixtures/managed_instance_group/terraform.tfvars.sample test/fixtures/managed_instance_group/terraform.tfvars` and edit the resulting files `test/fixtures/instance_with_attached_disk/terraform.tfvars` and `test/fixtures/managed_instance_group/terraform.tfvars` to reflect your testing environment.
+Before running integration tests, you need to configure `terraform.tfvars` for each integration test case. To do so, run: `cp examples/instance_with_attached_disk/terraform.tfvars.sample examples/instance_with_attached_disk/terraform.tfvars && cp examples/managed_instance_group/terraform.tfvars.sample examples/managed_instance_group/terraform.tfvars` and edit the resulting files `examples/instance_with_attached_disk/terraform.tfvars` and `examples/managed_instance_group/terraform.tfvars` to reflect your testing environment.
 
 You can then use the following command to run the integration test in the root folder
 
@@ -199,7 +199,3 @@ The linters are as follows:
 * Golang - gofmt. gofmt comes with the standard golang installation. golang is a compiled language so there is no standard linter.
 * Terraform - terraform has a built-in linter in the 'terraform fmt' command.
 * Dockerfiles - hadolint. Can be found in homebrew
-
-### Examples
-
-In this repository, all of the examples in `examples/` are automatically generated from the integration test fixtures in `test/fixtures/`. When `make -s` is run, the contents of `examples/` will be deleted and replaced with the integration test fixtures (sans some testing-specific files). This ensures that our examples are always tested in tandem with other changes throughout the module.
