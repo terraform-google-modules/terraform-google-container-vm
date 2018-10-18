@@ -5,3 +5,4 @@ examples/**/.terraform
 examples/**/terraform.tfstate.d
 examples/**/ssh/key
 *.pyc
+test/fixtures/terraform.tfvars

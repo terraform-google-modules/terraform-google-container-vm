@@ -32,6 +32,7 @@ variable "credentials_path" {
 
 variable "mig_name" {
   description = "The desired name of the Managed Instance Group to deploy"
+  default = "mig-test"
 }
 
 variable "image" {
