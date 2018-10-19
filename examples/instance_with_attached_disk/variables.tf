@@ -32,7 +32,7 @@ variable "credentials_path" {
 
 variable "instance_name" {
   description = "The desired name to assign to the deployed instance"
-  default = "disk-instance-vm-test"
+  default     = "disk-instance-vm-test"
 }
 
 variable "image" {

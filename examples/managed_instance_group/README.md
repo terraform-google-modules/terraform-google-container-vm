@@ -20,7 +20,7 @@ This example requires that some python libraries be installed, as outlined in `r
 | image_port | The port the image exposes for HTTP requests | string | - | yes |
 | machine_type | The GCP machine type to deploy | string | - | yes |
 | mig_instance_count | The number of instances to run in the managed instance group | string | `2` | no |
-| mig_name | The desired name of the Managed Instance Group to deploy | string | - | yes |
+| mig_name | The desired name of the Managed Instance Group to deploy | string | `mig-test` | no |
 | project_id | The project ID to deploy resource into | string | - | yes |
 | region | The GCP region to deploy instances into | string | - | yes |
 | subnetwork | The name of the subnetwork to deploy instances into | string | - | yes |

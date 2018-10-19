@@ -27,6 +27,21 @@ verifier:
   name: terraform
 
 suites:
+  - name: "simple_instance"
+    driver:
+      name: "terraform"
+      command_timeout: 1800
+      root_module_directory: examples/simple_instance
+      variable_files:
+        - test/fixtures/terraform.tfvars
+    verifier:
+      name: terraform
+      systems:
+      - name: system
+        backend: local
+        controls:
+          - gce
+          - www
   - name: "instance_with_attached_disk"
     driver:
       name: "terraform"
