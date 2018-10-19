@@ -26,7 +26,7 @@ control "gce" do
     its('exit_status') { should be 0 }
     its('stderr') { should eq '' }
 
-    let!(:metadata) do
+    let!(:data) do
       if subject.exit_status == 0
         JSON.parse(subject.stdout)
       else
@@ -35,28 +35,28 @@ control "gce" do
     end
 
     let(:container_declaration) do
-      YAML.load(metadata['metadata']['items'].select { |h| h['key'] == 'gce-container-declaration' }.first['value'].gsub("\t", "  "))
+      YAML.load(data['metadata']['items'].select { |h| h['key'] == 'gce-container-declaration' }.first['value'].gsub("\t", "  "))
     end
 
     it "is in a running state" do
-      expect(metadata['status']).to eq 'RUNNING'
+      expect(data['status']).to eq 'RUNNING'
     end
 
     it "is in the correct network" do
-      expect(metadata['networkInterfaces'][0]['network']).to end_with network
+      expect(data['networkInterfaces'][0]['network']).to end_with network
     end
 
     it "is in the correct subnetwork" do
-      expect(metadata['networkInterfaces'][0]['subnetwork']).to end_with subnetwork
+      expect(data['networkInterfaces'][0]['subnetwork']).to end_with subnetwork
     end
 
     it "is the expected machine type" do
-      expect(metadata['machineType']).to end_with "n1-standard-1"
+      expect(data['machineType']).to end_with "n1-standard-1"
     end
 
     it "has the expected labels" do
-      expect(metadata['labels'].keys).to include "container-vm"
-      expect(metadata['labels']['container-vm']).to eq vm_container_label
+      expect(data['labels'].keys).to include "container-vm"
+      expect(data['labels']['container-vm']).to eq vm_container_label
     end
 
     it "is configured with the expected container(s), volumes, and restart policy" do

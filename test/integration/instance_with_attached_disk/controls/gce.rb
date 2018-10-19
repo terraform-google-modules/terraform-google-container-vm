@@ -29,7 +29,7 @@ control "gce" do
     its('exit_status') { should be 0 }
     its('stderr') { should eq '' }
 
-    let!(:metadata) do
+    let!(:data) do
       if subject.exit_status == 0
         JSON.parse(subject.stdout)
       else
@@ -38,28 +38,28 @@ control "gce" do
     end
 
     let(:container_declaration) do
-      YAML.load(metadata['metadata']['items'].select { |h| h['key'] == 'gce-container-declaration' }.first['value'].gsub("\t", "  "))
+      YAML.load(data['metadata']['items'].select { |h| h['key'] == 'gce-container-declaration' }.first['value'].gsub("\t", "  "))
     end
 
     it "is in a running state" do
-      expect(metadata['status']).to eq 'RUNNING'
+      expect(data['status']).to eq 'RUNNING'
     end
 
     it "is in the correct network" do
-      expect(metadata['networkInterfaces'][0]['network']).to end_with network
+      expect(data['networkInterfaces'][0]['network']).to end_with network
     end
 
     it "is in the correct subnetwork" do
-      expect(metadata['networkInterfaces'][0]['subnetwork']).to end_with subnetwork
+      expect(data['networkInterfaces'][0]['subnetwork']).to end_with subnetwork
     end
 
     it "is the expected machine type" do
-      expect(metadata['machineType']).to end_with machine_type
+      expect(data['machineType']).to end_with machine_type
     end
 
     it "has the expected labels" do
-      expect(metadata['labels'].keys).to include "container-vm"
-      expect(metadata['labels']['container-vm']).to eq vm_container_label
+      expect(data['labels'].keys).to include "container-vm"
+      expect(data['labels']['container-vm']).to eq vm_container_label
     end
 
     it "is configured with the expected container(s), volumes, and restart policy" do
@@ -107,7 +107,7 @@ control "gce" do
     its('exit_status') { should be 0 }
     its('stderr') { should eq '' }
 
-    let!(:metadata) do
+    let!(:data) do
       if subject.exit_status == 0
         JSON.parse(subject.stdout)
       else
@@ -115,14 +115,14 @@ control "gce" do
       end
     end
 
-    let(:created_disk_metadata) { metadata.select { |m| m['name'] == "disk-instance-data-disk" }.first }
+    let(:created_disk_data) { data.select { |m| m['name'] == "disk-instance-data-disk" }.first }
 
     it "exists" do
-      expect(created_disk_metadata).not_to be_nil
+      expect(created_disk_data).not_to be_nil
     end
 
     it "creates and attaches a disk to the instance" do
-      expect(created_disk_metadata).to include({
+      expect(created_disk_data).to include({
         "name" => "disk-instance-data-disk",
         "sizeGb" => "10",
         "status" => "READY",
