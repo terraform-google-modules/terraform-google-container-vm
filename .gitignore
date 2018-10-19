@@ -1,7 +1,8 @@
 .kitchen/
 credentials.json
-test/**/terraform.tfvars
-test/**/.terraform
-test/**/terraform.tfstate.d
-test/**/ssh/key
+examples/**/terraform.tfvars
+examples/**/.terraform
+examples/**/terraform.tfstate.d
+examples/**/ssh/key
 *.pyc
+test/fixtures/terraform.tfvars

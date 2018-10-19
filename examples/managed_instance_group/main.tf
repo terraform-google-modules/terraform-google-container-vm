@@ -20,7 +20,7 @@ provider "google" {
 }
 
 module "gce-container" {
-  source = "../../../"
+  source = "../../"
 
   container = {
     image = "${var.image}"

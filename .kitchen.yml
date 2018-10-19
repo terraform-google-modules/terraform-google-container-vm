@@ -31,7 +31,9 @@ suites:
     driver:
       name: "terraform"
       command_timeout: 1800
-      root_module_directory: test/fixtures/instance_with_attached_disk
+      root_module_directory: examples/instance_with_attached_disk
+      variable_files:
+        - test/fixtures/terraform.tfvars
     verifier:
       name: terraform
       systems:
@@ -46,13 +48,15 @@ suites:
           - docker
         hosts_output: ipv4
         key_files:
-          - ./test/fixtures/instance_with_attached_disk/ssh/key
+          - ./examples/instance_with_attached_disk/ssh/key
         user: user
   - name: "managed_instance_group"
     driver:
       name: "terraform"
       command_timeout: 1800
-      root_module_directory: test/fixtures/managed_instance_group
+      root_module_directory: examples/managed_instance_group
+      variable_files:
+        - test/fixtures/terraform.tfvars
     verifier:
       name: terraform
       systems:
@@ -67,5 +71,5 @@ suites:
           - docker
         hosts_output: ipv4
         key_files:
-          - ./test/fixtures/managed_instance_group/ssh/key
+          - ./examples/managed_instance_group/ssh/key
         user: user
