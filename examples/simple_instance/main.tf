@@ -19,6 +19,16 @@ provider "google" {
   region      = "${var.region}"
 }
 
+data "google_compute_zones" "available" {
+  project = "${var.project_id}"
+  region = "${var.region}"
+}
+
+resource "random_shuffle" "zone" {
+  input        = ["${data.google_compute_zones.available.names}"]
+  result_count = 1
+}
+
 module "gce-container" {
   source = "../../"
 
@@ -51,7 +61,7 @@ resource "google_compute_instance" "vm" {
   project      = "${var.project_id}"
   name         = "${var.instance_name}"
   machine_type = "n1-standard-1"
-  zone         = "${var.zone}"
+  zone         = "${random_shuffle.zone.result[0]}"
 
   boot_disk {
     initialize_params {

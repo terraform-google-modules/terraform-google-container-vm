@@ -15,7 +15,6 @@ This example illustrates how to deploy a container to a Google Compute Engine in
 | region | The GCP region to deploy instances into | string | - | yes |
 | subnetwork | The name of the subnetwork to deploy instances into | string | - | yes |
 | subnetwork_project | The project ID where the desired subnetwork is provisioned | string | - | yes |
-| zone | The GCP zone to deploy instances into | string | - | yes |
 
 ## Outputs
 

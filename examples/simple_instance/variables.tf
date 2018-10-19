@@ -38,7 +38,3 @@ variable "instance_name" {
 variable "region" {
   description = "The GCP region to deploy instances into"
 }
-
-variable "zone" {
-  description = "The GCP zone to deploy instances into"
-}

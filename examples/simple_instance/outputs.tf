@@ -35,7 +35,7 @@ output "region" {
 }
 
 output "zone" {
-  value = "${var.zone}"
+  value = "${google_compute_instance.vm.zone}"
 }
 
 output "vm_container_label" {
