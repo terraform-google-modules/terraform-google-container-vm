@@ -1,7 +1,0 @@
-project_id="container-vm-test"
-subnetwork="default"
-credentials_path="../../../credentials.json"
-instance_name="simple-instance-vm-test"
-subnetwork_project="container-vm-test"
-region="us-east4"
-zone="us-east4-b"

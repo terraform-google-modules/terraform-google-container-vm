@@ -20,7 +20,7 @@ provider "google" {
 }
 
 module "gce-container" {
-  source = "../../../"
+  source = "../../"
 
   container = {
     image = "gcr.io/google-samples/hello-app:1.0"

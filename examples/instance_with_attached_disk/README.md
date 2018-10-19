@@ -13,7 +13,7 @@ This example illustrates how to deploy and expose a container to a Google Comput
 | gce_ssh_user | The username to provision with an auto-generated SSH keypair. | string | `user` | no |
 | image | The Docker image to deploy to GCE instances | string | - | yes |
 | image_port | The port the image exposes for HTTP requests | string | - | yes |
-| instance_name | The desired name to assign to the deployed instance | string | - | yes |
+| instance_name | The desired name to assign to the deployed instance | string | `disk-instance-vm-test` | no |
 | machine_type | The GCP machine type to deploy | string | - | yes |
 | project_id | The project ID to deploy resource into | string | - | yes |
 | region | The GCP region to deploy instances into | string | - | yes |
