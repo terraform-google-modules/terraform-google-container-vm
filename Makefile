@@ -22,7 +22,6 @@ DOCKER_TAG_BASE_KITCHEN_TERRAFORM ?= 0.11.10_216.0.0_1.19.1_0.1.10
 DOCKER_REPO_BASE_KITCHEN_TERRAFORM := ${DOCKER_ORG}/cft/kitchen-terraform:${DOCKER_TAG_BASE_KITCHEN_TERRAFORM}
 DOCKER_TAG_KITCHEN_TERRAFORM ?= ${DOCKER_TAG_BASE_KITCHEN_TERRAFORM}
 DOCKER_IMAGE_KITCHEN_TERRAFORM := cft/kitchen-terraform_terraform-google-container-vm
-GCE_INSTANCE_INIT_WAIT_TIME := 400
 
 # All is the first target in the file so it will get picked up when you just run 'make' on its own
 all: check_shell check_python check_golang check_terraform check_docker check_base_files test_check_headers check_headers check_trailing_whitespace generate_docs
@@ -79,9 +78,6 @@ test_integration:
 	bundle install
 	bundle exec kitchen create
 	bundle exec kitchen converge
-	bundle exec kitchen converge
-	@echo "Waiting ${GCE_INSTANCE_INIT_WAIT_TIME} seconds for load balancer to come online..."
-	@sleep ${GCE_INSTANCE_INIT_WAIT_TIME}
 	bundle exec kitchen verify
 	bundle exec kitchen destroy
 
@@ -153,11 +149,6 @@ docker_destroy: docker_build_kitchen_terraform
 		${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} \
 		/bin/bash -c "kitchen destroy"
 
-.PHONY: wait_for_gce_instance_init
-wait_for_gce_instance_init:
-	@echo "Waiting ${GCE_INSTANCE_INIT_WAIT_TIME} seconds for load balancer to come online..."
-	@sleep ${GCE_INSTANCE_INIT_WAIT_TIME}
-
 .PHONY: test_integration_docker
-test_integration_docker: docker_create docker_converge wait_for_gce_instance_init docker_verify docker_destroy
+test_integration_docker: docker_create docker_converge docker_verify docker_destroy
 	@echo "Running test-kitchen tests in docker"

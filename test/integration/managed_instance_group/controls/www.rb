@@ -18,8 +18,25 @@ port = attribute('http_port')
 control "www" do
   title "WWW Access"
 
-  describe http("http://#{http_address}:#{port}/", method: 'GET', open_timeout: 30, read_timeout: 30) do
-    its('status') { should eq 200 }
-    its('body') { should include 'Hello, world!' }
+  describe "HTTP service" do
+    let(:resource) do
+      http_resource = -> { http("http://#{http_address}:#{port}/", method: 'GET', open_timeout: 30, read_timeout: 30) }
+      Timeout::timeout(400) do
+        r = http_resource.call
+        until r.status == 200
+          sleep 0.5
+          r = http_resource.call
+        end
+        r
+      end
+    end
+
+    it "returns 200" do
+      expect(resource.status).to eq 200
+    end
+
+    it "has the correct HTTP body" do
+      expect(resource.body).to include 'Hello, world!'
+    end
   end
 end
