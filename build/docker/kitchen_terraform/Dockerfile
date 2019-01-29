@@ -17,7 +17,7 @@ ARG BASE_IMAGE
 FROM $BASE_IMAGE
 
 RUN apk add --no-cache \
-    python \
+    python3 \
     python-dev \
     py-pip
 
