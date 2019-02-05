@@ -72,7 +72,6 @@ check_headers:
 # Integration tests
 .PHONY: test_integration
 test_integration:
-	source ${TEST_CONFIG_FILE_LOCATION}
 	bundle install
 	bundle exec kitchen create
 	bundle exec kitchen converge
