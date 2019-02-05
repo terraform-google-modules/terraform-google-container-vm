@@ -15,8 +15,7 @@
  */
 
 provider "google" {
-  credentials = "${file(var.credentials_path)}"
-  region      = "${var.region}"
+  region = "${var.region}"
 }
 
 data "google_compute_zones" "available" {
@@ -74,6 +73,8 @@ resource "google_compute_instance" "vm" {
     subnetwork         = "${var.subnetwork}"
     access_config      = {}
   }
+
+  tags = ["container-vm-example"]
 
   metadata {
     "gce-container-declaration" = "${module.gce-container.metadata_value}"

@@ -20,8 +20,6 @@ CREDENTIALS_PATH ?= /cft/workdir/credentials.json
 DOCKER_ORG := gcr.io/cloud-foundation-cicd
 DOCKER_TAG_BASE_KITCHEN_TERRAFORM ?= 0.11.10_216.0.0_1.19.1_0.1.10
 DOCKER_REPO_BASE_KITCHEN_TERRAFORM := ${DOCKER_ORG}/cft/kitchen-terraform:${DOCKER_TAG_BASE_KITCHEN_TERRAFORM}
-DOCKER_TAG_KITCHEN_TERRAFORM ?= ${DOCKER_TAG_BASE_KITCHEN_TERRAFORM}
-DOCKER_IMAGE_KITCHEN_TERRAFORM := cft/kitchen-terraform_terraform-google-container-vm
 
 # All is the first target in the file so it will get picked up when you just run 'make' on its own
 all: check_shell check_python check_golang check_terraform check_docker check_base_files test_check_headers check_headers check_trailing_whitespace generate_docs
@@ -90,63 +88,50 @@ generate_docs:
 version:
 	@source helpers/version-repo.sh
 
-# Build Docker
-.PHONY: docker_build_kitchen_terraform
-docker_build_kitchen_terraform:
-	docker build -f build/docker/kitchen_terraform/Dockerfile \
-		--build-arg BASE_IMAGE=${DOCKER_REPO_BASE_KITCHEN_TERRAFORM} \
-		-t ${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} .
-
-# Push Docker image
-.PHONY: docker_push_kitchen_terraform
-docker_push_kitchen_terraform:
-	docker tag ${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} ${DOCKER_ORG}/${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM}
-	docker push ${DOCKER_ORG}/${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM}
-
 # Run docker
 .PHONY: docker_run
-docker_run: docker_build_kitchen_terraform
+docker_run:
 	docker run --rm -it \
 		-e CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=${CREDENTIALS_PATH} \
 		-e GOOGLE_APPLICATION_CREDENTIALS=${CREDENTIALS_PATH} \
 		-v $(CURDIR):/cft/workdir \
-		${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} \
+		${DOCKER_REPO_BASE_KITCHEN_TERRAFORM} \
 		/bin/bash
 
 .PHONY: docker_create
-docker_create: docker_build_kitchen_terraform
+docker_create:
 	docker run --rm -it \
 		-e CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=${CREDENTIALS_PATH} \
 		-e GOOGLE_APPLICATION_CREDENTIALS=${CREDENTIALS_PATH} \
 		-v $(CURDIR):/cft/workdir \
-		${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} \
+		${DOCKER_REPO_BASE_KITCHEN_TERRAFORM} \
 		/bin/bash -c "kitchen create"
 
 .PHONY: docker_converge
-docker_converge: docker_build_kitchen_terraform
+docker_converge:
 	docker run --rm -it \
 		-e CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=${CREDENTIALS_PATH} \
 		-e GOOGLE_APPLICATION_CREDENTIALS=${CREDENTIALS_PATH} \
 		-v $(CURDIR):/cft/workdir \
-		${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} \
+		${DOCKER_REPO_BASE_KITCHEN_TERRAFORM} \
 		/bin/bash -c "kitchen converge"
 
 .PHONY: docker_verify
-docker_verify: docker_build_kitchen_terraform
+docker_verify:
 	docker run --rm -it \
 		-e CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=${CREDENTIALS_PATH} \
 		-e GOOGLE_APPLICATION_CREDENTIALS=${CREDENTIALS_PATH} \
 		-v $(CURDIR):/cft/workdir \
-		${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} \
+		${DOCKER_REPO_BASE_KITCHEN_TERRAFORM} \
 		/bin/bash -c "kitchen verify"
 
 .PHONY: docker_destroy
-docker_destroy: docker_build_kitchen_terraform
+docker_destroy:
 	docker run --rm -it \
 		-e CLOUDSDK_AUTH_CREDENTIAL_FILE_OVERRIDE=${CREDENTIALS_PATH} \
 		-e GOOGLE_APPLICATION_CREDENTIALS=${CREDENTIALS_PATH} \
 		-v $(CURDIR):/cft/workdir \
-		${DOCKER_IMAGE_KITCHEN_TERRAFORM}:${DOCKER_TAG_KITCHEN_TERRAFORM} \
+		${DOCKER_REPO_BASE_KITCHEN_TERRAFORM} \
 		/bin/bash -c "kitchen destroy"
 
 .PHONY: test_integration_docker

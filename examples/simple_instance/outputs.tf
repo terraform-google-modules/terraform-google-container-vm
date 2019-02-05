@@ -49,3 +49,11 @@ output "metadata" {
 output "ipv4" {
   value = "${google_compute_instance.vm.network_interface.0.access_config.0.assigned_nat_ip }"
 }
+
+output "container" {
+  value = "${module.gce-container.container}"
+}
+
+output "volumes" {
+  value = "${module.gce-container.volumes}"
+}

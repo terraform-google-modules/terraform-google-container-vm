@@ -9,8 +9,7 @@ This example illustrates how to deploy and expose a container to a Google Comput
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials_path | The path to a valid service account JSON credentials file | string | - | yes |
-| gce_ssh_user | The username to provision with an auto-generated SSH keypair. | string | `user` | no |
+| additional_metadata | Additional metadata to attach to the instance | map | `<map>` | no |
 | image | The Docker image to deploy to GCE instances | string | - | yes |
 | image_port | The port the image exposes for HTTP requests | string | - | yes |
 | instance_name | The desired name to assign to the deployed instance | string | `disk-instance-vm-test` | no |
@@ -27,7 +26,6 @@ This example illustrates how to deploy and expose a container to a Google Comput
 | Name | Description |
 |------|-------------|
 | container |  |
-| credentials_path |  |
 | http_address |  |
 | http_port |  |
 | image |  |
@@ -36,7 +34,6 @@ This example illustrates how to deploy and expose a container to a Google Comput
 | machine_type |  |
 | project_id |  |
 | region |  |
-| restart_policy |  |
 | subnetwork |  |
 | subnetwork_project |  |
 | vm_container_label |  |

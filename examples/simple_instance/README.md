@@ -9,9 +9,8 @@ This example illustrates how to deploy a container to a Google Compute Engine in
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials_path | The path to a valid service account JSON credentials file | string | - | yes |
 | instance_name | The desired name to assign to the deployed instance | string | `hello-world-container-vm` | no |
-| project_id | The project ID to deploy resource into | string | - | yes |
+| project_id | The project ID to deploy resources into | string | - | yes |
 | region | The GCP region to deploy instances into | string | - | yes |
 | subnetwork | The name of the subnetwork to deploy instances into | string | - | yes |
 | subnetwork_project | The project ID where the desired subnetwork is provisioned | string | - | yes |
@@ -20,6 +19,7 @@ This example illustrates how to deploy a container to a Google Compute Engine in
 
 | Name | Description |
 |------|-------------|
+| container |  |
 | instance_name |  |
 | ipv4 |  |
 | metadata |  |
@@ -28,6 +28,7 @@ This example illustrates how to deploy a container to a Google Compute Engine in
 | subnetwork |  |
 | subnetwork_project |  |
 | vm_container_label |  |
+| volumes |  |
 | zone |  |
 
 [^]: (autogen_docs_end)

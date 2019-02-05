@@ -15,19 +15,29 @@
 http_address = attribute('http_address')
 port = attribute('http_port')
 
+timeout_short_circuit = false
+
 control "www" do
   title "WWW Access"
 
   describe "HTTP service" do
     let(:resource) do
-      http_resource = -> { http("http://#{http_address}:#{port}/", method: 'GET', open_timeout: 30, read_timeout: 30) }
-      Timeout::timeout(400) do
-        r = http_resource.call
-        until r.status == 200
-          sleep 0.5
-          r = http_resource.call
+      raise Timeout::Error if timeout_short_circuit
+      begin
+        Timeout::timeout(600) do
+          r = http("http://#{http_address}:#{port}/", method: "GET", open_timeout: 10, read_timeout: 10)
+          until r.status == 200
+            if r.status == 403
+              return r
+            end
+            sleep 1
+            r = http("http://#{http_address}:#{port}/", method: "GET", open_timeout: 10, read_timeout: 10)
+          end
+          r
         end
-        r
+      rescue Timeout::Error
+        timeout_short_circuit = true
+        raise
       end
     end
 

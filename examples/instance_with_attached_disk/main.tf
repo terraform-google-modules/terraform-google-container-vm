@@ -15,8 +15,7 @@
  */
 
 provider "google" {
-  credentials = "${file(var.credentials_path)}"
-  region      = "${var.region}"
+  region = "${var.region}"
 }
 
 module "gce-container" {
@@ -60,16 +59,6 @@ module "gce-container" {
   restart_policy = "${var.restart_policy}"
 }
 
-resource "tls_private_key" "gce-keypair" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-resource "local_file" "gce-keypair-pk" {
-  content  = "${tls_private_key.gce-keypair.private_key_pem}"
-  filename = "${path.module}/ssh/key"
-}
-
 resource "google_compute_disk" "pd" {
   project = "${var.project_id}"
   name    = "disk-instance-data-disk"
@@ -102,16 +91,13 @@ resource "google_compute_instance" "vm" {
     access_config      = {}
   }
 
-  metadata {
-    "gce-container-declaration" = "${module.gce-container.metadata_value}"
-    sshKeys                     = "${var.gce_ssh_user}:${tls_private_key.gce-keypair.public_key_openssh}"
-  }
+  metadata = "${merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))}"
 
   labels {
     "container-vm" = "${module.gce-container.vm_container_label}"
   }
 
-  tags = ["container-vm-test-disk-instance"]
+  tags = ["container-vm-example", "container-vm-test-disk-instance"]
 
   service_account {
     scopes = [
@@ -128,6 +114,20 @@ resource "google_compute_firewall" "http-access" {
   allow {
     protocol = "tcp"
     ports    = ["${var.image_port}"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["container-vm-test-disk-instance"]
+}
+
+resource "google_compute_firewall" "ssh-access" {
+  name    = "${var.instance_name}-ssh"
+  project = "${var.project_id}"
+  network = "${var.subnetwork}"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["23"]
   }
 
   source_ranges = ["0.0.0.0/0"]

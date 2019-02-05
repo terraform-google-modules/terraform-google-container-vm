@@ -17,8 +17,6 @@ zone = attribute('zone')
 instance_name = attribute('instance_name')
 network = attribute('network')
 subnetwork = attribute('subnetwork')
-image = attribute('image')
-restart_policy = attribute('restart_policy')
 machine_type = attribute('machine_type')
 vm_container_label = attribute('vm_container_label')
 
@@ -67,7 +65,7 @@ control "gce" do
         "spec" => {
           "containers" => [
             {
-              "image" => image,
+              "image" => "gcr.io/google-samples/hello-app:1.0",
               "volumeMounts" => [
                 {
                   "mountPath" => "/cache",
@@ -82,7 +80,7 @@ control "gce" do
               ],
             },
           ],
-          "restartPolicy" => restart_policy,
+          "restartPolicy" => "Always",
           "volumes" => [
             {
               "name" => "tempfs-0",
