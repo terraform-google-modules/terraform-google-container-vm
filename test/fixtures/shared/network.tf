@@ -35,7 +35,7 @@ resource "google_compute_subnetwork" "main" {
 }
 
 resource "google_compute_firewall" "ssh" {
-  name    = "cft-test-${local.example_name}-ssh"
+  name    = "cft-test-${random_string.suffix.result}-${local.example_name}-ssh"
   project = "${var.project_id}"
   network = "${google_compute_subnetwork.main.name}"
 
