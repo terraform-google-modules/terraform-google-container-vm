@@ -4,4 +4,4 @@ test/fixtures/**/.terraform
 test/fixtures/**/terraform.tfstate.d
 test/fixtures/**/ssh/key
 *.pyc
-test/fixtures/terraform.tfvars
+test/fixtures/shared/terraform.tfvars
