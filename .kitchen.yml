@@ -34,6 +34,7 @@ suites:
       root_module_directory: test/fixtures/simple_instance
     verifier:
       name: terraform
+      color: false
       systems:
       - name: system
         backend: local
@@ -46,6 +47,7 @@ suites:
       root_module_directory: test/fixtures/instance_with_attached_disk
     verifier:
       name: terraform
+      color: false
       systems:
       - name: system
         backend: local
