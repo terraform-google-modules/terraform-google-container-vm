@@ -61,7 +61,7 @@ module "gce-container" {
 
 resource "google_compute_disk" "pd" {
   project = "${var.project_id}"
-  name    = "disk-instance-data-disk"
+  name    = "${var.instance_name}-data-disk"
   type    = "pd-ssd"
   zone    = "${var.zone}"
   size    = 10
