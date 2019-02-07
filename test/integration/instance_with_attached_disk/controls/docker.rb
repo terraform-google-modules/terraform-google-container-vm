@@ -33,7 +33,7 @@ control "docker" do
     end
 
     it "should have a properly configured restart policy" do
-      expect(container.HostConfig.RestartPolicy.Name).to eq "Always".downcase.gsub("onfailure", "on-failure")
+      expect(container.HostConfig.RestartPolicy.Name).to eq "always"
     end
 
     let(:mounts) { container.Mounts ? container.Mounts : [] }
