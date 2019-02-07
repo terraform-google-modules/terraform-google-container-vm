@@ -119,17 +119,3 @@ resource "google_compute_firewall" "http-access" {
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["container-vm-test-disk-instance"]
 }
-
-resource "google_compute_firewall" "ssh-access" {
-  name    = "${var.instance_name}-ssh"
-  project = "${var.project_id}"
-  network = "${var.subnetwork}"
-
-  allow {
-    protocol = "tcp"
-    ports    = ["23"]
-  }
-
-  source_ranges = ["0.0.0.0/0"]
-  target_tags   = ["container-vm-test-disk-instance"]
-}
