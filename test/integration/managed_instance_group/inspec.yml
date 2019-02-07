@@ -1,14 +1,10 @@
-name: instance_with_attached_disk
+name: managed_instance_group
 attributes:
   - name: project_id
     required: true
     type: string
 
   - name: zone
-    required: true
-    type: string
-
-  - name: instance_name
     required: true
     type: string
 
@@ -22,24 +18,7 @@ attributes:
     default: "default"
     type: string
 
-  - name: machine_type
-    required: false
-    default: "n1-standard-1"
-    type: string
-
   - name: vm_container_label
-    required: true
-    type: string
-
-  - name: ipv4
-    required: true
-    type: string
-
-  - name: http_address
-    required: true
-    type: string
-
-  - name: http_port
     required: true
     type: string
 
@@ -50,3 +29,11 @@ attributes:
   - name: volumes
     required: true
     type: array
+
+  - name: http_address
+    required: true
+    type: string
+
+  - name: http_port
+    required: true
+    type: string
