@@ -39,11 +39,6 @@ output "vm_container_label" {
   value       = "${module.example.vm_container_label}"
 }
 
-output "ipv4" {
-  description = "The IP address of the provisioned host"
-  value       = "${module.example.ipv4}"
-}
-
 output "container" {
   description = "The configured Docker container"
   value       = "${module.example.container}"
