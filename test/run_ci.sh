@@ -14,10 +14,21 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set -e
+set -x
+
+if [ -z "${PROJECT_ID}" ]; then
+	echo "The PROJECT_ID ENV variable must be set to proceed. Aborting."
+	exit 1
+fi
+
 if [ -z "${SERVICE_ACCOUNT_JSON}" ]; then
 	echo "The SERVICE_ACCOUNT_JSON ENV variable must be set to proceed. Aborting."
 	exit 1
 fi
+
+export TF_VAR_project_id="${PROJECT_ID}"
+export TF_VAR_region="${REGION:-us-east4}"
 
 
 DELETE_AT_EXIT="$(mktemp -d)"
