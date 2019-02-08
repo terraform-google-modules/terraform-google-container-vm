@@ -9,7 +9,7 @@ This module itself does not launch an instance or managed instance group. It sim
 ```hcl
 module "gce-container" {
   source = "github.com/terraform-google-modules/terraform-google-container-vm"
-  version = "1.0.0"
+  version = "0.1.0"
 
   container = {
     image="gcr.io/google-samples/hello-app:1.0"
