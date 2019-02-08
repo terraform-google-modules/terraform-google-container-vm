@@ -15,11 +15,38 @@
 http_address = attribute('http_address')
 port = attribute('http_port')
 
+timeout_short_circuit = false
+
 control "www" do
   title "WWW Access"
 
-  describe http("http://#{http_address}:#{port}/", method: 'GET', open_timeout: 30, read_timeout: 30) do
-    its('status') { should eq 200 }
-    its('body') { should include 'Hello, world!' }
+  describe "HTTP service" do
+    let(:resource) do
+      raise Timeout::Error if timeout_short_circuit
+      begin
+        Timeout::timeout(600) do
+          r = http("http://#{http_address}:#{port}/", method: "GET", open_timeout: 10, read_timeout: 10)
+          until r.status == 200
+            if r.status == 403
+              return r
+            end
+            sleep 1
+            r = http("http://#{http_address}:#{port}/", method: "GET", open_timeout: 10, read_timeout: 10)
+          end
+          r
+        end
+      rescue Timeout::Error
+        timeout_short_circuit = true
+        raise
+      end
+    end
+
+    it "returns 200" do
+      expect(resource.status).to eq 200
+    end
+
+    it "has the correct HTTP body" do
+      expect(resource.body).to include 'Hello, world!'
+    end
   end
 end

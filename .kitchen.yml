@@ -31,26 +31,23 @@ suites:
     driver:
       name: "terraform"
       command_timeout: 1800
-      root_module_directory: examples/simple_instance
-      variable_files:
-        - test/fixtures/terraform.tfvars
+      root_module_directory: test/fixtures/simple_instance
     verifier:
       name: terraform
+      color: false
       systems:
       - name: system
         backend: local
         controls:
           - gce
-          - www
   - name: "instance_with_attached_disk"
     driver:
       name: "terraform"
       command_timeout: 1800
-      root_module_directory: examples/instance_with_attached_disk
-      variable_files:
-        - test/fixtures/terraform.tfvars
+      root_module_directory: test/fixtures/instance_with_attached_disk
     verifier:
       name: terraform
+      color: false
       systems:
       - name: system
         backend: local
@@ -63,28 +60,19 @@ suites:
           - docker
         hosts_output: ipv4
         key_files:
-          - ./examples/instance_with_attached_disk/ssh/key
+          - ./test/fixtures/instance_with_attached_disk/ssh/key
         user: user
   - name: "managed_instance_group"
     driver:
       name: "terraform"
       command_timeout: 1800
-      root_module_directory: examples/managed_instance_group
-      variable_files:
-        - test/fixtures/terraform.tfvars
+      root_module_directory: test/fixtures/managed_instance_group
     verifier:
       name: terraform
+      color: false
       systems:
       - name: system
         backend: local
         controls:
           - gce
           - www
-      - name: remote
-        backend: ssh
-        controls:
-          - docker
-        hosts_output: ipv4
-        key_files:
-          - ./examples/managed_instance_group/ssh/key
-        user: user

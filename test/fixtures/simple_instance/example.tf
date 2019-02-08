@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "The project ID to deploy resources into"
+locals {
+  example_name = "simple"
 }
 
-variable "subnetwork_project" {
-  description = "The project ID where the desired subnetwork is provisioned"
-}
+module "example" {
+  source = "../../../examples/simple_instance"
 
-variable "subnetwork" {
-  description = "The name of the subnetwork to deploy instances into"
-}
-
-variable "instance_name" {
-  description = "The desired name to assign to the deployed instance"
-  default     = "hello-world-container-vm"
-}
-
-variable "region" {
-  description = "The GCP region to deploy instances into"
+  project_id         = "${var.project_id}"
+  subnetwork_project = "${var.project_id}"
+  subnetwork         = "${google_compute_subnetwork.main.name}"
+  instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
+  region             = "${var.region}"
 }

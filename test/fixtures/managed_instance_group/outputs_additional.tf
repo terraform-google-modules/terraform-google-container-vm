@@ -14,23 +14,12 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "The project ID to deploy resources into"
+output "http_address" {
+  description = "The HTTP address on which services are exposed"
+  value       = "${module.example.http_address}"
 }
 
-variable "subnetwork_project" {
-  description = "The project ID where the desired subnetwork is provisioned"
-}
-
-variable "subnetwork" {
-  description = "The name of the subnetwork to deploy instances into"
-}
-
-variable "instance_name" {
-  description = "The desired name to assign to the deployed instance"
-  default     = "hello-world-container-vm"
-}
-
-variable "region" {
-  description = "The GCP region to deploy instances into"
+output "http_port" {
+  description = "The HTTP port on which services are exposed"
+  value       = "${module.example.http_port}"
 }

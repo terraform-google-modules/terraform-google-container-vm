@@ -8,44 +8,17 @@ attributes:
     required: true
     type: string
 
-  - name: mig_name
-    required: true
-    type: string
-
-  - name: instance_template_link
-    required: true
-    type: string
-
   - name: network
     required: false
     default: "default"
     type: string
 
   - name: subnetwork
-    required: true
-    type: string
-
-  - name: image
-    required: true
-    type: string
-
-  - name: machine_type
-    required: true
+    required: false
+    default: "default"
     type: string
 
   - name: vm_container_label
-    required: true
-    type: string
-
-  - name: ipv4
-    required: true
-    type: string
-
-  - name: http_address
-    required: true
-    type: string
-
-  - name: http_port
     required: true
     type: string
 
@@ -57,6 +30,10 @@ attributes:
     required: true
     type: array
 
-  - name: restart_policy
+  - name: http_address
+    required: true
+    type: string
+
+  - name: http_port
     required: true
     type: string

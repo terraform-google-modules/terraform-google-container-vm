@@ -26,13 +26,14 @@ variable "subnetwork" {
   description = "The name of the subnetwork to deploy instances into"
 }
 
-variable "credentials_path" {
-  description = "The path to a valid service account JSON credentials file"
+variable "mig_name" {
+  description = "The desired name to assign to the deployed managed instance group"
+  default     = "mig-test"
 }
 
-variable "mig_name" {
-  description = "The desired name of the Managed Instance Group to deploy"
-  default     = "mig-test"
+variable "mig_instance_count" {
+  description = "The number of instances to place in the managed instance group"
+  default     = "2"
 }
 
 variable "image" {
@@ -43,14 +44,8 @@ variable "image_port" {
   description = "The port the image exposes for HTTP requests"
 }
 
-variable "mig_instance_count" {
-  description = "The number of instances to run in the managed instance group"
-  default     = "2"
-}
-
-variable "enable_http_health_check" {
-  description = "Whether to enable HTTP health checks"
-  default     = true
+variable "restart_policy" {
+  description = "The desired Docker restart policy for the deployed image"
 }
 
 variable "machine_type" {
@@ -65,7 +60,8 @@ variable "zone" {
   description = "The GCP zone to deploy instances into"
 }
 
-variable "gce_ssh_user" {
-  description = "The username to provision with an auto-generated SSH keypair."
-  default     = "user"
+variable "additional_metadata" {
+  type        = "map"
+  description = "Additional metadata to attach to the instance"
+  default     = {}
 }

@@ -26,10 +26,6 @@ output "subnetwork" {
   value = "${var.subnetwork}"
 }
 
-output "credentials_path" {
-  value = "${var.credentials_path}"
-}
-
 output "instance_name" {
   value = "${var.instance_name}"
 }
@@ -72,8 +68,4 @@ output "container" {
 
 output "volumes" {
   value = "${module.gce-container.volumes}"
-}
-
-output "restart_policy" {
-  value = "${var.restart_policy}"
 }

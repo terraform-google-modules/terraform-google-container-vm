@@ -26,16 +26,8 @@ output "subnetwork" {
   value = "${var.subnetwork}"
 }
 
-output "credentials_path" {
-  value = "${var.credentials_path}"
-}
-
 output "mig_name" {
   value = "${var.mig_name}"
-}
-
-output "instance_template_link" {
-  value = "${module.mig.instance_template[0]}"
 }
 
 output "image" {
@@ -58,10 +50,6 @@ output "vm_container_label" {
   value = "${module.gce-container.vm_container_label}"
 }
 
-output "ipv4" {
-  value = "${data.external.ipv4.result["ipv4"]}"
-}
-
 output "http_address" {
   value = "${module.http-lb.external_ip}"
 }
@@ -76,8 +64,4 @@ output "container" {
 
 output "volumes" {
   value = "${module.gce-container.volumes}"
-}
-
-output "restart_policy" {
-  value = "${module.gce-container.restart_policy}"
 }

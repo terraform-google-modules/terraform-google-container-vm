@@ -17,8 +17,6 @@ zone = attribute('zone')
 instance_name = attribute('instance_name')
 network = attribute('network')
 subnetwork = attribute('subnetwork')
-image = attribute('image')
-restart_policy = attribute('restart_policy')
 machine_type = attribute('machine_type')
 vm_container_label = attribute('vm_container_label')
 
@@ -58,7 +56,6 @@ control "gce" do
     end
 
     it "has the expected labels" do
-      expect(data['labels'].keys).to include "container-vm"
       expect(data['labels']['container-vm']).to eq vm_container_label
     end
 
@@ -67,7 +64,7 @@ control "gce" do
         "spec" => {
           "containers" => [
             {
-              "image" => image,
+              "image" => "gcr.io/google-samples/hello-app:1.0",
               "volumeMounts" => [
                 {
                   "mountPath" => "/cache",
@@ -82,7 +79,7 @@ control "gce" do
               ],
             },
           ],
-          "restartPolicy" => restart_policy,
+          "restartPolicy" => "Always",
           "volumes" => [
             {
               "name" => "tempfs-0",
@@ -115,21 +112,17 @@ control "gce" do
       end
     end
 
-    let(:created_disk_data) { data.select { |m| m['name'] == "disk-instance-data-disk" }.first }
-
-    it "exists" do
-      expect(created_disk_data).not_to be_nil
-    end
-
     it "creates and attaches a disk to the instance" do
-      expect(created_disk_data).to include({
-        "name" => "disk-instance-data-disk",
-        "sizeGb" => "10",
-        "status" => "READY",
-        "type" => "https://www.googleapis.com/compute/v1/projects/#{project_id}/zones/#{zone}/diskTypes/pd-ssd",
-        "users" => ["https://www.googleapis.com/compute/v1/projects/#{project_id}/zones/#{zone}/instances/#{instance_name}"],
-        "zone" => "https://www.googleapis.com/compute/v1/projects/#{project_id}/zones/#{zone}"
-      })
+      expect(data).to include(
+        including(
+          "name" => "#{instance_name}-data-disk",
+          "sizeGb" => "10",
+          "status" => "READY",
+          "type" => "https://www.googleapis.com/compute/v1/projects/#{project_id}/zones/#{zone}/diskTypes/pd-ssd",
+          "users" => ["https://www.googleapis.com/compute/v1/projects/#{project_id}/zones/#{zone}/instances/#{instance_name}"],
+          "zone" => "https://www.googleapis.com/compute/v1/projects/#{project_id}/zones/#{zone}"
+       )
+      )
     end
   end
 end

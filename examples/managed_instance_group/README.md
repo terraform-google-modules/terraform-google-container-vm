@@ -13,16 +13,15 @@ This example requires that some python libraries be installed, as outlined in `r
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| credentials_path | The path to a valid service account JSON credentials file | string | - | yes |
-| enable_http_health_check | Whether to enable HTTP health checks | string | `true` | no |
-| gce_ssh_user | The username to provision with an auto-generated SSH keypair. | string | `user` | no |
+| additional_metadata | Additional metadata to attach to the instance | map | `<map>` | no |
 | image | The Docker image to deploy to GCE instances | string | - | yes |
 | image_port | The port the image exposes for HTTP requests | string | - | yes |
 | machine_type | The GCP machine type to deploy | string | - | yes |
-| mig_instance_count | The number of instances to run in the managed instance group | string | `2` | no |
-| mig_name | The desired name of the Managed Instance Group to deploy | string | `mig-test` | no |
+| mig_instance_count | The number of instances to place in the managed instance group | string | `2` | no |
+| mig_name | The desired name to assign to the deployed managed instance group | string | `mig-test` | no |
 | project_id | The project ID to deploy resource into | string | - | yes |
 | region | The GCP region to deploy instances into | string | - | yes |
+| restart_policy | The desired Docker restart policy for the deployed image | string | - | yes |
 | subnetwork | The name of the subnetwork to deploy instances into | string | - | yes |
 | subnetwork_project | The project ID where the desired subnetwork is provisioned | string | - | yes |
 | zone | The GCP zone to deploy instances into | string | - | yes |
@@ -32,17 +31,13 @@ This example requires that some python libraries be installed, as outlined in `r
 | Name | Description |
 |------|-------------|
 | container |  |
-| credentials_path |  |
 | http_address |  |
 | http_port |  |
 | image |  |
-| instance_template_link |  |
-| ipv4 |  |
 | machine_type |  |
 | mig_name |  |
 | project_id |  |
 | region |  |
-| restart_policy |  |
 | subnetwork |  |
 | subnetwork_project |  |
 | vm_container_label |  |

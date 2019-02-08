@@ -12,19 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-image = attribute('image')
 container_definition = attribute('container')
 volume_definitions = attribute('volumes')
-restart_policy = attribute('restart_policy')
 
 control "docker" do
   title "Docker containers"
 
   describe docker.containers do
-    its('images') { should include image }
+    its('images') { should include "gcr.io/google-samples/hello-app:1.0" }
 
     let!(:running_containers) { docker.containers.ids.map { |id| docker.object(id) } }
-    let(:container) { running_containers.first { |d| d.Config.Image == image } }
+    let(:container) { running_containers.first { |d| d.Config.Image == "gcr.io/google-samples/hello-app:1.0" } }
 
     it "should have our container" do
       expect(container).not_to be_nil
@@ -35,7 +33,7 @@ control "docker" do
     end
 
     it "should have a properly configured restart policy" do
-      expect(container.HostConfig.RestartPolicy.Name).to eq restart_policy.downcase.gsub("onfailure", "on-failure")
+      expect(container.HostConfig.RestartPolicy.Name).to eq "always"
     end
 
     let(:mounts) { container.Mounts ? container.Mounts : [] }

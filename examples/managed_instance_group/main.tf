@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
+locals {
+  google_load_balancer_ip_ranges = [
+    "130.211.0.0/22",
+    "35.191.0.0/16",
+  ]
+}
+
 provider "google" {
-  credentials = "${file(var.credentials_path)}"
-  region      = "${var.region}"
+  region = "${var.region}"
 }
 
 module "gce-container" {
@@ -25,16 +31,6 @@ module "gce-container" {
   container = {
     image = "${var.image}"
   }
-}
-
-resource "tls_private_key" "gce-keypair" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-resource "local_file" "gce-keypair-pk" {
-  content  = "${tls_private_key.gce-keypair.private_key_pem}"
-  filename = "${path.module}/ssh/key"
 }
 
 module "mig" {
@@ -49,16 +45,13 @@ module "mig" {
   size               = "${var.mig_instance_count}"
   service_port       = "${var.image_port}"
   service_port_name  = "http"
-  http_health_check  = "${var.enable_http_health_check ? true : false}"
+  http_health_check  = "true"
   subnetwork         = "${var.subnetwork}"
   subnetwork_project = "${var.subnetwork_project}"
   ssh_source_ranges  = ["0.0.0.0/0"]
   target_tags        = ["container-vm-test-mig"]
 
-  metadata = {
-    "gce-container-declaration" = "${module.gce-container.metadata_value}"
-    sshKeys                     = "${var.gce_ssh_user}:${tls_private_key.gce-keypair.public_key_openssh}"
-  }
+  metadata = "${merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))}"
 
   instance_labels = {
     "container-vm" = "${module.gce-container.vm_container_label}"
@@ -75,7 +68,7 @@ module "http-lb" {
   source            = "github.com/GoogleCloudPlatform/terraform-google-lb-http"
   project           = "${var.project_id}"
   name              = "${var.mig_name}-lb"
-  firewall_networks = ["${var.subnetwork}"]
+  firewall_networks = []
   target_tags       = ["${module.mig.target_tags}"]
 
   backends = {
@@ -91,12 +84,8 @@ module "http-lb" {
   ]
 }
 
-locals {
-  google_load_balancer_ip_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
-}
-
 resource "google_compute_firewall" "lb-to-instances" {
-  name    = "container-mig-firewall-lb-to-instances"
+  name    = "${var.mig_name}-firewall-lb-to-instances"
   project = "${var.project_id}"
   network = "${var.subnetwork}"
 
@@ -107,18 +96,4 @@ resource "google_compute_firewall" "lb-to-instances" {
 
   source_ranges = ["${local.google_load_balancer_ip_ranges}"]
   target_tags   = ["${module.mig.target_tags}"]
-}
-
-locals {
-  ip_query = {
-    project_id       = "${var.project_id}"
-    instance_link    = "${element(module.mig.instances[0], 0)}"
-    credentials_file = "${var.credentials_path}"
-  }
-}
-
-data "external" "ipv4" {
-  program = ["python", "${path.module}/helpers/gce_instance_to_ipv4.py"]
-
-  query = "${local.ip_query}"
 }

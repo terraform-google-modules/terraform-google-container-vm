@@ -26,10 +26,6 @@ variable "subnetwork" {
   description = "The name of the subnetwork to deploy instances into"
 }
 
-variable "credentials_path" {
-  description = "The path to a valid service account JSON credentials file"
-}
-
 variable "instance_name" {
   description = "The desired name to assign to the deployed instance"
   default     = "disk-instance-vm-test"
@@ -59,7 +55,8 @@ variable "zone" {
   description = "The GCP zone to deploy instances into"
 }
 
-variable "gce_ssh_user" {
-  description = "The username to provision with an auto-generated SSH keypair."
-  default     = "user"
+variable "additional_metadata" {
+  type        = "map"
+  description = "Additional metadata to attach to the instance"
+  default     = {}
 }
