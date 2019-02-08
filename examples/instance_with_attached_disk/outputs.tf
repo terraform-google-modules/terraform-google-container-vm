@@ -15,43 +15,28 @@
  */
 
 output "project_id" {
-  value = "${var.project_id}"
-}
-
-output "subnetwork_project" {
-  value = "${var.subnetwork_project}"
-}
-
-output "subnetwork" {
-  value = "${var.subnetwork}"
-}
-
-output "instance_name" {
-  value = "${var.instance_name}"
-}
-
-output "image" {
-  value = "${var.image}"
-}
-
-output "machine_type" {
-  value = "${var.machine_type}"
-}
-
-output "region" {
-  value = "${var.region}"
+  description = "The project ID resources were deployed into"
+  value       = "${var.project_id}"
 }
 
 output "zone" {
-  value = "${var.zone}"
+  description = "The zone the GCE instance was deployed into"
+  value       = "${var.zone}"
 }
 
 output "vm_container_label" {
-  value = "${module.gce-container.vm_container_label}"
+  description = "The instance label containing container configuration"
+  value       = "${module.gce-container.vm_container_label}"
 }
 
-output "ipv4" {
-  value = "${google_compute_instance.vm.network_interface.0.access_config.0.assigned_nat_ip }"
+output "container" {
+  description = "The container metadata provided to the module"
+  value       = "${module.gce-container.container}"
+}
+
+output "volumes" {
+  description = "The volume metadata provided to the module"
+  value       = "${module.gce-container.volumes}"
 }
 
 output "http_address" {
@@ -62,10 +47,12 @@ output "http_port" {
   value = "${var.image_port}"
 }
 
-output "container" {
-  value = "${module.gce-container.container}"
+output "instance_name" {
+  description = "The deployed instance name"
+  value       = "${var.instance_name}"
 }
 
-output "volumes" {
-  value = "${module.gce-container.volumes}"
+output "ipv4" {
+  description = "The public IP address of the deployed instance"
+  value       = "${google_compute_instance.vm.network_interface.0.access_config.0.assigned_nat_ip }"
 }

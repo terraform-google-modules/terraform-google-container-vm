@@ -25,20 +25,15 @@ This example illustrates how to deploy and expose a container to a Google Comput
 
 | Name | Description |
 |------|-------------|
-| container |  |
+| container | The container metadata provided to the module |
 | http_address |  |
 | http_port |  |
-| image |  |
-| instance_name |  |
-| ipv4 |  |
-| machine_type |  |
-| project_id |  |
-| region |  |
-| subnetwork |  |
-| subnetwork_project |  |
-| vm_container_label |  |
-| volumes |  |
-| zone |  |
+| instance_name | The deployed instance name |
+| ipv4 | The public IP address of the deployed instance |
+| project_id | The project ID resources were deployed into |
+| vm_container_label | The instance label containing container configuration |
+| volumes | The volume metadata provided to the module |
+| zone | The zone the GCE instance was deployed into |
 
 [^]: (autogen_docs_end)
 

@@ -15,39 +15,28 @@
  */
 
 output "project_id" {
-  value = "${var.project_id}"
-}
-
-output "subnetwork_project" {
-  value = "${var.subnetwork_project}"
-}
-
-output "subnetwork" {
-  value = "${var.subnetwork}"
-}
-
-output "mig_name" {
-  value = "${var.mig_name}"
-}
-
-output "image" {
-  value = "${var.image}"
-}
-
-output "machine_type" {
-  value = "${var.machine_type}"
-}
-
-output "region" {
-  value = "${var.region}"
+  description = "The project ID resources were deployed into"
+  value       = "${var.project_id}"
 }
 
 output "zone" {
-  value = "${var.zone}"
+  description = "The zone the GCE instance was deployed into"
+  value       = "${var.zone}"
 }
 
 output "vm_container_label" {
-  value = "${module.gce-container.vm_container_label}"
+  description = "The instance label containing container configuration"
+  value       = "${module.gce-container.vm_container_label}"
+}
+
+output "container" {
+  description = "The container metadata provided to the module"
+  value       = "${module.gce-container.container}"
+}
+
+output "volumes" {
+  description = "The volume metadata provided to the module"
+  value       = "${module.gce-container.volumes}"
 }
 
 output "http_address" {
@@ -56,12 +45,4 @@ output "http_address" {
 
 output "http_port" {
   value = "80"
-}
-
-output "container" {
-  value = "${module.gce-container.container}"
-}
-
-output "volumes" {
-  value = "${module.gce-container.volumes}"
 }

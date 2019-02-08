@@ -30,19 +30,13 @@ This example requires that some python libraries be installed, as outlined in `r
 
 | Name | Description |
 |------|-------------|
-| container |  |
+| container | The container metadata provided to the module |
 | http_address |  |
 | http_port |  |
-| image |  |
-| machine_type |  |
-| mig_name |  |
-| project_id |  |
-| region |  |
-| subnetwork |  |
-| subnetwork_project |  |
-| vm_container_label |  |
-| volumes |  |
-| zone |  |
+| project_id | The project ID resources were deployed into |
+| vm_container_label | The instance label containing container configuration |
+| volumes | The volume metadata provided to the module |
+| zone | The zone the GCE instance was deployed into |
 
 [^]: (autogen_docs_end)
 
