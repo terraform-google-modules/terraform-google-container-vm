@@ -36,11 +36,11 @@ module "example" {
   subnetwork         = "${google_compute_subnetwork.main.name}"
   instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
   region             = "${var.region}"
+  zone               = "${var.zone}"
 
   image_port     = "8080"
   restart_policy = "Always"
   machine_type   = "n1-standard-1"
-  zone           = "us-east4-b"
   image          = "gcr.io/google-samples/hello-app:1.0"
 
   additional_metadata = {
