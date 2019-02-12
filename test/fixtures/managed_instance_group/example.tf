@@ -40,7 +40,7 @@ module "example" {
   image_port     = "8080"
   restart_policy = "Always"
   machine_type   = "n1-standard-1"
-  zone           = "us-east4-b"
+  zone           = "${var.zone}"
   image          = "gcr.io/google-samples/hello-app:1.0"
 
   additional_metadata = {
