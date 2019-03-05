@@ -31,8 +31,8 @@ This example requires that some python libraries be installed, as outlined in `r
 | Name | Description |
 |------|-------------|
 | container | The container metadata provided to the module |
-| http_address |  |
-| http_port |  |
+| http_address | The IP address on which the HTTP service is exposed |
+| http_port | The port on which the HTTP service is exposed |
 | project_id | The project ID resources were deployed into |
 | vm_container_label | The instance label containing container configuration |
 | volumes | The volume metadata provided to the module |

@@ -26,8 +26,8 @@ This example illustrates how to deploy and expose a container to a Google Comput
 | Name | Description |
 |------|-------------|
 | container | The container metadata provided to the module |
-| http_address |  |
-| http_port |  |
+| http_address | The IP address on which the HTTP service is exposed |
+| http_port | The port on which the HTTP service is exposed |
 | instance_name | The deployed instance name |
 | ipv4 | The public IP address of the deployed instance |
 | project_id | The project ID resources were deployed into |

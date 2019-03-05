@@ -40,11 +40,13 @@ output "volumes" {
 }
 
 output "http_address" {
-  value = "${google_compute_instance.vm.network_interface.0.access_config.0.assigned_nat_ip }"
+  description = "The IP address on which the HTTP service is exposed"
+  value       = "${google_compute_instance.vm.network_interface.0.access_config.0.assigned_nat_ip }"
 }
 
 output "http_port" {
-  value = "${var.image_port}"
+  description = "The port on which the HTTP service is exposed"
+  value       = "${var.image_port}"
 }
 
 output "instance_name" {

@@ -40,9 +40,11 @@ output "volumes" {
 }
 
 output "http_address" {
-  value = "${module.http-lb.external_ip}"
+  description = "The IP address on which the HTTP service is exposed"
+  value       = "${module.http-lb.external_ip}"
 }
 
 output "http_port" {
-  value = "80"
+  description = "The port on which the HTTP service is exposed"
+  value       = "80"
 }
