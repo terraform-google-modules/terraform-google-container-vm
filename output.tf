@@ -40,13 +40,16 @@ output "vm_container_label" {
 }
 
 output "container" {
-  value = "${var.container}"
+  description = "The container definition provided"
+  value       = "${var.container}"
 }
 
 output "volumes" {
-  value = "${var.volumes}"
+  description = "The volume definition provided"
+  value       = "${var.volumes}"
 }
 
 output "restart_policy" {
-  value = "${var.restart_policy}"
+  description = "The restart policy provided"
+  value       = "${var.restart_policy}"
 }

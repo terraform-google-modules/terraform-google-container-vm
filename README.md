@@ -71,14 +71,14 @@ Then perform the following commands on the root folder:
 
 | Name | Description |
 |------|-------------|
-| container |  |
+| container | The container definition provided |
 | metadata_key | The key to assign `metadata_value` to, so container information is attached to the instance |
 | metadata_value | The generated container configuration |
-| restart_policy |  |
+| restart_policy | The restart policy provided |
 | source_image | The COS image to use for the GCE instance |
 | vm_container_label | The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key |
 | vm_container_label_key | The label key for the COS version deployed to the instance |
-| volumes |  |
+| volumes | The volume definition provided |
 
 [^]: (autogen_docs_end)
 

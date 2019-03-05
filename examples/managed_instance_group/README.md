@@ -30,19 +30,13 @@ This example requires that some python libraries be installed, as outlined in `r
 
 | Name | Description |
 |------|-------------|
-| container |  |
-| http_address |  |
-| http_port |  |
-| image |  |
-| machine_type |  |
-| mig_name |  |
-| project_id |  |
-| region |  |
-| subnetwork |  |
-| subnetwork_project |  |
-| vm_container_label |  |
-| volumes |  |
-| zone |  |
+| container | The container metadata provided to the module |
+| http_address | The IP address on which the HTTP service is exposed |
+| http_port | The port on which the HTTP service is exposed |
+| project_id | The project ID resources were deployed into |
+| vm_container_label | The instance label containing container configuration |
+| volumes | The volume metadata provided to the module |
+| zone | The zone the GCE instance was deployed into |
 
 [^]: (autogen_docs_end)
 
