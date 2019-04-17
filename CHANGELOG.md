@@ -8,8 +8,18 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+## [0.1.1]
+
+### Fixed
+
+- `true` is properly rendered as a boolean in the
+  `metadata_value` output. [#17]
+
 ## 0.1.0
 ### ADDED
 - This is the initial release of the Container VM module.
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-project-factory/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.0...v0.1.1
+
+[#17]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/17
