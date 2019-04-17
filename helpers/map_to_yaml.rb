@@ -16,7 +16,7 @@ require "json"
 require "yaml"
 
 root = JSON.parse(
-  JSON.parse(STDIN.read)["root"].gsub('"false"', 'false')
+  JSON.parse(STDIN.read)["root"].gsub('"false"', 'false').gsub('"true"','true')
 )
 
 result = {
