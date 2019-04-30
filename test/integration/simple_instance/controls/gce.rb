@@ -59,11 +59,12 @@ control "gce" do
       expect(data['labels']['container-vm']).to eq vm_container_label
     end
 
-    it "is configured with the expected container(s), volumes, and restart policy" do
+    it "is configured with the expected container(s), volumes, env and restart policy" do
       expect(container_declaration).to eq({
         "spec" => {
           "containers" => [
             {
+              "env"=>[{"name"=>"TEST_VAR", "value"=>"Hello World!"}],
               "image" => "gcr.io/google-samples/hello-app:1.0",
               "volumeMounts" => [
                 {

@@ -24,6 +24,13 @@ module "gce-container" {
   container = {
     image = "${var.image}"
 
+    env = [
+      {
+        name = "TEST_VAR"
+        value = "Hello World!"
+      }
+    ]
+
     volumeMounts = [
       {
         mountPath = "/cache"
