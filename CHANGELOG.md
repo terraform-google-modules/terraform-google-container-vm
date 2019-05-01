@@ -8,9 +8,9 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
-### Fixed
+### Added
 
-- added docker environment variables section [#19]
+- added docker environment variables section example  [#19]
 
 ## [0.1.1]
 
