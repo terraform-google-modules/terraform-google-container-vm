@@ -10,7 +10,7 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ### Fixed
 
-- added docker environment variables section example [#]
+- added docker environment variables section [#19]
 
 ## [0.1.1]
 
@@ -26,4 +26,5 @@ Extending the adopted spec, each change should have a link to its corresponding 
 [Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.1...HEAD
 [0.1.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.0...v0.1.1
 
+[#19]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/19
 [#17]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/17
