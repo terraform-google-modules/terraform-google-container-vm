@@ -36,9 +36,9 @@ module "gce-container" {
 
     env = [
       {
-        name = "TEST_VAR"
+        name  = "TEST_VAR"
         value = "Hello World!"
-      }
+      },
     ]
 
     volumeMounts = [
@@ -46,9 +46,8 @@ module "gce-container" {
         mountPath = "/cache"
         name      = "tempfs-0"
         readOnly  = "false"
-      }
+      },
     ]
-
   }
 
   volumes = [
