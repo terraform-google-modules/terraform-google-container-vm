@@ -34,6 +34,13 @@ module "gce-container" {
   container = {
     image = "gcr.io/google-samples/hello-app:1.0"
 
+    env = [
+      {
+        name  = "TEST_VAR"
+        value = "Hello World!"
+      },
+    ]
+
     volumeMounts = [
       {
         mountPath = "/cache"

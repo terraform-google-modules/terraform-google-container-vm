@@ -5,3 +5,4 @@ test/fixtures/**/terraform.tfstate.d
 test/fixtures/**/ssh/key
 *.pyc
 test/fixtures/shared/terraform.tfvars
+.idea
