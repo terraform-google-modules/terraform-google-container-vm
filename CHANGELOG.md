@@ -8,9 +8,11 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+## [0.2.0]
+
 ### Added
 
-- added docker environment variables section example  [#19]
+- added Docker environment variables section example. [#19]
 
 ## [0.1.1]
 
@@ -23,7 +25,8 @@ Extending the adopted spec, each change should have a link to its corresponding 
 ### ADDED
 - This is the initial release of the Container VM module.
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.0...v0.1.1
 
 [#19]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/19
