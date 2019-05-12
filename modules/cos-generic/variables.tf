@@ -66,6 +66,7 @@ variable "prefix" {
   description = "Prefix to prepend to resource names."
   default     = ""
 }
+
 variable "boot_disk_size" {
   description = "Size of the boot disk."
   default     = 10
@@ -109,5 +110,3 @@ variable "allow_stopping_for_update" {
   description = "Allow stopping the instance for specific Terraform changes."
   default     = false
 }
-
-
