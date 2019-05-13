@@ -131,7 +131,6 @@ def has_valid_header(filename, refs, regexs):
 
     # look for 'YEAR' string, and fail if found
     if regexs["year"].match(data):
-        print("year fail %s" % basename)
         return False
 
     # replace actual year with 'YEAR' string
@@ -140,7 +139,6 @@ def has_valid_header(filename, refs, regexs):
     data = data.splitlines()
     # if our test file is smaller than the reference it surely fails!
     if len(ref) > len(data):
-        print("length fail %s" % basename)
         return False
 
     # trim our file to the same number of lines as the reference file
@@ -148,7 +146,6 @@ def has_valid_header(filename, refs, regexs):
 
     # if we don't match the reference at this point, fail
     if ref != data:
-        print("data fail %s" % basename)
         return False
 
     return True

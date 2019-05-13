@@ -78,17 +78,15 @@ class AllTestCase(unittest.TestCase):
         if extension not in special_cases:
             # Invalid test cases for non-*file files (.tf|.py|.sh|.yaml|.xml..)
             invalid_header = []
-            for line in header_template:
-                if "2018" in line:
-                    invalid_header.append(line.replace('2018', 'YEAR'))
-                else:
-                    invalid_header.append(line)
             invalid_header.append(content)
             invalid_content = invalid_header
             invalid_filename = tmp_path + "invalid." + extension
             self.write_file(invalid_filename, invalid_content, False)
             valid_filename = tmp_path + "testfile." + extension
 
+        for i, line in enumerate(header_template):
+            if "YEAR" in line:
+                header_template[i] = line.replace('YEAR', '2018')
         valid_content = header_template
         self.write_file(valid_filename, valid_content, True)
 
