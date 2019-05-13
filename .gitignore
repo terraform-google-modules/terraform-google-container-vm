@@ -6,3 +6,4 @@ test/fixtures/**/ssh/key
 *.pyc
 test/fixtures/shared/terraform.tfvars
 .idea
+.vscode
