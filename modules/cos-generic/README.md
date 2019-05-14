@@ -16,7 +16,7 @@ This is a sample module invocation:
 
 ```hcl
 module "simple-gcs-copier" {
-  source                = "modules/cos-generic"
+  source                = "terraform-google-modules/container-vm/google//modules/cos-generic"
   instance_count        = "1"
   project_id            = "my-project"
   region                = "europe-west3"
@@ -79,6 +79,8 @@ runcmd:
 - systemctl enable gcs-sync.timer && systemctl start gcs-sync.timer
 ```
 
+[^]: (autogen_docs_start)
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -109,3 +111,5 @@ runcmd:
 | instances | Instance name => address map. |
 | internal\_addresses | List of instance internal addresses. |
 | names | List of instance names. |
+
+[^]: (autogen_docs_end)

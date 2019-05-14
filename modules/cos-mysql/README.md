@@ -23,7 +23,7 @@ The [official Docker MySQL image](https://hub.docker.com/_/mysql) supports vario
 
 ```hcl
 module "mysql" {
-  source         = "modules/cos-mysql"
+  source         = "terraform-google-modules/container-vm/google//modules/cos-mysql"
   instance_count        = "1"
   project_id     = "my-project"
   region         = "europe-west3"
@@ -41,6 +41,8 @@ module "mysql" {
   subnetwork     = "https://www.googleapis.com/compute/v1/projects/my-project/regions/europe-west3/subnetworks/my-subnetwork"
 }
 ```
+
+[^]: (autogen_docs_start)
 
 ## Inputs
 
@@ -80,3 +82,4 @@ module "mysql" {
 | instances | Instance name => address map. |
 | password | Auto-generated password, if no password was set as a variable. |
 
+[^]: (autogen_docs_end)
