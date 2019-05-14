@@ -14,7 +14,7 @@ Variables allow controlling several aspects of the created resurces, like number
 
 ```hcl
 module "dns-service" {
-  source         = "modules/cos-coredns"
+  source         = "terraform-google-modules/container-vm/google//modules/cos-coredns"
   instance_count = "1"
   project_id     = "my-project"
   region         = "europe-west3"
@@ -27,6 +27,8 @@ module "dns-service" {
   subnetwork     = "https://www.googleapis.com/compute/v1/projects/my-project/regions/europe-west3/subnetworks/my-subnetwork"
 }
 ```
+
+[^]: (autogen_docs_start)
 
 ## Inputs
 
@@ -61,3 +63,5 @@ module "dns-service" {
 | instances | Instance name => address map. |
 | internal\_addresses | List of instance internal addresses. |
 | names | List of instance names. |
+
+[^]: (autogen_docs_end)
