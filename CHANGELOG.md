@@ -8,6 +8,15 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+### Added
+
+- Initial import of the CFT Fabric COS modules. [#20]
+
+### Fixed
+
+- Fix script used for copyright boilerplate verification [#21]
+
+
 ## [0.2.0] - 2019-05-10
 
 ### Added
