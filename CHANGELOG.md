@@ -8,6 +8,8 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+## [0.3.0] - 2019-05-15
+
 ### Added
 
 - Initial import of the CFT Fabric COS modules. [#20]
@@ -35,8 +37,11 @@ Extending the adopted spec, each change should have a link to its corresponding 
 - This is the initial release of the Container VM module.
 
 [Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.2.0...HEAD
+[0.3.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.0...v0.1.1
 
+[#21]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/21
+[#20]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/20
 [#19]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/19
 [#17]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/17
