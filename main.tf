@@ -35,7 +35,12 @@ data "google_compute_image" "coreos" {
 
 resource "null_resource" "validate_restart_policy" {
   count                                                                                                                                = "${local.invalid_restart_policy}"
-  "ERROR: Invalid `restart_policy` ${var.restart_policy} was provided. Must be one of `OnFailure`, `UnlessStopped`, `Always`, or `No`" = true
+  provisioner "local-exec" {
+    command = "echo ERROR: Invalid restart_policy ${var.restart_policy} was provided. Must be one of OnFailure, UnlessStopped, Always, or No"
+  }
+  provisioner "local-exec" {
+    command = "false"
+  }
 }
 
 data "external" "spec_as_yaml" {

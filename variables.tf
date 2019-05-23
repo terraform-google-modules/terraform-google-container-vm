@@ -15,7 +15,7 @@
  */
 
 variable "container" {
-  type        = "map"
+  type        = any
   description = "A description of the container to deploy"
 
   default = {
@@ -25,7 +25,7 @@ variable "container" {
 }
 
 variable "volumes" {
-  type        = "list"
+  type        = any
   description = "A set of Docker Volumes to configure"
 
   default = []
