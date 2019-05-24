@@ -100,7 +100,7 @@ resource "google_compute_instance" "vm" {
 
   metadata = "${merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))}"
 
-  labels {
+  labels = {
     container-vm = "${module.gce-container.vm_container_label}"
   }
 
