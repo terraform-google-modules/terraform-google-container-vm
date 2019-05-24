@@ -24,7 +24,7 @@ data "google_compute_zones" "available" {
 }
 
 resource "random_shuffle" "zone" {
-  input        = ["${data.google_compute_zones.available.names}"]
+  input        = data.google_compute_zones.available.names
   result_count = 1
 }
 
