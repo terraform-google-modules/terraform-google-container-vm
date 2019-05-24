@@ -69,7 +69,7 @@ module "http-lb" {
   project           = "${var.project_id}"
   name              = "${var.mig_name}-lb"
   firewall_networks = []
-  target_tags       = ["${module.mig.target_tags}"]
+  target_tags       = module.mig.target_tags
 
   backends = {
     "0" = [
@@ -94,6 +94,6 @@ resource "google_compute_firewall" "lb-to-instances" {
     ports    = ["${var.image_port}"]
   }
 
-  source_ranges = ["${local.google_load_balancer_ip_ranges}"]
-  target_tags   = ["${module.mig.target_tags}"]
+  source_ranges = local.google_load_balancer_ip_ranges
+  target_tags   = module.mig.target_tags
 }
