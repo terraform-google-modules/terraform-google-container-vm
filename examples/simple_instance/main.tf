@@ -78,17 +78,17 @@ resource "google_compute_instance" "vm" {
   network_interface {
     subnetwork_project = "${var.subnetwork_project}"
     subnetwork         = "${var.subnetwork}"
-    access_config      = {}
+    access_config      {}
   }
 
   tags = ["container-vm-example"]
 
-  metadata {
-    "gce-container-declaration" = "${module.gce-container.metadata_value}"
+  metadata = {
+    gce-container-declaration = "${module.gce-container.metadata_value}"
   }
 
-  labels {
-    "container-vm" = "${module.gce-container.vm_container_label}"
+  labels = {
+    container-vm = "${module.gce-container.vm_container_label}"
   }
 
   service_account {

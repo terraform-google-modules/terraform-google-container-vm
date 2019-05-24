@@ -54,7 +54,7 @@ module "mig" {
   metadata = "${merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))}"
 
   instance_labels = {
-    "container-vm" = "${module.gce-container.vm_container_label}"
+    container-vm = "${module.gce-container.vm_container_label}"
   }
 
   service_account_scopes = [

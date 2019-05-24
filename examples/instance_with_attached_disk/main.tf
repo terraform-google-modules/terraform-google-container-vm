@@ -95,13 +95,13 @@ resource "google_compute_instance" "vm" {
   network_interface {
     subnetwork_project = "${var.subnetwork_project}"
     subnetwork         = "${var.subnetwork}"
-    access_config      = {}
+    access_config      {}
   }
 
   metadata = "${merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))}"
 
   labels {
-    "container-vm" = "${module.gce-container.vm_container_label}"
+    container-vm = "${module.gce-container.vm_container_label}"
   }
 
   tags = ["container-vm-example", "container-vm-test-disk-instance"]
