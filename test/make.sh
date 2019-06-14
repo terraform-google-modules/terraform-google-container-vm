@@ -47,8 +47,13 @@ function docker() {
 # files ending in '.tf'
 function check_terraform() {
   echo "Running terraform validate"
-  #shellcheck disable=SC2156
-  find . -name "*.tf" -not -path "./test/fixtures/shared/*" -exec bash -c 'terraform validate $(dirname "{}")' \;
+  find . -name "*.tf" \
+    -not -path "./.terraform/*" \
+    -not -path "./test/fixtures/*/.terraform/*" \
+    -not -path "./test/fixtures/shared/*" \
+    -print0 \
+    | xargs -0 dirname | sort | uniq \
+    | xargs -L 1 -i{} bash -c 'terraform init "{}" > /dev/null && terraform validate "{}"'
   echo "Running terraform fmt"
   terraform fmt -check=true -write=false
 }
