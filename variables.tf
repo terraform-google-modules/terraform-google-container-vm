@@ -15,7 +15,7 @@
  */
 
 variable "container" {
-  type        = "map"
+  type        = "any" // This is necessary to work around a limitation in Terraform 0.12. If this is set to `map`, as intended, Terraform expects all values within the map to have the same type, which is not the case here.
   description = "A description of the container to deploy"
 
   default = {
@@ -25,7 +25,7 @@ variable "container" {
 }
 
 variable "volumes" {
-  type        = "list"
+  type        = "any" // This is necessary to work around a limitation in Terraform 0.12. If this is set to `list`, as intended, Terraform expects all values within the map to have the same type, which is not the case here.
   description = "A set of Docker Volumes to configure"
 
   default = []
