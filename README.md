@@ -4,6 +4,10 @@ This module handles the generation of metadata for [deploying containers on GCE 
 
 This module itself does not launch an instance or managed instance group. It simply generates the necessary metadata to create an instance or MIG yourself. Examples of using this module can be found in the [examples/](examples) directory.
 
+## Compatibility
+
+ This module is meant for use with Terraform 0.12. If you need a Terraform 0.11.x-compatible version of this module, the last released version intended for Terraform 0.11.x is [0.3.0].
+
 ## Usage
 
 ```hcl
@@ -204,3 +208,5 @@ The linters are as follows:
 * Golang - gofmt. gofmt comes with the standard golang installation. golang is a compiled language so there is no standard linter.
 * Terraform - terraform has a built-in linter in the 'terraform fmt' command.
 * Dockerfiles - hadolint. Can be found in homebrew
+
+[0.3.0]: https://registry.terraform.io/modules/terraform-google-modules/container-vm/google/0.3.0
