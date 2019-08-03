@@ -26,8 +26,7 @@ provider "google" {
 }
 
 module "gce-container" {
-  source  = "terraform-google-modules/container-vm/google"
-  version = "0.3.0"
+  source  = "../../"
 
   container = {
     image = var.image
