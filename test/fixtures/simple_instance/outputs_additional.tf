@@ -16,10 +16,10 @@
 
 output "instance_name" {
   description = "The name of the created instance"
-  value       = "${module.example.instance_name}"
+  value       = module.example.instance_name
 }
 
 output "ipv4" {
   description = "The IP address of the provisioned host"
-  value       = "${module.example.ipv4}"
+  value       = module.example.ipv4
 }

@@ -24,19 +24,19 @@ resource "tls_private_key" "gce-keypair" {
 }
 
 resource "local_file" "gce-keypair-pk" {
-  content  = "${tls_private_key.gce-keypair.private_key_pem}"
+  content  = tls_private_key.gce-keypair.private_key_pem
   filename = "${path.module}/ssh/key"
 }
 
 module "example" {
   source = "../../../examples/instance_with_attached_disk"
 
-  project_id         = "${var.project_id}"
-  subnetwork_project = "${var.project_id}"
-  subnetwork         = "${google_compute_subnetwork.main.name}"
+  project_id         = var.project_id
+  subnetwork_project = var.project_id
+  subnetwork         = google_compute_subnetwork.main.name
   instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
-  region             = "${var.region}"
-  zone               = "${var.zone}"
+  region             = var.region
+  zone               = var.zone
 
   image_port     = "8080"
   restart_policy = "Always"

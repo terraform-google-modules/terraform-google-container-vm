@@ -16,35 +16,35 @@
 
 output "project_id" {
   description = "The GCP project ID that resources were deployed into"
-  value       = "${var.project_id}"
+  value       = var.project_id
 }
 
 output "zone" {
   description = "The GCP zone that resources were deployed into"
-  value       = "${module.example.zone}"
+  value       = module.example.zone
 }
 
 output "network" {
   description = "The name of the GCP network that resources were deployed into"
-  value       = "${google_compute_network.main.name}"
+  value       = google_compute_network.main.name
 }
 
 output "subnetwork" {
   description = "The name of the GCP subnetwork that resources were deployed into"
-  value       = "${google_compute_subnetwork.main.name}"
+  value       = google_compute_subnetwork.main.name
 }
 
 output "vm_container_label" {
   description = "The label containing container configuration"
-  value       = "${module.example.vm_container_label}"
+  value       = module.example.vm_container_label
 }
 
 output "container" {
   description = "The configured Docker container"
-  value       = "${module.example.container}"
+  value       = module.example.container
 }
 
 output "volumes" {
   description = "The configured Docker volumes"
-  value       = "${module.example.volumes}"
+  value       = module.example.volumes
 }
