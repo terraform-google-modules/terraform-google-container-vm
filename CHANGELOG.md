@@ -8,6 +8,12 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+## [1.0.0] - 2019-YY-ZZ
+
+### Changed
+
+- Supported version of Terraform is v0.12. [#26]
+
 ## [0.3.0] - 2019-05-15
 
 ### Added
@@ -36,7 +42,8 @@ Extending the adopted spec, each change should have a link to its corresponding 
 ### ADDED
 - This is the initial release of the Container VM module.
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.3.0...v1.0.0
 [0.3.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.0...v0.1.1

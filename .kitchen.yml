@@ -63,6 +63,8 @@ suites:
           - ./test/fixtures/instance_with_attached_disk/ssh/key
         user: user
   - name: "managed_instance_group"
+    excludes:
+      - local
     driver:
       name: "terraform"
       command_timeout: 1800

@@ -15,14 +15,14 @@
  */
 
 provider "google" {
-  region = "${var.region}"
+  region = var.region
 }
 
 module "gce-container" {
   source = "../../"
 
   container = {
-    image = "${var.image}"
+    image = var.image
 
     env = [
       {
@@ -63,45 +63,45 @@ module "gce-container" {
     },
   ]
 
-  restart_policy = "${var.restart_policy}"
+  restart_policy = var.restart_policy
 }
 
 resource "google_compute_disk" "pd" {
-  project = "${var.project_id}"
+  project = var.project_id
   name    = "${var.instance_name}-data-disk"
   type    = "pd-ssd"
-  zone    = "${var.zone}"
+  zone    = var.zone
   size    = 10
 }
 
 resource "google_compute_instance" "vm" {
-  project      = "${var.project_id}"
-  name         = "${var.instance_name}"
-  machine_type = "${var.machine_type}"
-  zone         = "${var.zone}"
+  project      = var.project_id
+  name         = var.instance_name
+  machine_type = var.machine_type
+  zone         = var.zone
 
   boot_disk {
     initialize_params {
-      image = "${module.gce-container.source_image}"
+      image = module.gce-container.source_image
     }
   }
 
   attached_disk {
-    source      = "${google_compute_disk.pd.self_link}"
+    source      = google_compute_disk.pd.self_link
     device_name = "data-disk-0"
     mode        = "READ_WRITE"
   }
 
   network_interface {
-    subnetwork_project = "${var.subnetwork_project}"
-    subnetwork         = "${var.subnetwork}"
-    access_config      = {}
+    subnetwork_project = var.subnetwork_project
+    subnetwork         = var.subnetwork
+    access_config {}
   }
 
-  metadata = "${merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))}"
+  metadata = merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))
 
-  labels {
-    "container-vm" = "${module.gce-container.vm_container_label}"
+  labels = {
+    container-vm = module.gce-container.vm_container_label
   }
 
   tags = ["container-vm-example", "container-vm-test-disk-instance"]
@@ -115,12 +115,12 @@ resource "google_compute_instance" "vm" {
 
 resource "google_compute_firewall" "http-access" {
   name    = "${var.instance_name}-http"
-  project = "${var.project_id}"
-  network = "${var.subnetwork}"
+  project = var.project_id
+  network = var.subnetwork
 
   allow {
     protocol = "tcp"
-    ports    = ["${var.image_port}"]
+    ports    = [var.image_port]
   }
 
   source_ranges = ["0.0.0.0/0"]

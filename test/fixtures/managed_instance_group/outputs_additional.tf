@@ -16,10 +16,10 @@
 
 output "http_address" {
   description = "The HTTP address on which services are exposed"
-  value       = "${module.example.http_address}"
+  value       = module.example.http_address
 }
 
 output "http_port" {
   description = "The HTTP port on which services are exposed"
-  value       = "${module.example.http_port}"
+  value       = module.example.http_port
 }

@@ -22,39 +22,39 @@ locals {
 }
 
 provider "google" {
-  region = "${var.region}"
+  region = var.region
 }
 
 module "gce-container" {
   source = "../../"
 
   container = {
-    image = "${var.image}"
+    image = var.image
   }
 }
 
 module "mig" {
   source             = "GoogleCloudPlatform/managed-instance-group/google"
   version            = "1.1.14"
-  project            = "${var.project_id}"
-  region             = "${var.region}"
-  zone               = "${var.zone}"
-  name               = "${var.mig_name}"
-  machine_type       = "${var.machine_type}"
-  compute_image      = "${module.gce-container.source_image}"
-  size               = "${var.mig_instance_count}"
-  service_port       = "${var.image_port}"
+  project            = var.project_id
+  region             = var.region
+  zone               = var.zone
+  name               = var.mig_name
+  machine_type       = var.machine_type
+  compute_image      = module.gce-container.source_image
+  size               = var.mig_instance_count
+  service_port       = var.image_port
   service_port_name  = "http"
   http_health_check  = "true"
-  subnetwork         = "${var.subnetwork}"
-  subnetwork_project = "${var.subnetwork_project}"
+  subnetwork         = var.subnetwork
+  subnetwork_project = var.subnetwork_project
   ssh_source_ranges  = ["0.0.0.0/0"]
   target_tags        = ["container-vm-test-mig"]
 
-  metadata = "${merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))}"
+  metadata = merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))
 
   instance_labels = {
-    "container-vm" = "${module.gce-container.vm_container_label}"
+    "container-vm" = module.gce-container.vm_container_label
   }
 
   service_account_scopes = [
@@ -66,15 +66,15 @@ module "mig" {
 
 module "http-lb" {
   source            = "github.com/GoogleCloudPlatform/terraform-google-lb-http"
-  project           = "${var.project_id}"
+  project           = var.project_id
   name              = "${var.mig_name}-lb"
   firewall_networks = []
-  target_tags       = ["${module.mig.target_tags}"]
+  target_tags       = [module.mig.target_tags]
 
   backends = {
     "0" = [
       {
-        group = "${module.mig.instance_group}"
+        group = module.mig.instance_group
       },
     ]
   }
@@ -86,14 +86,14 @@ module "http-lb" {
 
 resource "google_compute_firewall" "lb-to-instances" {
   name    = "${var.mig_name}-firewall-lb-to-instances"
-  project = "${var.project_id}"
-  network = "${var.subnetwork}"
+  project = var.project_id
+  network = var.subnetwork
 
   allow {
     protocol = "tcp"
-    ports    = ["${var.image_port}"]
+    ports    = [var.image_port]
   }
 
-  source_ranges = ["${local.google_load_balancer_ip_ranges}"]
-  target_tags   = ["${module.mig.target_tags}"]
+  source_ranges = [local.google_load_balancer_ip_ranges]
+  target_tags   = [module.mig.target_tags]
 }

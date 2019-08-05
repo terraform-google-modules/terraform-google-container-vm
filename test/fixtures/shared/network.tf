@@ -30,14 +30,14 @@ resource "google_compute_network" "main" {
 resource "google_compute_subnetwork" "main" {
   name          = "cft-container-vm-test-${local.example_name}-${random_string.suffix.result}"
   ip_cidr_range = "10.0.0.0/22"
-  region        = "${var.region}"
-  network       = "${google_compute_network.main.self_link}"
+  region        = var.region
+  network       = google_compute_network.main.self_link
 }
 
 resource "google_compute_firewall" "ssh" {
   name    = "cft-test-${random_string.suffix.result}-${local.example_name}-ssh"
-  project = "${var.project_id}"
-  network = "${google_compute_subnetwork.main.name}"
+  project = var.project_id
+  network = google_compute_subnetwork.main.name
 
   allow {
     protocol = "tcp"

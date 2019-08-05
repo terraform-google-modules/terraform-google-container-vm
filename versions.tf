@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2018 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,6 @@
  * limitations under the License.
  */
 
-output "instances" {
-  description = "Instance name => address map."
-  value       = zipmap(google_compute_instance.default.*.name, google_compute_address.addresses.*.address)
-}
-
-output "names" {
-  description = "List of instance names."
-  value       = [google_compute_instance.default.*.name]
-}
-
-output "internal_addresses" {
-  description = "List of instance internal addresses."
-  value       = [google_compute_instance.default.*.network_interface.0.network_ip]
+terraform {
+  required_version = ">= 0.12"
 }

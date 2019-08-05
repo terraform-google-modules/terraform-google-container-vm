@@ -24,23 +24,23 @@ resource "tls_private_key" "gce-keypair" {
 }
 
 resource "local_file" "gce-keypair-pk" {
-  content  = "${tls_private_key.gce-keypair.private_key_pem}"
+  content  = tls_private_key.gce-keypair.private_key_pem
   filename = "${path.module}/ssh/key"
 }
 
 module "example" {
   source = "../../../examples/managed_instance_group"
 
-  project_id         = "${var.project_id}"
-  subnetwork_project = "${var.project_id}"
-  subnetwork         = "${google_compute_subnetwork.main.name}"
+  project_id         = var.project_id
+  subnetwork_project = var.project_id
+  subnetwork         = google_compute_subnetwork.main.name
   mig_name           = "cft-test-${local.example_name}-${random_string.suffix.result}"
-  region             = "${var.region}"
+  region             = var.region
 
   image_port     = "8080"
   restart_policy = "Always"
   machine_type   = "n1-standard-1"
-  zone           = "${var.zone}"
+  zone           = var.zone
   image          = "gcr.io/google-samples/hello-app:1.0"
 
   additional_metadata = {

@@ -21,12 +21,12 @@ output "metadata_key" {
 
 output "metadata_value" {
   description = "The generated container configuration"
-  value       = "${data.external.spec_as_yaml.result["rendered"]}"
+  value       = data.external.spec_as_yaml.result["rendered"]
 }
 
 output "source_image" {
   description = "The COS image to use for the GCE instance"
-  value       = "${data.google_compute_image.coreos.self_link}"
+  value       = data.google_compute_image.coreos.self_link
 }
 
 output "vm_container_label_key" {
@@ -36,20 +36,20 @@ output "vm_container_label_key" {
 
 output "vm_container_label" {
   description = "The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key"
-  value       = "${data.google_compute_image.coreos.name}"
+  value       = data.google_compute_image.coreos.name
 }
 
 output "container" {
   description = "The container definition provided"
-  value       = "${var.container}"
+  value       = var.container
 }
 
 output "volumes" {
   description = "The volume definition provided"
-  value       = "${var.volumes}"
+  value       = var.volumes
 }
 
 output "restart_policy" {
   description = "The restart policy provided"
-  value       = "${var.restart_policy}"
+  value       = var.restart_policy
 }

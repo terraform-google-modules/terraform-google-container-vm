@@ -16,20 +16,20 @@
 
 output "http_address" {
   description = "The HTTP address on which services are exposed"
-  value       = "${module.example.http_address}"
+  value       = module.example.http_address
 }
 
 output "http_port" {
   description = "The HTTP port on which services are exposed"
-  value       = "${module.example.http_port}"
+  value       = module.example.http_port
 }
 
 output "instance_name" {
   description = "The name of the created instance"
-  value       = "${module.example.instance_name}"
+  value       = module.example.instance_name
 }
 
 output "ipv4" {
   description = "The IP address of the provisioned host"
-  value       = "${module.example.ipv4}"
+  value       = module.example.ipv4
 }

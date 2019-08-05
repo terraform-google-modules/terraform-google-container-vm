@@ -21,9 +21,9 @@ locals {
 module "example" {
   source = "../../../examples/simple_instance"
 
-  project_id         = "${var.project_id}"
-  subnetwork_project = "${var.project_id}"
-  subnetwork         = "${google_compute_subnetwork.main.name}"
+  project_id         = var.project_id
+  subnetwork_project = var.project_id
+  subnetwork         = google_compute_subnetwork.main.name
   instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
-  region             = "${var.region}"
+  region             = var.region
 }

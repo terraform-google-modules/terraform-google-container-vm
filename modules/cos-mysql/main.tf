@@ -15,10 +15,10 @@
  */
 
 locals {
-  net_project_id = "${var.host_project_id != "" ? var.host_project_id : var.project_id}"
-  password       = "${var.password != "" ? var.password : random_id.password.b64_url}"
-  prefix         = "${var.prefix == "" ? "" : "${var.prefix}-"}"
-  use_kms        = "${var.password != "" && length(var.kms_data) == 4}"
+  net_project_id = var.host_project_id != "" ? var.host_project_id : var.project_id
+  password       = var.password != "" ? var.password : random_id.password.b64_url
+  prefix         = var.prefix == "" ? "" : "${var.prefix}-"
+  use_kms        = var.password != "" && length(var.kms_data) == 4
 }
 
 # optional resources
@@ -28,59 +28,57 @@ resource "random_id" "password" {
 }
 
 resource "google_compute_address" "addresses" {
-  count        = "${var.instance_count}"
-  project      = "${var.project_id}"
+  count        = var.instance_count
+  project      = var.project_id
   name         = "${local.prefix}mysql-${format("%d", count.index + 1)}"
-  region       = "${var.region}"
-  subnetwork   = "${var.subnetwork}"
+  region       = var.region
+  subnetwork   = var.subnetwork
   address_type = "INTERNAL"
 
   # the google-beta provider is needed for labels
-  # labels = "${var.labels}"
+  # labels = var.labels
 }
 
 data "template_file" "cloud-config" {
-  count    = "${var.instance_count}"
-  template = "${file("${path.module}/assets/cloud-config.yaml")}"
+  count    = var.instance_count
+  template = file("${path.module}/assets/cloud-config.yaml")
 
   vars {
-    image       = "${var.container_image}"
-    instance_id = "${count.index + 1}"
-    ip_address  = "${google_compute_address.addresses.*.address[count.index]}"
-    key         = "${lookup(var.kms_data, "key", "")}"
-    keyring     = "${lookup(var.kms_data, "keyring", "")}"
-    location    = "${lookup(var.kms_data, "location", "")}"
-    log_driver  = "${var.log_driver}"
-    password    = "${local.password}"
-    port        = "${var.mysql_port}"
-    project_id  = "${lookup(var.kms_data, "project_id", "")}"
-    use_kms     = "${local.use_kms}"
+    image       = var.container_image
+    instance_id = count.index + 1
+    ip_address  = google_compute_address.addresses.*.address[count.index]
+    key         = lookup(var.kms_data, "key", "")
+    keyring     = lookup(var.kms_data, "keyring", "")
+    location    = lookup(var.kms_data, "location", "")
+    log_driver  = var.log_driver
+    password    = local.password
+    port        = var.mysql_port
+    project_id  = lookup(var.kms_data, "project_id", "")
+    use_kms     = local.use_kms
 
-    my_cnf = "${
-      var.my_cnf == "" ? file("${path.module}/assets/my.cnf") : var.my_cnf
-    }"
+    my_cnf = var.my_cnf == "" ? file("${path.module}/assets/my.cnf") : var.my_cnf
   }
 }
 
 resource "google_compute_disk" "disk-data" {
-  count   = "${var.instance_count}"
+  count   = var.instance_count
   name    = "${local.prefix}mysql-data-${count.index + 1}"
-  type    = "${var.data_disk_type}"
-  project = "${var.project_id}"
-  zone    = "${var.zone}"
-  size    = "${var.data_disk_size}"
-  labels  = "${var.labels}"
+  type    = var.data_disk_type
+  project = var.project_id
+  zone    = var.zone
+  size    = var.data_disk_size
+  labels  = var.labels
 }
 
 resource "google_compute_instance" "default" {
-  count                     = "${var.instance_count}"
+  count                     = var.instance_count
   name                      = "${local.prefix}mysql-${count.index + 1}"
   description               = "MySQL test with containers on CoS."
-  tags                      = ["${concat(list(var.network_tag), var.vm_tags)}"]
-  labels                    = "${var.labels}"
-  machine_type              = "${var.instance_type}"
-  project                   = "${var.project_id}"
-  zone                      = "${var.zone}"
+  tags                      = [concat(list(var.network_tag), var.vm_tags)]
+  labels                    = var.labels
+  machine_type              = var.instance_type
+  project                   = var.project_id
+  zone                      = var.zone
   can_ip_forward            = false
   allow_stopping_for_update = true
 
@@ -93,51 +91,51 @@ resource "google_compute_instance" "default" {
     initialize_params {
       type  = "pd-standard"
       image = "projects/cos-cloud/global/images/family/cos-stable"
-      size  = "${var.boot_disk_size}"
+      size  = var.boot_disk_size
     }
   }
 
   network_interface {
-    subnetwork    = "${var.subnetwork}"
-    network_ip    = "${google_compute_address.addresses.*.address[count.index]}"
+    subnetwork    = var.subnetwork
+    network_ip    = google_compute_address.addresses.*.address[count.index]
     access_config = {}
   }
 
   attached_disk {
-    source      = "${google_compute_disk.disk-data.*.name[count.index]}"
+    source      = google_compute_disk.disk-data.*.name[count.index]
     device_name = "mysql-data"
   }
 
   service_account {
-    email = "${var.service_account}"
+    email = var.service_account
 
-    scopes = ["${compact(concat(
+    scopes = [compact(concat(
       var.scopes,
       list("${local.use_kms ? "https://www.googleapis.com/auth/cloudkms" : ""}")
-    ))}"]
+    ))]
   }
 
   metadata {
-    user-data                 = "${element(data.template_file.cloud-config.*.rendered, count.index)}"
-    google-logging-enabled    = "${var.stackdriver_logging}"
-    google-monitoring-enabled = "${var.stackdriver_monitoring}"
+    user-data                 = element(data.template_file.cloud-config.*.rendered, count.index)
+    google-logging-enabled    = var.stackdriver_logging
+    google-monitoring-enabled = var.stackdriver_monitoring
   }
 }
 
 # TODO(ludomagno): split in service and client rules
 resource "google_compute_firewall" "allow-tag-mysql" {
-  count       = "${var.create_firewall_rule ? 1 : 0}"
+  count       = var.create_firewall_rule ? 1 : 0
   name        = "${local.prefix}ingress-tag-mysql"
   description = "Allow ingress to MySQL ports to machines with the 'mysql' tag"
 
-  network = "${var.network}"
-  project = "${local.net_project_id}"
+  network = var.network
+  project = local.net_project_id
 
-  source_ranges = ["${var.client_cidrs}"]
+  source_ranges = [var.client_cidrs]
   target_tags   = ["mysql"]
 
   allow {
     protocol = "tcp"
-    ports    = ["${var.mysql_port}"]
+    ports    = [var.mysql_port]
   }
 }
