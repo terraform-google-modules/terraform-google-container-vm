@@ -48,7 +48,7 @@ Extending the adopted spec, each change should have a link to its corresponding 
 [0.2.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.0...v0.1.1
 
-[#26]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/27
+[#27]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/27
 [#21]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/21
 [#20]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/20
 [#19]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/19
