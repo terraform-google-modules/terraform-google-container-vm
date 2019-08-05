@@ -6,7 +6,7 @@ This module itself does not launch an instance or managed instance group. It sim
 
 ## Compatibility
 
- This module is meant for use with Terraform 0.12. If you need a Terraform 0.11.x-compatible version of this module, the last released version intended for Terraform 0.11.x is [0.3.0].
+This module is meant for use with Terraform 0.12. If you need a Terraform 0.11.x-compatible version of this module, the last released version intended for Terraform 0.11.x is [0.3.0].
 
 ## Usage
 
