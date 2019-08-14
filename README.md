@@ -23,6 +23,9 @@ module "gce-container" {
         value = "Hello World!"
       }
     ],
+    
+    # Declare volumes to be mounted.
+    # This is similar to how docker volumes are declared.
     volumeMounts = [
       {
         mountPath = "/cache"
@@ -37,6 +40,7 @@ module "gce-container" {
     ]
   }
 
+  # Declare the Volumes which will be used for mounting.
   volumes = [
     {
       name = "tempfs-0"
