@@ -79,16 +79,11 @@ runcmd:
 - systemctl enable gcs-sync.timer && systemctl start gcs-sync.timer
 ```
 
-[^]: (autogen_docs_start)
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| project\_id | Project id where the instances will be created. | string | n/a | yes |
-| region | Region for external addresses. | string | n/a | yes |
-| subnetwork | Self link of the VPC subnet to use for the internal interface. | string | n/a | yes |
-| zone | Instance zone. | string | n/a | yes |
 | allow\_stopping\_for\_update | Allow stopping the instance for specific Terraform changes. | string | `"false"` | no |
 | boot\_disk\_size | Size of the boot disk. | string | `"10"` | no |
 | cloud\_init | Path to a file that will be used for the cloud-config template. | string | `""` | no |
@@ -97,12 +92,16 @@ runcmd:
 | instance\_type | Instance machine type. | string | `"g1-small"` | no |
 | labels | Labels to be attached to the resources | map | `<map>` | no |
 | prefix | Prefix to prepend to resource names. | string | `""` | no |
+| project\_id | Project id where the instances will be created. | string | n/a | yes |
+| region | Region for external addresses. | string | n/a | yes |
 | reserve\_ip | Reserve an IP address for the instance instead of using an ephemeral address. | string | `"false"` | no |
 | scopes | Instance scopes. | list | `<list>` | no |
 | service\_account | Instance service account. | string | `""` | no |
 | stackdriver\_logging | Enable the Stackdriver logging agent. | string | `"true"` | no |
 | stackdriver\_monitoring | Enable the Stackdriver monitoring agent. | string | `"true"` | no |
+| subnetwork | Self link of the VPC subnet to use for the internal interface. | string | n/a | yes |
 | vm\_tags | Additional network tags for the instances. | list | `<list>` | no |
+| zone | Instance zone. | string | n/a | yes |
 
 ## Outputs
 
@@ -112,4 +111,4 @@ runcmd:
 | internal\_addresses | List of instance internal addresses. |
 | names | List of instance names. |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

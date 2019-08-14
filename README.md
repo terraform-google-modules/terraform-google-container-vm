@@ -65,31 +65,29 @@ Then perform the following commands on the root folder:
 - `terraform plan` to see the infrastructure plan
 - `terraform apply` to apply the infrastructure build
 - `terraform destroy` to destroy the built infrastructure
-[^]: (autogen_docs_start)
-
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| container | A description of the container to deploy | map | `<map>` | no |
-| restart_policy | The restart policy for a Docker container. Defaults to `OnFailure` | string | `OnFailure` | no |
-| volumes | A set of Docker Volumes to configure | list | `<list>` | no |
+| container | A description of the container to deploy | any | `<map>` | no |
+| restart\_policy | The restart policy for a Docker container. Defaults to `OnFailure` | string | `"OnFailure"` | no |
+| volumes | A set of Docker Volumes to configure | any | `<list>` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | container | The container definition provided |
-| metadata_key | The key to assign `metadata_value` to, so container information is attached to the instance |
-| metadata_value | The generated container configuration |
-| restart_policy | The restart policy provided |
-| source_image | The COS image to use for the GCE instance |
-| vm_container_label | The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key |
-| vm_container_label_key | The label key for the COS version deployed to the instance |
+| metadata\_key | The key to assign `metadata_value` to, so container information is attached to the instance |
+| metadata\_value | The generated container configuration |
+| restart\_policy | The restart policy provided |
+| source\_image | The COS image to use for the GCE instance |
+| vm\_container\_label | The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key |
+| vm\_container\_label\_key | The label key for the COS version deployed to the instance |
 | volumes | The volume definition provided |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Requirements
 ### Terraform plugins
@@ -163,7 +161,7 @@ The tests will do the following:
 - Perform `kitchen destroy` command
   - Performs a `terraform destroy -force`
 
-Before running integration tests, you need to configure `terraform.tfvars` for your particular environment by running `cp test/fixtures/shared/terraform.tfvars.sample test/fixtures/shared/terraform.tfvars` and editing `test/fixtures/shared/terraform.tfvars` to reflect your testing environment.
+Before running integration tests, you need to configure `terraform.tfvars` for your particular environment editing `test/fixtures/shared/terraform.tfvars` to reflect your testing environment.
 
 You can then use the following command to run the integration test in the root folder
 
