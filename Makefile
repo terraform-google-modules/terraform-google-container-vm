@@ -22,7 +22,7 @@ DOCKER_TAG_BASE_KITCHEN_TERRAFORM ?= 2.3.0
 DOCKER_REPO_BASE_KITCHEN_TERRAFORM := ${DOCKER_ORG}/cft/kitchen-terraform:${DOCKER_TAG_BASE_KITCHEN_TERRAFORM}
 
 # All is the first target in the file so it will get picked up when you just run 'make' on its own
-all: check_shell check_python check_golang check_terraform check_docker check_base_files test_check_headers check_headers check_trailing_whitespace generate_docs
+all: check_shell check_python check_golang check_terraform check_base_files test_check_headers check_headers check_trailing_whitespace generate_docs
 
 # The .PHONY directive tells make that this isn't a real target and so
 # the presence of a file named 'check_shell' won't cause this target to stop
@@ -43,10 +43,6 @@ check_golang:
 check_terraform:
 	@source test/make.sh && check_terraform
 
-.PHONY: check_docker
-check_docker:
-	@source test/make.sh && docker
-
 .PHONY: check_base_files
 check_base_files:
 	@source test/make.sh && basefiles
@@ -65,9 +61,8 @@ test_check_headers:
 	@python test/test_verify_boilerplate.py
 
 .PHONY: check_headers
-check_headers:
-	@echo "Checking file headers"
-	@python test/verify_boilerplate.py
+check_headers: ## Check that source files have appropriate boilerplate
+	@source test/make.sh && check_headers
 
 # Integration tests
 .PHONY: test_integration

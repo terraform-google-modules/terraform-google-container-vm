@@ -34,7 +34,7 @@ data "template_file" "cloud-config" {
   count    = var.instance_count
   template = file("${path.module}/assets/cloud-config.yaml")
 
-  vars {
+  vars = {
     corefile = file(
       var.corefile != "" ? var.corefile : "${path.module}/assets/Corefile"
     )
@@ -42,7 +42,7 @@ data "template_file" "cloud-config" {
     image       = var.container_image
     instance_id = count.index + 1
     log_driver  = var.log_driver
-    ip_address  = element(google_compute_address.addresses.*.address, count.index)
+    ip_address  = google_compute_address.addresses.*.address[count.index]
   }
 }
 
@@ -50,7 +50,7 @@ resource "google_compute_instance" "default" {
   count          = var.instance_count
   name           = "${local.prefix}coredns-${count.index + 1}"
   description    = "coreDNS with containers on CoS."
-  tags           = [concat(list(var.network_tag), var.vm_tags)]
+  tags           = concat(list(var.network_tag), var.vm_tags)
   labels         = var.labels
   machine_type   = var.instance_type
   project        = var.project_id
@@ -71,20 +71,20 @@ resource "google_compute_instance" "default" {
   }
 
   network_interface {
-    subnetwork    = var.subnetwork
-    network_ip    = element(google_compute_address.addresses.*.address, count.index)
-    access_config = {}
+    subnetwork = var.subnetwork
+    network_ip = google_compute_address.addresses.*.address[count.index]
+    access_config {}
   }
 
   service_account {
     email  = var.service_account
-    scopes = [var.scopes]
+    scopes = var.scopes
   }
 
-  metadata {
+  metadata = {
     google-logging-enabled    = var.stackdriver_logging
     google-monitoring-enabled = var.stackdriver_monitoring
-    user-data                 = element(data.template_file.cloud-config.*.rendered, count.index)
+    user-data                 = data.template_file.cloud-config.*.rendered[count.index]
   }
 }
 
@@ -97,7 +97,7 @@ resource "google_compute_firewall" "allow-tag-coredns" {
   network = var.network
   project = var.project_id
 
-  source_ranges = [var.client_cidrs]
+  source_ranges = var.client_cidrs
   target_tags   = ["coredns"]
 
   allow {

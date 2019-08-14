@@ -40,7 +40,10 @@ find_files() {
     -o -path '*/.terraform' \
     -o -path '*/.kitchen' \
     ')' \
-    -prune -o -type f "$@"
+    -prune -o -type f \
+    -not -path '*managed[_-]instance[_-]group*' "$@"
+    # `-not -path` above is a temporary workaround for issue
+    #       https://github.com/terraform-google-modules/terraform-google-container-vm/issues/28
 }
 
 # Compatibility with both GNU and BSD style xargs.
@@ -69,14 +72,6 @@ function basefiles() {
   for fn in ${required_files}; do
     test -f "${fn}" || echo "Missing required file ${fn}"
   done
-}
-
-# This function runs the hadolint linter on
-# every file named 'Dockerfile'
-function docker() {
-  echo "Running hadolint on Dockerfiles"
-  find_files . -name "Dockerfile" -print0 \
-    | compat_xargs -0 hadolint
 }
 
 # This function runs 'terraform validate' and 'terraform fmt'

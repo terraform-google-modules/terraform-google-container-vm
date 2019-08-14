@@ -18,6 +18,10 @@ provider "google" {
   region = var.region
 }
 
+locals {
+  instance_name = format("%s-%s", var.instance_name, substr(md5(module.gce-container.container.image), 0, 8))
+}
+
 data "google_compute_zones" "available" {
   project = var.project_id
   region  = var.region
@@ -65,7 +69,7 @@ module "gce-container" {
 
 resource "google_compute_instance" "vm" {
   project      = var.project_id
-  name         = var.instance_name
+  name         = local.instance_name
   machine_type = "n1-standard-1"
   zone         = random_shuffle.zone.result[0]
 

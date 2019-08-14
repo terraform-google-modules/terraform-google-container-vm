@@ -18,6 +18,10 @@ provider "google" {
   region = var.region
 }
 
+locals {
+  instance_name = format("%s-%s", var.instance_name, substr(md5(module.gce-container.container.image), 0, 8))
+}
+
 module "gce-container" {
   source = "../../"
 
@@ -71,7 +75,7 @@ module "gce-container" {
 
 resource "google_compute_disk" "pd" {
   project = var.project_id
-  name    = "${var.instance_name}-data-disk"
+  name    = "${local.instance_name}-data-disk"
   type    = "pd-ssd"
   zone    = var.zone
   size    = 10
@@ -79,7 +83,7 @@ resource "google_compute_disk" "pd" {
 
 resource "google_compute_instance" "vm" {
   project      = var.project_id
-  name         = var.instance_name
+  name         = local.instance_name
   machine_type = var.machine_type
   zone         = var.zone
 
@@ -117,7 +121,7 @@ resource "google_compute_instance" "vm" {
 }
 
 resource "google_compute_firewall" "http-access" {
-  name    = "${var.instance_name}-http"
+  name    = "${local.instance_name}-http"
   project = var.project_id
   network = var.subnetwork
 
