@@ -28,33 +28,32 @@ module "dns-service" {
 }
 ```
 
-[^]: (autogen_docs_start)
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| network | Self link of the VPC subnet to use for firewall rules. | string | n/a | yes |
-| project\_id | Project id where the instances will be created. | string | n/a | yes |
-| region | Region for external addresses. | string | n/a | yes |
-| subnetwork | Self link of the VPC subnet to use for the internal interface. | string | n/a | yes |
-| zone | Instance zone. | string | n/a | yes |
-| boot\_disk\_size | Size of the boot disk. | string | `"10"` | no |
-| client\_cidrs | Client IP CIDR ranges to set in the firewall rule. | list | `<list>` | no |
+| boot\_disk\_size | Size of the boot disk. | number | `"10"` | no |
+| client\_cidrs | Client IP CIDR ranges to set in the firewall rule. | list(string) | `<list>` | no |
 | container\_image | CoreDNS container version. | string | `"coredns/coredns"` | no |
 | corefile | Path to the CoreDNS configuration file to use. | string | `""` | no |
-| create\_firewall\_rule | Create tag-based firewall rule. | string | `"false"` | no |
-| instance\_count | Number of instances to create. | string | `"1"` | no |
+| create\_firewall\_rule | Create tag-based firewall rule. | bool | `"false"` | no |
+| instance\_count | Number of instances to create. | number | `"1"` | no |
 | instance\_type | Instance machine type. | string | `"g1-small"` | no |
-| labels | Labels to be attached to the resources | map | `<map>` | no |
+| labels | Labels to be attached to the resources | map(string) | `<map>` | no |
 | log\_driver | Docker log driver to use for CoreDNS. | string | `"gcplogs"` | no |
+| network | Self link of the VPC subnet to use for firewall rules. | string | n/a | yes |
 | network\_tag | Network tag that identifies the instances. | string | `"coredns"` | no |
 | prefix | Prefix to prepend to resource names. | string | `""` | no |
-| scopes | Instance scopes. | list | `<list>` | no |
+| project\_id | Project id where the instances will be created. | string | n/a | yes |
+| region | Region for external addresses. | string | n/a | yes |
+| scopes | Instance scopes. | list(string) | `<list>` | no |
 | service\_account | Instance service account. | string | `""` | no |
-| stackdriver\_logging | Enable the Stackdriver logging agent. | string | `"true"` | no |
+| stackdriver\_logging | Enable the Stackdriver logging agent. | bool | `"true"` | no |
 | stackdriver\_monitoring | Enable the Stackdriver monitoring agent. | string | `"true"` | no |
-| vm\_tags | Additional network tags for the instances. | list | `<list>` | no |
+| subnetwork | Self link of the VPC subnet to use for the internal interface. | string | n/a | yes |
+| vm\_tags | Additional network tags for the instances. | list(string) | `<list>` | no |
+| zone | Instance zone. | string | n/a | yes |
 
 ## Outputs
 
@@ -64,4 +63,4 @@ module "dns-service" {
 | internal\_addresses | List of instance internal addresses. |
 | names | List of instance names. |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

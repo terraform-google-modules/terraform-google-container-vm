@@ -65,31 +65,29 @@ Then perform the following commands on the root folder:
 - `terraform plan` to see the infrastructure plan
 - `terraform apply` to apply the infrastructure build
 - `terraform destroy` to destroy the built infrastructure
-[^]: (autogen_docs_start)
-
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| container | A description of the container to deploy | map | `<map>` | no |
-| restart_policy | The restart policy for a Docker container. Defaults to `OnFailure` | string | `OnFailure` | no |
-| volumes | A set of Docker Volumes to configure | list | `<list>` | no |
+| container | A description of the container to deploy | any | `<map>` | no |
+| restart\_policy | The restart policy for a Docker container. Defaults to `OnFailure` | string | `"OnFailure"` | no |
+| volumes | A set of Docker Volumes to configure | any | `<list>` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
 | container | The container definition provided |
-| metadata_key | The key to assign `metadata_value` to, so container information is attached to the instance |
-| metadata_value | The generated container configuration |
-| restart_policy | The restart policy provided |
-| source_image | The COS image to use for the GCE instance |
-| vm_container_label | The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key |
-| vm_container_label_key | The label key for the COS version deployed to the instance |
+| metadata\_key | The key to assign `metadata_value` to, so container information is attached to the instance |
+| metadata\_value | The generated container configuration |
+| restart\_policy | The restart policy provided |
+| source\_image | The COS image to use for the GCE instance |
+| vm\_container\_label | The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key |
+| vm\_container\_label\_key | The label key for the COS version deployed to the instance |
 | volumes | The volume definition provided |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
 ## Requirements
 ### Terraform plugins
@@ -122,7 +120,6 @@ Be sure you have the correct Terraform version (0.10.x), you can choose the bina
 The project has the following folders and files:
 
 - /: root folder
-- /build: Dockerfiles and other build manifests
 - /examples: Examples for using this module
 - /helpers: Scripts that the module invokes
 - /test: Folders with files for testing the module (see Testing section of this file)
@@ -163,7 +160,7 @@ The tests will do the following:
 - Perform `kitchen destroy` command
   - Performs a `terraform destroy -force`
 
-Before running integration tests, you need to configure `terraform.tfvars` for your particular environment by running `cp test/fixtures/shared/terraform.tfvars.sample test/fixtures/shared/terraform.tfvars` and editing `test/fixtures/shared/terraform.tfvars` to reflect your testing environment.
+Before running integration tests, you need to configure `terraform.tfvars` for your particular environment editing `test/fixtures/shared/terraform.tfvars` to reflect your testing environment.
 
 You can then use the following command to run the integration test in the root folder
 
@@ -171,7 +168,7 @@ You can then use the following command to run the integration test in the root f
 
 ### Linting
 The makefile in this project will lint or sometimes just format any shell,
-Python, golang, Terraform, or Dockerfiles. The linters will only be run if
+Python, golang, Terraform. The linters will only be run if
 the makefile finds files with the appropriate file extension.
 
 All of the linter checks are in the default make target, so you just have to
@@ -181,32 +178,272 @@ run
 make -s
 ```
 
-The -s is for 'silent'. Successful output looks like this
+The -s is for 'silent'. Successful output looks like below and exists with 0 exit code.
 
 ```
+[user@host:~/workspace/google/terraform-google-container-vm]$ make -s
 Running shellcheck
 Running flake8
 Running go fmt and go vet
-Running terraform validate
 Running terraform fmt
-Running hadolint on Dockerfiles
-Checking for required files
+terraform fmt -diff -check=true -write=false .
+terraform fmt -diff -check=true -write=false ./examples/instance_with_attached_disk
+terraform fmt -diff -check=true -write=false ./examples/simple_instance
+terraform fmt -diff -check=true -write=false ./modules/cos-coredns
+terraform fmt -diff -check=true -write=false ./modules/cos-generic
+terraform fmt -diff -check=true -write=false ./modules/cos-mysql
+terraform fmt -diff -check=true -write=false ./test/fixtures/instance_with_attached_disk
+terraform fmt -diff -check=true -write=false ./test/fixtures/shared
+terraform fmt -diff -check=true -write=false ./test/fixtures/simple_instance
+Running terraform validate
+helpers/terraform_validate .
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.external: version = "~> 1.2"
+* provider.google: version = "~> 2.12"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+Success! The configuration is valid.
+
+helpers/terraform_validate ./examples/instance_with_attached_disk
+Initializing modules...
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.external: version = "~> 1.2"
+* provider.google: version = "~> 2.12"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+Success! The configuration is valid.
+
+helpers/terraform_validate ./examples/simple_instance
+Initializing modules...
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.external: version = "~> 1.2"
+* provider.google: version = "~> 2.12"
+* provider.random: version = "~> 2.2"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+Success! The configuration is valid.
+
+helpers/terraform_validate ./modules/cos-coredns
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.google: version = "~> 2.12"
+* provider.template: version = "~> 2.1"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+Success! The configuration is valid.
+
+helpers/terraform_validate ./modules/cos-generic
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.google: version = "~> 2.12"
+* provider.template: version = "~> 2.1"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+Success! The configuration is valid.
+
+helpers/terraform_validate ./modules/cos-mysql
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.google: version = "~> 2.12"
+* provider.random: version = "~> 2.2"
+* provider.template: version = "~> 2.1"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+Success! The configuration is valid.
+
+helpers/terraform_validate ./test/fixtures/instance_with_attached_disk
+Initializing modules...
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.external: version = "~> 1.2"
+* provider.google: version = "~> 2.12"
+* provider.local: version = "~> 1.3"
+* provider.random: version = "~> 2.2"
+* provider.tls: version = "~> 2.0"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+Success! The configuration is valid.
+
+helpers/terraform_validate ./test/fixtures/simple_instance
+Initializing modules...
+
+Initializing provider plugins...
+
+The following providers do not have any version constraints in configuration,
+so the latest version was installed.
+
+To prevent automatic upgrades to new major versions that may contain breaking
+changes, it is recommended to add version = "..." constraints to the
+corresponding provider blocks in configuration, with the constraint strings
+suggested below.
+
+* provider.external: version = "~> 1.2"
+* provider.google: version = "~> 2.12"
+* provider.random: version = "~> 2.2"
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+Success! The configuration is valid.
+
+Checking for required files LICENSE README.md
 Testing the validity of the header check
 ..
 ----------------------------------------------------------------------
-Ran 2 tests in 0.024s
+Ran 2 tests in 0.014s
 
 OK
 Checking file headers
-The following lines have trailing whitespace
+Checking for trailing whitespace
 Generating markdown docs with terraform-docs
+Skipping ./test/fixtures/instance_with_attached_disk because README.md does not exist.
+Skipping ./test/fixtures/shared because README.md does not exist.
+Skipping ./test/fixtures/simple_instance because README.md does not exist.
+[user@host:~/workspace/google/terraform-google-container-vm]$ echo $?
+0
 ```
 
 The linters are as follows:
 * Shell - shellcheck. Can be found in homebrew
 * Python - flake8. Can be installed with 'pip install flake8'
 * Golang - gofmt. gofmt comes with the standard golang installation. golang is a compiled language so there is no standard linter.
-* Terraform - terraform has a built-in linter in the 'terraform fmt' command.
-* Dockerfiles - hadolint. Can be found in homebrew
+* Terraform (built-in):
+  - `terraform fmt`
+  - `terraform validate`.
+* File headers
+* Trailing whitespaces
+
+## Known limitations
+Managed instance group [example](examples/managed_instance_group/main.tf) is not migrated to Terraform 0.12
+This is tracked as issue [`#28`](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/28)
+Linters and integrations tests skip this example and associated tests for now.
 
 [0.3.0]: https://registry.terraform.io/modules/terraform-google-modules/container-vm/google/0.3.0

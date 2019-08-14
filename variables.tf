@@ -18,7 +18,6 @@ variable "container" {
   // This is necessary to work around a limitation in Terraform 0.12. If this is set to `map`, as intended, Terraform expects all values within the map to have the same type, which is not the case here.
   type        = any
   description = "A description of the container to deploy"
-
   default = {
     image   = "gcr.io/google-containers/busybox"
     command = "ls"
@@ -29,12 +28,11 @@ variable "volumes" {
   // This is necessary to work around a limitation in Terraform 0.12. If this is set to `map`, as intended, Terraform expects all values within the map to have the same type, which is not the case here.
   type        = any
   description = "A set of Docker Volumes to configure"
-
-  default = []
+  default     = []
 }
 
 variable "restart_policy" {
   description = "The restart policy for a Docker container. Defaults to `OnFailure`"
-
-  default = "OnFailure"
+  type        = string
+  default     = "OnFailure"
 }
