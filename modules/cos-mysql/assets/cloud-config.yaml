@@ -49,6 +49,7 @@ write_files:
         --project ${project_id} --location ${location}
     fi
     cp /run/secrets/mysql-passwd-plain.txt /run/mysql/root-passwd.txt
+    chown 2000 /run/mysql/root-passwd.txt
 - path: /run/mysql/conf.d/my.cnf
   permissions: 0644
   owner: mysql
@@ -92,7 +93,8 @@ write_files:
       -e MYSQL_ROOT_PASSWORD_FILE=/etc/mysql/root-passwd.txt \
       -v /mnt/disks/mysql-data:/var/lib/mysql \
       -v /run/mysql/:/etc/mysql \
-      ${image}
+      ${image} \
+      --ignore-db-dir=lost+found
     ExecStop=/usr/bin/docker stop mysql
 runcmd:
 - iptables -I INPUT 1 -p tcp -m tcp --dport ${port} -m state --state NEW,ESTABLISHED -j ACCEPT
