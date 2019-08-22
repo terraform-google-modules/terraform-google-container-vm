@@ -51,7 +51,7 @@ output "http_port" {
 
 output "instance_name" {
   description = "The deployed instance name"
-  value       = var.instance_name
+  value       = local.instance_name
 }
 
 output "ipv4" {

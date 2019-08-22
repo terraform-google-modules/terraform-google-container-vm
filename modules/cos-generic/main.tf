@@ -33,13 +33,13 @@ resource "google_compute_address" "addresses" {
 
 data "template_file" "cloud-config" {
   count    = var.instance_count
-  template = file("${local.cloud_init}")
+  template = file(local.cloud_init)
 
-  vars {
+  vars = {
     custom_var    = var.cloud_init_custom_var
     instance_id   = count.index + 1
     instance_name = "${local.prefix}${count.index + 1}"
-    ip_address    = var.reserve_ip ? element(google_compute_address.addresses.*.address, count.index) : ""
+    ip_address    = var.reserve_ip ? google_compute_address.addresses.*.address[count.index] : ""
   }
 }
 
@@ -47,7 +47,7 @@ resource "google_compute_instance" "default" {
   count          = var.instance_count
   name           = "${local.prefix}${count.index + 1}"
   description    = "Terraform-managed."
-  tags           = [var.vm_tags]
+  tags           = var.vm_tags
   labels         = var.labels
   machine_type   = var.instance_type
   project        = var.project_id
@@ -68,20 +68,20 @@ resource "google_compute_instance" "default" {
   }
 
   network_interface {
-    subnetwork    = var.subnetwork
-    network_ip    = var.reserve_ip ? element(google_compute_address.addresses.*.address, count.index) : ""
-    access_config = {}
+    subnetwork = var.subnetwork
+    network_ip = var.reserve_ip ? google_compute_address.addresses.*.address[count.index] : ""
+    access_config {}
   }
 
   service_account {
     email  = var.service_account
-    scopes = [var.scopes]
+    scopes = var.scopes
   }
 
-  metadata {
+  metadata = {
     google-logging-enabled    = var.stackdriver_logging
     google-monitoring-enabled = var.stackdriver_monitoring
-    user-data                 = element(data.template_file.cloud-config.*.rendered, count.index)
+    user-data                 = data.template_file.cloud-config.*.rendered[count.index]
   }
 
   allow_stopping_for_update = var.allow_stopping_for_update

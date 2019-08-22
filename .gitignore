@@ -1,9 +1,9 @@
 .kitchen/
 credentials.json
-test/fixtures/**/.terraform
-test/fixtures/**/terraform.tfstate.d
-test/fixtures/**/ssh/key
+**/.terraform
+**/terraform.tfstate.d
+**/ssh/key
 *.pyc
-test/fixtures/shared/terraform.tfvars
 .idea
 .vscode
+

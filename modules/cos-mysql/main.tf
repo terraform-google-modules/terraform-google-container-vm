@@ -43,7 +43,7 @@ data "template_file" "cloud-config" {
   count    = var.instance_count
   template = file("${path.module}/assets/cloud-config.yaml")
 
-  vars {
+  vars = {
     image       = var.container_image
     instance_id = count.index + 1
     ip_address  = google_compute_address.addresses.*.address[count.index]
@@ -74,7 +74,7 @@ resource "google_compute_instance" "default" {
   count                     = var.instance_count
   name                      = "${local.prefix}mysql-${count.index + 1}"
   description               = "MySQL test with containers on CoS."
-  tags                      = [concat(list(var.network_tag), var.vm_tags)]
+  tags                      = concat(list(var.network_tag), var.vm_tags)
   labels                    = var.labels
   machine_type              = var.instance_type
   project                   = var.project_id
@@ -96,9 +96,9 @@ resource "google_compute_instance" "default" {
   }
 
   network_interface {
-    subnetwork    = var.subnetwork
-    network_ip    = google_compute_address.addresses.*.address[count.index]
-    access_config = {}
+    subnetwork = var.subnetwork
+    network_ip = google_compute_address.addresses.*.address[count.index]
+    access_config {}
   }
 
   attached_disk {
@@ -109,14 +109,14 @@ resource "google_compute_instance" "default" {
   service_account {
     email = var.service_account
 
-    scopes = [compact(concat(
+    scopes = compact(concat(
       var.scopes,
-      list("${local.use_kms ? "https://www.googleapis.com/auth/cloudkms" : ""}")
-    ))]
+      list(local.use_kms ? "https://www.googleapis.com/auth/cloudkms" : "")
+    ))
   }
 
-  metadata {
-    user-data                 = element(data.template_file.cloud-config.*.rendered, count.index)
+  metadata = {
+    user-data                 = data.template_file.cloud-config.*.rendered[count.index]
     google-logging-enabled    = var.stackdriver_logging
     google-monitoring-enabled = var.stackdriver_monitoring
   }
@@ -131,7 +131,7 @@ resource "google_compute_firewall" "allow-tag-mysql" {
   network = var.network
   project = local.net_project_id
 
-  source_ranges = [var.client_cidrs]
+  source_ranges = var.client_cidrs
   target_tags   = ["mysql"]
 
   allow {

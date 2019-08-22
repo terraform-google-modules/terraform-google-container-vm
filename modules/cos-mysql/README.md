@@ -42,38 +42,38 @@ module "mysql" {
 }
 ```
 
-[^]: (autogen_docs_start)
-
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| data\_disk\_size | Size of data disk. | string | n/a | yes |
-| network | Self link of the VPC subnet to use for firewall rules. | string | n/a | yes |
-| project\_id | Project id where the instances will be created. | string | n/a | yes |
-| region | Region for internal addresses. | string | n/a | yes |
-| subnetwork | Self link of the VPC subnet to use for the internal interface. | string | n/a | yes |
-| zone | Instance zone. | string | n/a | yes |
-| boot\_disk\_size | Size of boot disk. | string | `"40"` | no |
-| client\_cidrs | Client IP CIDR ranges to set in the firewall rule. | list | `<list>` | no |
+| boot\_disk\_size | Size of boot disk. | number | `"40"` | no |
+| client\_cidrs | Client IP CIDR ranges to set in the firewall rule. | list(string) | `<list>` | no |
 | container\_image | MySQL container version. | string | `"mysql:5.7"` | no |
-| create\_firewall\_rule | Create tag-based firewall rule. | string | `"false"` | no |
+| create\_firewall\_rule | Create tag-based firewall rule. | bool | `"false"` | no |
+| data\_disk\_size | Size of data disk. | number | n/a | yes |
 | data\_disk\_type | Type of data disk. | string | `"pd-ssd"` | no |
 | host\_project\_id | VPC host project id if the instance is in a service project. | string | `""` | no |
-| instance\_count | Number of instances to create. | string | `"1"` | no |
+| instance\_count | Number of instances to create. | number | `"1"` | no |
 | instance\_type | Instance machine type. | string | `"n1-standard-2"` | no |
-| kms\_data | Map with KMS project_id, keyring, location and key if password is encrypted with KMS. | map | `<map>` | no |
-| labels | Labels to be attached to the resources | map | `<map>` | no |
+| kms\_data | Map with KMS project_id, keyring, location and key if password is encrypted with KMS. | object | `"null"` | no |
+| labels | Labels to be attached to the resources | map(string) | `<map>` | no |
+| log\_driver | Docker log driver to use for CoreDNS. | string | `"gcplogs"` | no |
 | my\_cnf | Content of the my.cnf file that will be written on the instances. | string | `""` | no |
-| mysql\_port | Port MySQL will listen on. | string | `"3306"` | no |
+| mysql\_port | Port MySQL will listen on. | number | `"3306"` | no |
+| network | Self link of the VPC subnet to use for firewall rules. | string | n/a | yes |
 | network\_tag | Network tag that identifies the instances. | string | `"mysql"` | no |
 | password | Provide a plain text on KMS-encrypted password instead of using the auto-generated one. | string | `""` | no |
 | prefix | Prefix to prepend to resource names. | string | `""` | no |
-| scopes | Instance scopes. | list | `<list>` | no |
+| project\_id | Project id where the instances will be created. | string | n/a | yes |
+| region | Region for internal addresses. | string | n/a | yes |
+| scopes | Instance scopes. | list(string) | `<list>` | no |
 | service\_account | Instance service account. | string | `""` | no |
-| stackdriver\_logging | Enable the Stackdriver logging agent. | string | `"true"` | no |
-| stackdriver\_monitoring | Enable the Stackdriver monitoring agent. | string | `"true"` | no |
-| vm\_tags | Additional network tags for the instances. | list | `<list>` | no |
+| stackdriver\_logging | Enable the Stackdriver logging agent. | bool | `"true"` | no |
+| stackdriver\_monitoring | Enable the Stackdriver monitoring agent. | bool | `"true"` | no |
+| subnetwork | Self link of the VPC subnet to use for the internal interface. | string | n/a | yes |
+| vm\_tags | Additional network tags for the instances. | list(string) | `<list>` | no |
+| zone | Instance zone. | string | n/a | yes |
 
 ## Outputs
 
@@ -82,4 +82,4 @@ module "mysql" {
 | instances | Instance name => address map. |
 | password | Auto-generated password, if no password was set as a variable. |
 
-[^]: (autogen_docs_end)
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

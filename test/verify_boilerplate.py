@@ -63,7 +63,7 @@ def get_args():
     return parser.parse_args()
 
 
-def get_refs(ARGS):
+def get_refs(args):
     """Converts the directory of boilerplate files into a map keyed by file
     extension.
 
@@ -79,7 +79,7 @@ def get_refs(ARGS):
 
     # Find and iterate over the absolute path for each boilerplate template
     for path in glob.glob(os.path.join(
-            ARGS.boilerplate_dir,
+            args.boilerplate_dir,
             "boilerplate.*.txt")):
         extension = os.path.basename(path).split(".")[1]
         ref_file = open(path, 'r')
@@ -188,11 +188,11 @@ def normalize_files(files):
         newfiles.append(pathname)
     for idx, pathname in enumerate(newfiles):
         if not os.path.isabs(pathname):
-            newfiles[idx] = os.path.join(ARGS.rootdir, pathname)
+            newfiles[idx] = os.path.join(args.rootdir, pathname)
     return newfiles
 
 
-def get_files(extensions, ARGS):
+def get_files(extensions, args):
     """Generates a list of paths whose boilerplate should be verified.
 
     If a list of file names has been provided on the command line, it will be
@@ -211,10 +211,10 @@ def get_files(extensions, ARGS):
         A list of absolute file paths
     """
     files = []
-    if ARGS.filenames:
-        files = ARGS.filenames
+    if args.filenames:
+        files = args.filenames
     else:
-        for root, dirs, walkfiles in os.walk(ARGS.rootdir):
+        for root, dirs, walkfiles in os.walk(args.rootdir):
             # don't visit certain dirs. This is just a performance improvement
             # as we would prune these later in normalize_files(). But doing it
             # cuts down the amount of filesystem walking we do and cuts down
@@ -289,5 +289,5 @@ def main(args):
 
 
 if __name__ == "__main__":
-    ARGS = get_args()
-    main(ARGS)
+    args = get_args()
+    main(args)
