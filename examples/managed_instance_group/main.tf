@@ -19,10 +19,19 @@ locals {
     "130.211.0.0/22",
     "35.191.0.0/16",
   ]
+  target_tags                    = [
+    "container-vm-test-mig"
+  ]
 }
 
 provider "google" {
-  region = var.region
+  project = var.project_id
+  version = "~> 2.7.0"
+}
+
+provider "google-beta" {
+  project = var.project_id
+  version = "~> 2.7.0"
 }
 
 module "gce-container" {
@@ -33,43 +42,79 @@ module "gce-container" {
   }
 }
 
-module "mig" {
-  source             = "GoogleCloudPlatform/managed-instance-group/google"
-  version            = "1.1.14"
-  project            = var.project_id
-  region             = var.region
-  zone               = var.zone
-  name               = var.mig_name
-  machine_type       = var.machine_type
-  compute_image      = module.gce-container.source_image
-  size               = var.mig_instance_count
-  service_port       = var.image_port
-  service_port_name  = "http"
-  http_health_check  = "true"
-  subnetwork         = var.subnetwork
-  subnetwork_project = var.subnetwork_project
-  ssh_source_ranges  = ["0.0.0.0/0"]
-  target_tags        = ["container-vm-test-mig"]
+resource "google_compute_network" "default" {
+  name                    = var.network
+  auto_create_subnetworks = "false"
+}
 
-  metadata = merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))
+resource "google_compute_subnetwork" "default" {
+  name                     = var.network
+  ip_cidr_range            = "10.125.0.0/20"
+  network                  = google_compute_network.default.self_link
+  region                   = var.region
+  private_ip_google_access = true
+}
 
-  instance_labels = {
+# Router and Cloud NAT are required for installing packages from repos (apache, php etc)
+resource "google_compute_router" "default" {
+  name    = "${var.network}-gw-group1"
+  network = google_compute_network.default.self_link
+  region  = var.region
+}
+
+module "cloud-nat" {
+  source     = "terraform-google-modules/cloud-nat/google"
+  version    = "~> 1.0.0"
+  router     = google_compute_router.default.name
+  project_id = var.project_id
+  region     = var.region
+  name       = "${var.network}-cloud-nat-group1"
+}
+
+module "mig_template" {
+  source               = "terraform-google-modules/vm/google//modules/instance_template"
+  version              = "~> 1.0.0"
+  network              = google_compute_network.default.self_link
+  subnetwork           = google_compute_subnetwork.default.self_link
+  service_account      = var.service_account
+  name_prefix          = var.network
+  source_image_family  = "cos-stable"
+  source_image_project = "cos-cloud"
+  source_image         = reverse(split("/", module.gce-container.source_image))[0]
+  metadata             = merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))
+  tags                 = [
+    "container-vm-test-mig"
+  ]
+  labels               = {
     "container-vm" = module.gce-container.vm_container_label
   }
+}
 
-  service_account_scopes = [
-    "https://www.googleapis.com/auth/cloud-platform",
+module "mig" {
+  source            = "terraform-google-modules/vm/google//modules/mig"
+  version           = "~> 1.0.0"
+  instance_template = module.mig_template.self_link
+  region            = var.region
+  hostname          = var.network
+  target_size       = var.mig_instance_count
+  named_ports       = [
+    {
+      name = "http",
+      port = var.image_port
+    }
   ]
-
-  wait_for_instances = true
+  network           = google_compute_network.default.self_link
+  subnetwork        = var.subnetwork
 }
 
 module "http-lb" {
-  source            = "github.com/GoogleCloudPlatform/terraform-google-lb-http"
+  source            = "../../../terraform-google-lb-http/"
   project           = var.project_id
   name              = "${var.mig_name}-lb"
-  firewall_networks = []
-  target_tags       = [module.mig.target_tags]
+  firewall_networks = [
+    google_compute_network.default.self_link
+  ]
+  target_tags       = local.target_tags
 
   backends = {
     "0" = [
@@ -91,9 +136,11 @@ resource "google_compute_firewall" "lb-to-instances" {
 
   allow {
     protocol = "tcp"
-    ports    = [var.image_port]
+    ports    = [
+      var.image_port
+    ]
   }
 
-  source_ranges = [local.google_load_balancer_ip_ranges]
-  target_tags   = [module.mig.target_tags]
+  source_ranges = local.google_load_balancer_ip_ranges
+  target_tags   = local.target_tags
 }
