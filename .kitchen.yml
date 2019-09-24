@@ -62,6 +62,7 @@ suites:
         key_files:
           - ./test/fixtures/instance_with_attached_disk/ssh/key
         user: user
+        verify_host_key: false
   - name: "managed_instance_group"
     excludes:
       - local

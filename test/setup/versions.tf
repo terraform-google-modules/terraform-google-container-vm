@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,14 @@
  * limitations under the License.
  */
 
-locals {
-  example_name = "simple"
+terraform {
+  required_version = ">= 0.12"
 }
 
-module "example" {
-  source = "../../../examples/simple_instance"
+provider "google" {
+  version = "~> 2.13.0"
+}
 
-  project_id         = var.project_id
-  subnetwork_project = var.project_id
-  subnetwork         = google_compute_subnetwork.main.name
-  instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
-  region             = var.region
-  zone               = var.zone
-  client_email       = var.client_email
+provider "google-beta" {
+  version = "~> 2.13.0"
 }

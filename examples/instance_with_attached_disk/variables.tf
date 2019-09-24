@@ -60,3 +60,8 @@ variable "additional_metadata" {
   description = "Additional metadata to attach to the instance"
   default     = {}
 }
+
+variable "client_email" {
+  type    = string
+  default = ""
+}

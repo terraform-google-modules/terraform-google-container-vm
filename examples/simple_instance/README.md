@@ -7,6 +7,7 @@ This example illustrates how to deploy a container to a Google Compute Engine in
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| client\_email |  | string | `""` | no |
 | instance\_name | The desired name to assign to the deployed instance | string | `"hello-world-container-vm"` | no |
 | project\_id | The project ID to deploy resources into | string | n/a | yes |
 | region | The GCP region to deploy instances into | string | n/a | yes |

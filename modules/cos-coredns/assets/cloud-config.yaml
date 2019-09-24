@@ -1,5 +1,3 @@
-#cloud-config
-
 # Copyright 2019 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,6 +14,7 @@
 
 # https://hub.docker.com/r/coredns/coredns/
 # https://coredns.io/manual/toc/#installation
+#cloud-config
 
 # TODO: switch to the gcplogs logging driver, and set driver labels
 

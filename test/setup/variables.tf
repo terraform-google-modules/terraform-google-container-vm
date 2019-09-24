@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,19 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-locals {
-  example_name = "simple"
+variable "org_id" {
+  description = "The numeric organization id"
 }
 
-module "example" {
-  source = "../../../examples/simple_instance"
+variable "folder_id" {
+  description = "The folder to deploy in"
+}
 
-  project_id         = var.project_id
-  subnetwork_project = var.project_id
-  subnetwork         = google_compute_subnetwork.main.name
-  instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
-  region             = var.region
-  zone               = var.zone
-  client_email       = var.client_email
+variable "billing_account" {
+  description = "The billing account id associated with the project, e.g. XXXXXX-YYYYYY-ZZZZZZ"
 }

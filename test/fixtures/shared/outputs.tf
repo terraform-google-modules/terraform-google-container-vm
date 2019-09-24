@@ -21,7 +21,7 @@ output "project_id" {
 
 output "zone" {
   description = "The GCP zone that resources were deployed into"
-  value       = module.example.zone
+  value       = var.zone
 }
 
 output "network" {
