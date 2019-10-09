@@ -8,6 +8,12 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+## [1.0.2] - 2019-10-09
+
+### Fixed
+
+- MySQL password file permissions and datadir mount. [#39]
+
 ## [1.0.1] - 2019-08-22
 
 ### Fixed
