@@ -19,11 +19,6 @@ output "project_id" {
   value       = var.project_id
 }
 
-output "zone" {
-  description = "The zone the GCE instance was deployed into"
-  value       = var.zone
-}
-
 output "vm_container_label" {
   description = "The instance label containing container configuration"
   value       = module.gce-container.vm_container_label

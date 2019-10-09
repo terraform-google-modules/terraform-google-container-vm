@@ -16,52 +16,63 @@
 
 variable "project_id" {
   description = "The project ID to deploy resource into"
-}
-
-variable "subnetwork_project" {
-  description = "The project ID where the desired subnetwork is provisioned"
+  type        = string
 }
 
 variable "subnetwork" {
   description = "The name of the subnetwork to deploy instances into"
+  type        = string
+  default     = "mig-subnet"
 }
 
 variable "mig_name" {
   description = "The desired name to assign to the deployed managed instance group"
+  type        = string
   default     = "mig-test"
 }
 
 variable "mig_instance_count" {
   description = "The number of instances to place in the managed instance group"
+  type        = string
   default     = "2"
 }
 
 variable "image" {
   description = "The Docker image to deploy to GCE instances"
+  type        = string
+  default     = "gcr.io/google-samples/hello-app:1.0"
 }
 
 variable "image_port" {
   description = "The port the image exposes for HTTP requests"
-}
-
-variable "restart_policy" {
-  description = "The desired Docker restart policy for the deployed image"
-}
-
-variable "machine_type" {
-  description = "The GCP machine type to deploy"
+  type        = number
+  default     = 8080
 }
 
 variable "region" {
   description = "The GCP region to deploy instances into"
+  type        = string
 }
 
-variable "zone" {
-  description = "The GCP zone to deploy instances into"
+variable "network" {
+  description = "The GCP network"
+  type        = string
+  default     = "mig-net"
 }
 
 variable "additional_metadata" {
-  type        = "map"
+  type        = map
   description = "Additional metadata to attach to the instance"
   default     = {}
+}
+
+variable "service_account" {
+  type    = object({
+    email  = string,
+    scopes = list(string)
+  })
+  default = {
+    email  = ""
+    scopes = ["cloud-platform"]
+  }
 }
