@@ -55,6 +55,7 @@ Extending the adopted spec, each change should have a link to its corresponding 
 - This is the initial release of the Container VM module.
 
 [Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.1...HEAD
+[1.0.2]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.3.0...v1.0.0
 [0.3.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.2.0...v0.3.0
