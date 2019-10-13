@@ -109,7 +109,7 @@ variable "my_cnf" {
 
 variable "kms_data" {
   description = "Map with KMS project_id, keyring, location and key if password is encrypted with KMS."
-  type        = object({ key = string, keyring = string, location = string })
+  type        = map(string)
   default     = null
 }
 

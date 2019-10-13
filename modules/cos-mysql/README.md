@@ -56,7 +56,7 @@ module "mysql" {
 | host\_project\_id | VPC host project id if the instance is in a service project. | string | `""` | no |
 | instance\_count | Number of instances to create. | number | `"1"` | no |
 | instance\_type | Instance machine type. | string | `"n1-standard-2"` | no |
-| kms\_data | Map with KMS project_id, keyring, location and key if password is encrypted with KMS. | object | `"null"` | no |
+| kms\_data | Map with KMS project_id, keyring, location and key if password is encrypted with KMS. | map(string) | `<map>` | no |
 | labels | Labels to be attached to the resources | map(string) | `<map>` | no |
 | log\_driver | Docker log driver to use for CoreDNS. | string | `"gcplogs"` | no |
 | my\_cnf | Content of the my.cnf file that will be written on the instances. | string | `""` | no |

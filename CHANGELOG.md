@@ -8,6 +8,12 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+## [1.0.3] - 2019-10-12
+
+### Fixed
+
+- Fix regression in cos-mysql `kms_data` variable introduced in [#31]. [#46]
+
 ## [1.0.2] - 2019-10-11
 
 ### Fixed
@@ -56,6 +62,7 @@ Extending the adopted spec, each change should have a link to its corresponding 
 - This is the initial release of the Container VM module.
 
 [Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.2...HEAD
+[1.0.3]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.3.0...v1.0.0
@@ -63,6 +70,7 @@ Extending the adopted spec, each change should have a link to its corresponding 
 [0.2.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.0...v0.1.1
 
+[#46]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/46
 [#41]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/41
 [#39]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/39
 [#31]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/31
