@@ -8,6 +8,10 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+### Fixed
+
+- Fix default value of `kms_data` in `cos-mysql` submodule
+
 ## [1.0.3] - 2019-10-12
 
 ### Fixed
