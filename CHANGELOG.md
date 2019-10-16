@@ -8,9 +8,11 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+## [1.0.4] - 2019-10-16
+
 ### Fixed
 
-- Fix default value of `kms_data` in `cos-mysql` submodule
+- Fix default value of `kms_data` in `cos-mysql` submodule. [#48]
 
 ## [1.0.3] - 2019-10-12
 
@@ -65,7 +67,8 @@ Extending the adopted spec, each change should have a link to its corresponding 
 ### ADDED
 - This is the initial release of the Container VM module.
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.2...HEAD
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.4...HEAD
+[1.0.4]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.0...v1.0.1
@@ -74,6 +77,7 @@ Extending the adopted spec, each change should have a link to its corresponding 
 [0.2.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.0...v0.1.1
 
+[#48]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/48
 [#46]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/46
 [#41]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/41
 [#39]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/39
