@@ -14,7 +14,6 @@
 
 # https://hub.docker.com/r/coredns/coredns/
 # https://coredns.io/manual/toc/#installation
-#cloud-config
 
 # TODO: switch to the gcplogs logging driver, and set driver labels
 

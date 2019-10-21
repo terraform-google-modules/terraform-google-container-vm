@@ -62,6 +62,7 @@ variable "additional_metadata" {
 }
 
 variable "client_email" {
-  type    = string
-  default = ""
+  description = "Service account email address"
+  type        = string
+  default     = ""
 }

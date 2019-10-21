@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require "docker"
-
 container_definition = attribute('container')
 volume_definitions = attribute('volumes')
 

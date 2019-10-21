@@ -25,16 +25,6 @@ module "container_vm" {
   billing_account   = var.billing_account
 
   activate_apis = [
-    "cloudresourcemanager.googleapis.com",
-    "serviceusage.googleapis.com",
-    "bigquery-json.googleapis.com",
     "compute.googleapis.com",
-    "container.googleapis.com",
-    "containerregistry.googleapis.com",
-    "oslogin.googleapis.com",
-    "pubsub.googleapis.com",
-    "storage-api.googleapis.com",
-    "cloudbilling.googleapis.com",
-    "iam.googleapis.com",
   ]
 }

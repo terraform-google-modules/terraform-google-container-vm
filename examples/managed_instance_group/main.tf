@@ -96,7 +96,9 @@ module "mig" {
   subnetwork = var.subnetwork
 }
 module "http-lb" {
-  source  = "github.com/terraform-google-modules/terraform-google-lb-http"
+  source  = "GoogleCloudPlatform/lb-http/google"
+  version = "~> 1.0"
+
   project = var.project_id
   name    = "${var.mig_name}-lb"
   firewall_networks = [
