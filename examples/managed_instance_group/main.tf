@@ -97,7 +97,7 @@ module "mig" {
 }
 module "http-lb" {
   source  = "GoogleCloudPlatform/lb-http/google"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   project = var.project_id
   name    = "${var.mig_name}-lb"

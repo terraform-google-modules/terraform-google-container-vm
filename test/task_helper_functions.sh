@@ -1,4 +1,4 @@
-#cloud-config
+#!/usr/bin/env bash
 
 # Copyright 2019 Google LLC
 #
@@ -6,7 +6,7 @@
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#     https://www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,18 +14,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-write_files:
-- path: /var/lib/docker/daemon.json
-  permissions: 0644
-  owner: root
-  content: |
-    {
-      "live-restore": true,
-      "storage-driver": "overlay2",
-      "log-opts": {
-        "max-size": "1024m"
-      }
-    }
-runcmd:
-- iptables -I INPUT 1 -p tcp -m tcp --dport 22 -m state --state NEW,ESTABLISHED -j ACCEPT
-- systemctl daemon-reload
+function check_headers() {
+  echo "Checking file headers"
+  # Use the exclusion behavior of find_files
+  find_files . -path '*/cloud-config.yaml' -o \
+    -type f -print0 \
+    | compat_xargs -0 python /usr/local/verify_boilerplate/verify_boilerplate.py
+}
