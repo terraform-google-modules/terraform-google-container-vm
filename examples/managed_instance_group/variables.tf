@@ -67,7 +67,7 @@ variable "additional_metadata" {
 }
 
 variable "service_account" {
-  type    = object({
+  type = object({
     email  = string,
     scopes = list(string)
   })

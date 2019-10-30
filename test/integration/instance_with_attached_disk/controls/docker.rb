@@ -22,7 +22,7 @@ control "docker" do
     its('images') { should include "gcr.io/google-samples/hello-app:1.0" }
 
     let!(:running_containers) { docker.containers.ids.map { |id| docker.object(id) } }
-    let(:container) { running_containers.first { |d| d.Config.Image == "gcr.io/google-samples/hello-app:1.0" } }
+    let(:container) { running_containers.detect { |d| d.Config.Image == "gcr.io/google-samples/hello-app:1.0" } }
 
     it "should have our container" do
       expect(container).not_to be_nil

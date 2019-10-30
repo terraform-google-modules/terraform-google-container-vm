@@ -12,17 +12,15 @@ This example requires that some python libraries be installed, as outlined in `r
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | additional\_metadata | Additional metadata to attach to the instance | map | `<map>` | no |
-| image | The Docker image to deploy to GCE instances | string | n/a | yes |
-| image\_port | The port the image exposes for HTTP requests | string | n/a | yes |
-| machine\_type | The GCP machine type to deploy | string | n/a | yes |
+| image | The Docker image to deploy to GCE instances | string | `"gcr.io/google-samples/hello-app:1.0"` | no |
+| image\_port | The port the image exposes for HTTP requests | number | `"8080"` | no |
 | mig\_instance\_count | The number of instances to place in the managed instance group | string | `"2"` | no |
 | mig\_name | The desired name to assign to the deployed managed instance group | string | `"mig-test"` | no |
+| network | The GCP network | string | `"mig-net"` | no |
 | project\_id | The project ID to deploy resource into | string | n/a | yes |
 | region | The GCP region to deploy instances into | string | n/a | yes |
-| restart\_policy | The desired Docker restart policy for the deployed image | string | n/a | yes |
-| subnetwork | The name of the subnetwork to deploy instances into | string | n/a | yes |
-| subnetwork\_project | The project ID where the desired subnetwork is provisioned | string | n/a | yes |
-| zone | The GCP zone to deploy instances into | string | n/a | yes |
+| service\_account |  | object | `<map>` | no |
+| subnetwork | The name of the subnetwork to deploy instances into | string | `"mig-subnet"` | no |
 
 ## Outputs
 
@@ -34,7 +32,6 @@ This example requires that some python libraries be installed, as outlined in `r
 | project\_id | The project ID resources were deployed into |
 | vm\_container\_label | The instance label containing container configuration |
 | volumes | The volume metadata provided to the module |
-| zone | The zone the GCE instance was deployed into |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

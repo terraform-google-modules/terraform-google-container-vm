@@ -25,3 +25,8 @@ variable "region" {
 variable "zone" {
   description = "The GCP zone to deploy instances into"
 }
+
+variable "client_email" {
+  type    = string
+  default = ""
+}

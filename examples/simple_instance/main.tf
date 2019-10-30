@@ -22,16 +22,6 @@ locals {
   instance_name = format("%s-%s", var.instance_name, substr(md5(module.gce-container.container.image), 0, 8))
 }
 
-data "google_compute_zones" "available" {
-  project = var.project_id
-  region  = var.region
-}
-
-resource "random_shuffle" "zone" {
-  input        = data.google_compute_zones.available.names
-  result_count = 1
-}
-
 module "gce-container" {
   source = "../../"
 
@@ -71,7 +61,7 @@ resource "google_compute_instance" "vm" {
   project      = var.project_id
   name         = local.instance_name
   machine_type = "n1-standard-1"
-  zone         = random_shuffle.zone.result[0]
+  zone         = var.zone
 
   boot_disk {
     initialize_params {
@@ -96,6 +86,7 @@ resource "google_compute_instance" "vm" {
   }
 
   service_account {
+    email = var.client_email
     scopes = [
       "https://www.googleapis.com/auth/cloud-platform",
     ]

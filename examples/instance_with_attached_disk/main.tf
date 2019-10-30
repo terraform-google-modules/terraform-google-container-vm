@@ -114,6 +114,7 @@ resource "google_compute_instance" "vm" {
   tags = ["container-vm-example", "container-vm-test-disk-instance"]
 
   service_account {
+    email = var.client_email
     scopes = [
       "https://www.googleapis.com/auth/cloud-platform",
     ]

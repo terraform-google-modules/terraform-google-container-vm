@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,18 +14,17 @@
  * limitations under the License.
  */
 
-locals {
-  example_name = "simple"
-}
+module "container_vm" {
+  source  = "terraform-google-modules/project-factory/google"
+  version = "~> 3.0"
 
-module "example" {
-  source = "../../../examples/simple_instance"
+  name              = "ci-container-vm"
+  random_project_id = true
+  org_id            = var.org_id
+  folder_id         = var.folder_id
+  billing_account   = var.billing_account
 
-  project_id         = var.project_id
-  subnetwork_project = var.project_id
-  subnetwork         = google_compute_subnetwork.main.name
-  instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
-  region             = var.region
-  zone               = var.zone
-  client_email       = var.client_email
+  activate_apis = [
+    "compute.googleapis.com",
+  ]
 }

@@ -8,6 +8,7 @@ This example illustrates how to deploy and expose a container to a Google Comput
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | additional\_metadata | Additional metadata to attach to the instance | map | `<map>` | no |
+| client\_email | Service account email address | string | `""` | no |
 | image | The Docker image to deploy to GCE instances | string | n/a | yes |
 | image\_port | The port the image exposes for HTTP requests | string | n/a | yes |
 | instance\_name | The desired name to assign to the deployed instance | string | `"disk-instance-vm-test"` | no |

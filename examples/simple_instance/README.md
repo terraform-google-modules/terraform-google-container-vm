@@ -7,11 +7,13 @@ This example illustrates how to deploy a container to a Google Compute Engine in
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
+| client\_email | Service account email address | string | `""` | no |
 | instance\_name | The desired name to assign to the deployed instance | string | `"hello-world-container-vm"` | no |
 | project\_id | The project ID to deploy resources into | string | n/a | yes |
 | region | The GCP region to deploy instances into | string | n/a | yes |
 | subnetwork | The name of the subnetwork to deploy instances into | string | n/a | yes |
 | subnetwork\_project | The project ID where the desired subnetwork is provisioned | string | n/a | yes |
+| zone | The GCP zone to deploy instances into | string | n/a | yes |
 
 ## Outputs
 
