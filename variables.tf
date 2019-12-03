@@ -36,3 +36,15 @@ variable "restart_policy" {
   type        = string
   default     = "OnFailure"
 }
+
+variable "cos_image_family" {
+  description = "The cos image family to use (eg: stable, beta, or dev)"
+  type        = string
+  default     = "stable"
+}
+
+variable "cos_image_name" {
+  description = "Name of a specific cos image to use instead of the latest cos family image"
+  type        = string
+  default     = null
+}

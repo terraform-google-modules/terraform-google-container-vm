@@ -75,6 +75,8 @@ Then perform the following commands on the root folder:
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | container | A description of the container to deploy | any | `<map>` | no |
+| cos\_image\_family | The cos image family to use (eg: stable, beta, or dev) | string | `"stable"` | no |
+| cos\_image\_name | Name of a specific cos image to use instead of the latest cos family image | string | `"null"` | no |
 | restart\_policy | The restart policy for a Docker container. Defaults to `OnFailure` | string | `"OnFailure"` | no |
 | volumes | A set of Docker Volumes to configure | any | `<list>` | no |
 

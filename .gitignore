@@ -2,6 +2,7 @@
 credentials.json
 **/.terraform
 **/terraform.tfstate.d
+**/terraform.tfstate
 **/ssh/key
 *.pyc
 .idea

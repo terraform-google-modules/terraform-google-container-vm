@@ -25,6 +25,8 @@ locals {
 module "gce-container" {
   source = "../../"
 
+  cos_image_name = var.cos_image_name
+
   container = {
     image = "gcr.io/google-samples/hello-app:1.0"
 

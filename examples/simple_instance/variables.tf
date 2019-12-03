@@ -44,3 +44,8 @@ variable "client_email" {
 variable "zone" {
   description = "The GCP zone to deploy instances into"
 }
+
+variable "cos_image_name" {
+  description = "The forced cos image to use instead of latest"
+  default     = "cos-stable-77-12371-89-0"
+}

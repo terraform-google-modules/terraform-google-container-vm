@@ -25,3 +25,7 @@ attributes:
   - name: vm_container_label
     required: true
     type: string
+
+  - name: cos_image_name
+    required: true
+    type: string

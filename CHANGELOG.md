@@ -8,6 +8,10 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+### Added
+
+- Support for named cos images and option to specify cos family. [#37]
+
 ## [1.0.4] - 2019-10-16
 
 ### Fixed
