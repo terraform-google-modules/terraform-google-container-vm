@@ -93,6 +93,42 @@ Then perform the following commands on the root folder:
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
+## Container Options
+
+Advanced container options, as described [here](https://cloud.google.com/compute/docs/containers/configuring-options-to-run-containers), can be passed in as part of the `container` map.
+
+The `instance_with_advanced_options` example also demonstrates this.
+
+```hcl
+module "gce-advanced-container" {
+  source = "github.com/terraform-google-modules/terraform-google-container-vm"
+  version = "0.1.0"
+
+  container = {
+    image = "busybox"
+    command = [
+      "tail"
+    ]
+    args = [
+      "-f",
+      "/dev/null"
+    ]
+    securityContext = {
+      privileged : true
+    }
+    tty : true
+    env = [
+      {
+        name  = "EXAMPLE"
+        value = "VAR"
+      }
+    ]
+  }
+
+  restart_policy = "OnFailure"
+}
+```
+
 ## Requirements
 ### Terraform plugins
 - [Terraform](https://www.terraform.io/downloads.html) 0.10.x
