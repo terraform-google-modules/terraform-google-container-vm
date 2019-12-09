@@ -8,6 +8,10 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+### Added
+
+- Example for showing advanced container options [#55]
+
 ## [1.0.4] - 2019-10-16
 
 ### Fixed
