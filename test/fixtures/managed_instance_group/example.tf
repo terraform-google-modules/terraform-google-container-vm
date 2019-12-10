@@ -29,7 +29,6 @@ module "example" {
   project_id = var.project_id
   subnetwork = google_compute_subnetwork.main.name
   mig_name   = "cft-test-${local.example_name}-${random_string.suffix.result}"
-  region     = var.region
   image_port = "8080"
   image      = "gcr.io/google-samples/hello-app:1.0"
   additional_metadata = {

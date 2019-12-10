@@ -18,9 +18,10 @@ This example requires that some python libraries be installed, as outlined in `r
 | mig\_name | The desired name to assign to the deployed managed instance group | string | `"mig-test"` | no |
 | network | The GCP network | string | `"mig-net"` | no |
 | project\_id | The project ID to deploy resource into | string | n/a | yes |
-| region | The GCP region to deploy instances into | string | n/a | yes |
+| region | The GCP region to deploy instances into | string | `"us-east4"` | no |
 | service\_account |  | object | `<map>` | no |
 | subnetwork | The name of the subnetwork to deploy instances into | string | `"mig-subnet"` | no |
+| zone | The GCP zone to deploy instances into | string | `"us-east4-b"` | no |
 
 ## Outputs
 
@@ -30,8 +31,10 @@ This example requires that some python libraries be installed, as outlined in `r
 | http\_address | The IP address on which the HTTP service is exposed |
 | http\_port | The port on which the HTTP service is exposed |
 | project\_id | The project ID resources were deployed into |
+| region | The region the GCE instance was deployed into |
 | vm\_container\_label | The instance label containing container configuration |
 | volumes | The volume metadata provided to the module |
+| zone | The zone the GCE instance was deployed into |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

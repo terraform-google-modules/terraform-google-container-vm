@@ -19,6 +19,11 @@ output "project_id" {
   value       = var.project_id
 }
 
+output "region" {
+  description = "The region the GCE instance was deployed into"
+  value       = var.region
+}
+
 output "zone" {
   description = "The zone the GCE instance was deployed into"
   value       = var.zone
