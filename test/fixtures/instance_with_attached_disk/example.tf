@@ -35,9 +35,7 @@ module "example" {
   subnetwork_project = var.project_id
   subnetwork         = google_compute_subnetwork.main.name
   instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
-  region             = var.region
-  zone               = var.zone
-  client_email       = var.client_email
+  client_email       = var.sa_email
 
   image_port     = "8080"
   restart_policy = "Always"
