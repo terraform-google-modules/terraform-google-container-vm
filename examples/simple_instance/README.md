@@ -8,7 +8,7 @@ This example illustrates how to deploy a container to a Google Compute Engine in
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | client\_email | Service account email address | string | `""` | no |
-| cos\_image\_name | The forced cos image to use instead of latest | string | `"cos-stable-77-12371-89-0"` | no |
+| cos\_image\_name | The forced COS image to use instead of latest | string | `"cos-stable-77-12371-89-0"` | no |
 | instance\_name | The desired name to assign to the deployed instance | string | `"hello-world-container-vm"` | no |
 | project\_id | The project ID to deploy resources into | string | n/a | yes |
 | region | The GCP region to deploy instances into | string | `"us-east4"` | no |
