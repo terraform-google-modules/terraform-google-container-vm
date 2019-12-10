@@ -21,7 +21,7 @@ output "metadata_key" {
 
 output "metadata_value" {
   description = "The generated container configuration"
-  value       = data.external.spec_as_yaml.result["rendered"]
+  value       = local.spec_as_yaml
 }
 
 output "source_image" {
