@@ -16,17 +16,10 @@
 
 variable "project_id" {
   description = "The project ID to deploy resources into"
+  type        = string
 }
 
-variable "region" {
-  description = "The GCP region to deploy instances into"
-}
-
-variable "zone" {
-  description = "The GCP zone to deploy instances into"
-}
-
-variable "client_email" {
-  type    = string
-  default = ""
+variable "sa_email" {
+  description = "Email for Service Account"
+  type        = string
 }
