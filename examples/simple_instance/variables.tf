@@ -33,14 +33,18 @@ variable "instance_name" {
 
 variable "region" {
   description = "The GCP region to deploy instances into"
+  type        = string
+  default     = "us-east4"
+}
+
+variable "zone" {
+  description = "The GCP zone to deploy instances into"
+  type        = string
+  default     = "us-east4-b"
 }
 
 variable "client_email" {
   description = "Service account email address"
   type        = string
   default     = ""
-}
-
-variable "zone" {
-  description = "The GCP zone to deploy instances into"
 }

@@ -30,7 +30,7 @@ resource "google_compute_network" "main" {
 resource "google_compute_subnetwork" "main" {
   name          = "cft-container-vm-test-${local.example_name}-${random_string.suffix.result}"
   ip_cidr_range = "10.0.0.0/22"
-  region        = var.region
+  region        = module.example.region
   network       = google_compute_network.main.self_link
 }
 

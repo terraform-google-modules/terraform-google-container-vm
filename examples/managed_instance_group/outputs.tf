@@ -43,3 +43,13 @@ output "http_port" {
   description = "The port on which the HTTP service is exposed"
   value       = "80"
 }
+
+output "region" {
+  description = "The region the GCE instance was deployed into"
+  value       = var.region
+}
+
+output "zone" {
+  description = "The zone the GCE instance was deployed into"
+  value       = var.zone
+}
