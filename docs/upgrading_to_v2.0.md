@@ -1,6 +1,6 @@
-# Upgrading to v1.0
+# Upgrading to v2.0
 
-The v1.0 release of *container-vm* is a backwards incompatible release.
+The v2.0 release of *container-vm* is a backwards incompatible release.
 
 As part of PR [#57](https://github.com/terraform-google-modules/terraform-google-container-vm/pull/57) the dependency on Ruby was removed and introduced the following backwards incompatible changes.
 
