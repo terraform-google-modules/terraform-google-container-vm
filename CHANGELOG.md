@@ -10,7 +10,7 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ### Changed
 
-- Removed dependency on ruby by using terraform's `yamlencode` instead. See `docs/upgrading_to_v1.0.md` for details. [#57]
+- **Breaking**: Removed dependency on ruby by using terraform's `yamlencode` instead. See the [upgrade guide](./docs/upgrading_to_v2.0.md) for details. [#57]
 
 ## [1.0.4] - 2019-10-16
 
