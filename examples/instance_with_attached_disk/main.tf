@@ -41,12 +41,12 @@ module "gce-container" {
       {
         mountPath = "/cache"
         name      = "tempfs-0"
-        readOnly  = "false"
+        readOnly  = false
       },
       {
         mountPath = "/persistent-data"
         name      = "data-disk-0"
-        readOnly  = "false"
+        readOnly  = false
       },
     ]
   }
