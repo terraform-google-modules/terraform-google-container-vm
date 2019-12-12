@@ -26,17 +26,11 @@ locals {
       restartPolicy = var.restart_policy
     }
   }
+
+  spec_as_yaml = yamlencode(local.spec)
 }
 
 data "google_compute_image" "coreos" {
   family  = local.coreos_image_family
   project = local.coreos_project
-}
-
-data "external" "spec_as_yaml" {
-  program = ["ruby", "${path.module}/helpers/map_to_yaml.rb"]
-
-  query = {
-    root = jsonencode(local.spec)
-  }
 }
