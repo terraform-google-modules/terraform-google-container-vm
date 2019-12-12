@@ -41,7 +41,7 @@ resource "google_compute_network" "default" {
   auto_create_subnetworks = "false"
 }
 resource "google_compute_subnetwork" "default" {
-  name                     = var.network
+  name                     = var.subnetwork
   ip_cidr_range            = "10.125.0.0/20"
   network                  = google_compute_network.default.self_link
   region                   = var.region
@@ -127,7 +127,7 @@ module "http-lb" {
 resource "google_compute_firewall" "lb-to-instances" {
   name    = "${var.mig_name}-firewall-lb-to-instances"
   project = var.project_id
-  network = var.subnetwork
+  network = var.network
   allow {
     protocol = "tcp"
     ports = [
