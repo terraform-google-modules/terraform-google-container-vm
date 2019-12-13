@@ -23,3 +23,8 @@ output "ipv4" {
   description = "The IP address of the provisioned host"
   value       = module.example.ipv4
 }
+
+output "cos_image_name" {
+  description = "The forced cos image to use"
+  value       = module.example.cos_image_name
+}
