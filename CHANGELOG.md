@@ -8,6 +8,8 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 ## [Unreleased]
 
+## [2.0.0] - 2019-12-13
+
 ### Added
 
 - Support for named COS images and option to specify cos family. [#54]
@@ -75,7 +77,8 @@ Extending the adopted spec, each change should have a link to its corresponding 
 ### ADDED
 - This is the initial release of the Container VM module.
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.4...HEAD
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.4...v2.0.0
 [1.0.4]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.1...v1.0.2
