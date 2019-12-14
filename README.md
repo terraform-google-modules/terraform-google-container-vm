@@ -13,7 +13,7 @@ This module is meant for use with Terraform 0.12. If you need a Terraform 0.11.x
 ```hcl
 module "gce-container" {
   source = "github.com/terraform-google-modules/terraform-google-container-vm"
-  version = "0.1.0"
+  version = "2.0.0"
 
   container = {
     image="gcr.io/google-samples/hello-app:1.0"
@@ -104,7 +104,7 @@ The `instance_with_advanced_options` example also demonstrates this.
 ```hcl
 module "gce-advanced-container" {
   source = "github.com/terraform-google-modules/terraform-google-container-vm"
-  version = "0.1.0"
+  version = "2.0.0"
 
   container = {
     image = "busybox"
