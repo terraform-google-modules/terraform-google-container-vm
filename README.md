@@ -30,12 +30,12 @@ module "gce-container" {
       {
         mountPath = "/cache"
         name      = "tempfs-0"
-        readOnly  = "false"
+        readOnly  = false
       },
       {
         mountPath = "/persistent-data"
         name      = "data-disk-0"
-        readOnly  = "false"
+        readOnly  = false
       },
     ]
   }
@@ -75,6 +75,8 @@ Then perform the following commands on the root folder:
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
 | container | A description of the container to deploy | any | `<map>` | no |
+| cos\_image\_family | The COS image family to use (eg: stable, beta, or dev) | string | `"stable"` | no |
+| cos\_image\_name | Name of a specific COS image to use instead of the latest cos family image | string | `"null"` | no |
 | restart\_policy | The restart policy for a Docker container. Defaults to `OnFailure` | string | `"OnFailure"` | no |
 | volumes | A set of Docker Volumes to configure | any | `<list>` | no |
 

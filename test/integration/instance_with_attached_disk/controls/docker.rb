@@ -55,7 +55,7 @@ control "docker" do
       persistent_volume_definitions.each_with_index do |vd, i|
         mount_definition = mount_definitions.select { |md| md["name"] == vd["name"] }.first
         expect(fs[i].Destination).to eq mount_definition["mountPath"]
-        if mount_definition["readOnly"] == "false"
+        if mount_definition["readOnly"] == false
           expect(fs[i].RW).to eq true
         else
           expect(fs[i].RW).to eq false
@@ -69,7 +69,7 @@ control "docker" do
       temporary_volume_definitions.each_with_index do |vd, i|
         mount_definition = mount_definitions.select { |md| md["name"] == vd["name"] }.first
         expect(fs[i].Destination).to eq mount_definition["mountPath"]
-        if mount_definition["readOnly"] == "false"
+        if mount_definition["readOnly"] == false
           expect(fs[i].RW).to eq true
         else
           expect(fs[i].RW).to eq false

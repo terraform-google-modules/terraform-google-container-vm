@@ -12,6 +12,16 @@ Extending the adopted spec, each change should have a link to its corresponding 
 
 - Example for showing advanced container options [#55]
 
+## [2.0.0] - 2019-12-13
+
+### Added
+
+- Support for named COS images and option to specify cos family. [#54]
+
+### Changed
+
+- **Breaking**: Removed dependency on ruby by using terraform's `yamlencode` instead. See the [upgrade guide](./docs/upgrading_to_v2.0.md) for details. [#57]
+
 ## [1.0.4] - 2019-10-16
 
 ### Fixed
@@ -71,7 +81,8 @@ Extending the adopted spec, each change should have a link to its corresponding 
 ### ADDED
 - This is the initial release of the Container VM module.
 
-[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.4...HEAD
+[Unreleased]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.4...v2.0.0
 [1.0.4]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v1.0.1...v1.0.2
@@ -81,7 +92,12 @@ Extending the adopted spec, each change should have a link to its corresponding 
 [0.2.0]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v0.1.0...v0.1.1
 
+<<<<<<< HEAD
 [#55]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/55
+=======
+[#57]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/57
+[#54]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/54
+>>>>>>> master
 [#48]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/48
 [#46]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/46
 [#41]: https://github.com/terraform-google-modules/terraform-google-container-vm/pull/41

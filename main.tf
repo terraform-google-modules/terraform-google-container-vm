@@ -15,8 +15,9 @@
  */
 
 locals {
-  coreos_image_family    = "cos-stable"
-  coreos_project         = "cos-cloud"
+  cos_image_name         = var.cos_image_name
+  cos_image_family       = var.cos_image_name == null ? "cos-${var.cos_image_family}" : null
+  cos_project            = "cos-cloud"
   invalid_restart_policy = var.restart_policy != "OnFailure" && var.restart_policy != "UnlessStopped" && var.restart_policy != "Always" && var.restart_policy != "No" ? 1 : 0
 
   spec = {
@@ -26,17 +27,12 @@ locals {
       restartPolicy = var.restart_policy
     }
   }
+
+  spec_as_yaml = yamlencode(local.spec)
 }
 
 data "google_compute_image" "coreos" {
-  family  = local.coreos_image_family
-  project = local.coreos_project
-}
-
-data "external" "spec_as_yaml" {
-  program = ["ruby", "${path.module}/helpers/map_to_yaml.rb"]
-
-  query = {
-    root = jsonencode(local.spec)
-  }
+  name    = local.cos_image_name
+  family  = local.cos_image_family
+  project = local.cos_project
 }

@@ -18,6 +18,7 @@ instance_name = attribute('instance_name')
 network = attribute('network')
 subnetwork = attribute('subnetwork')
 vm_container_label = attribute('vm_container_label')
+cos_image_name = attribute('cos_image_name')
 
 control "gce" do
   title "Google Compute Engine instance configuration"
@@ -57,6 +58,7 @@ control "gce" do
     it "has the expected labels" do
       expect(data['labels'].keys).to include "container-vm"
       expect(data['labels']['container-vm']).to eq vm_container_label
+      expect(data['labels']['container-vm']).to eq cos_image_name
     end
 
     it "is configured with the expected container(s), volumes, env and restart policy" do
@@ -86,6 +88,23 @@ control "gce" do
           ],
         },
       })
+    end
+  end
+
+  describe command("gcloud --project=#{project_id} compute disks describe #{instance_name} --zone=#{zone} --format json") do
+    its('exit_status') { should be 0 }
+    its('stderr') { should eq '' }
+
+    let!(:data) do
+      if subject.exit_status == 0
+        JSON.parse(subject.stdout)
+      else
+        {}
+      end
+    end
+
+    it "has the expected source image" do
+      expect(data['sourceImage']).to end_with cos_image_name
     end
   end
 end
