@@ -15,7 +15,6 @@
  */
 
 provider "google" {
-  region = var.region
 }
 
 locals {

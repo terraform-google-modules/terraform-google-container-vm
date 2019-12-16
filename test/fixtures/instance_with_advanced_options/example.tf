@@ -22,6 +22,7 @@ module "example" {
   source = "../../../examples/instance_with_advanced_options"
 
   project_id         = var.project_id
+  zone               = var.zone
   subnetwork_project = var.project_id
   subnetwork         = google_compute_subnetwork.main.name
   instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"

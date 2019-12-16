@@ -16,6 +16,7 @@
 
 locals {
   example_name = "instance-with-attached-disk"
+  machine_type = "n1-standard-1"
 }
 
 resource "tls_private_key" "gce-keypair" {
@@ -32,6 +33,7 @@ module "example" {
   source = "../../../examples/instance_with_attached_disk"
 
   project_id         = var.project_id
+  zone               = var.zone
   subnetwork_project = var.project_id
   subnetwork         = google_compute_subnetwork.main.name
   instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
@@ -39,7 +41,7 @@ module "example" {
 
   image_port     = "8080"
   restart_policy = "Always"
-  machine_type   = "n1-standard-1"
+  machine_type   = local.machine_type
   image          = "gcr.io/google-samples/hello-app:1.0"
 
   additional_metadata = {

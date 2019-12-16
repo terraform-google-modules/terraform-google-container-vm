@@ -19,9 +19,14 @@ output "project_id" {
   value       = var.project_id
 }
 
+output "region" {
+  description = "The GCP region to deploy instances into"
+  value       = var.region
+}
+
 output "zone" {
   description = "The GCP zone that resources were deployed into"
-  value       = module.example.zone
+  value       = var.zone
 }
 
 output "network" {

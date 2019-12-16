@@ -14,11 +14,10 @@ This example illustrates how to deploy and expose a container to a Google Comput
 | instance\_name | The desired name to assign to the deployed instance | string | `"disk-instance-vm-test"` | no |
 | machine\_type | The GCP machine type to deploy | string | n/a | yes |
 | project\_id | The project ID to deploy resource into | string | n/a | yes |
-| region | The GCP region to deploy instances into | string | `"us-east4"` | no |
 | restart\_policy | The desired Docker restart policy for the deployed image | string | n/a | yes |
 | subnetwork | The name of the subnetwork to deploy instances into | string | n/a | yes |
 | subnetwork\_project | The project ID where the desired subnetwork is provisioned | string | n/a | yes |
-| zone | The GCP zone to deploy instances into | string | `"us-east4-b"` | no |
+| zone | The GCP zone to deploy instances into | string | n/a | yes |
 
 ## Outputs
 
@@ -29,11 +28,8 @@ This example illustrates how to deploy and expose a container to a Google Comput
 | http\_port | The port on which the HTTP service is exposed |
 | instance\_name | The deployed instance name |
 | ipv4 | The public IP address of the deployed instance |
-| project\_id | The project ID resources were deployed into |
-| region | The region the GCE instance was deployed into |
 | vm\_container\_label | The instance label containing container configuration |
 | volumes | The volume metadata provided to the module |
-| zone | The zone the GCE instance was deployed into |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
