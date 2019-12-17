@@ -13,7 +13,7 @@ This module is meant for use with Terraform 0.12. If you need a Terraform 0.11.x
 ```hcl
 module "gce-container" {
   source = "github.com/terraform-google-modules/terraform-google-container-vm"
-  version = "0.1.0"
+  version = "2.0.0"
 
   container = {
     image="gcr.io/google-samples/hello-app:1.0"
@@ -94,6 +94,42 @@ Then perform the following commands on the root folder:
 | volumes | The volume definition provided |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+
+## Container Options
+
+Advanced container options, as described [here](https://cloud.google.com/compute/docs/containers/configuring-options-to-run-containers), can be passed in as part of the `container` map.
+
+The `instance_with_advanced_options` example also demonstrates this.
+
+```hcl
+module "gce-advanced-container" {
+  source = "github.com/terraform-google-modules/terraform-google-container-vm"
+  version = "2.0.0"
+
+  container = {
+    image = "busybox"
+    command = [
+      "tail"
+    ]
+    args = [
+      "-f",
+      "/dev/null"
+    ]
+    securityContext = {
+      privileged : true
+    }
+    tty : true
+    env = [
+      {
+        name  = "EXAMPLE"
+        value = "VAR"
+      }
+    ]
+  }
+
+  restart_policy = "OnFailure"
+}
+```
 
 ## Requirements
 ### Terraform plugins

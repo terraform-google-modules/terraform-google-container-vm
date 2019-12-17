@@ -40,6 +40,19 @@ suites:
         backend: local
         controls:
           - gce
+  - name: "instance_with_advanced_options"
+    driver:
+      name: "terraform"
+      command_timeout: 1800
+      root_module_directory: test/fixtures/instance_with_advanced_options
+    verifier:
+      name: terraform
+      color: false
+      systems:
+      - name: system
+        backend: local
+        controls:
+          - gce
   - name: "instance_with_attached_disk"
     driver:
       name: "terraform"

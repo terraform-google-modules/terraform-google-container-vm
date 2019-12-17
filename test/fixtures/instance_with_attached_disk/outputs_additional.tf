@@ -33,3 +33,8 @@ output "ipv4" {
   description = "The IP address of the provisioned host"
   value       = module.example.ipv4
 }
+
+output "machine_type" {
+  description = "The GCP machine type to deployed"
+  value       = local.machine_type
+}

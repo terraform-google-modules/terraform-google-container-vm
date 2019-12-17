@@ -14,11 +14,6 @@
  * limitations under the License.
  */
 
-output "project_id" {
-  description = "The project ID resources were deployed into"
-  value       = var.project_id
-}
-
 output "vm_container_label" {
   description = "The instance label containing container configuration"
   value       = module.gce-container.vm_container_label
@@ -42,14 +37,4 @@ output "http_address" {
 output "http_port" {
   description = "The port on which the HTTP service is exposed"
   value       = "80"
-}
-
-output "region" {
-  description = "The region the GCE instance was deployed into"
-  value       = var.region
-}
-
-output "zone" {
-  description = "The zone the GCE instance was deployed into"
-  value       = var.zone
 }

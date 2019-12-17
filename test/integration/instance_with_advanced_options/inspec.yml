@@ -1,10 +1,14 @@
-name: managed_instance_group
+name: simple_instance
 attributes:
   - name: project_id
     required: true
     type: string
 
   - name: zone
+    required: true
+    type: string
+
+  - name: instance_name
     required: true
     type: string
 
@@ -17,21 +21,5 @@ attributes:
     type: string
 
   - name: vm_container_label
-    required: true
-    type: string
-
-  - name: container
-    required: true
-    type: hash
-
-  - name: volumes
-    required: true
-    type: array
-
-  - name: http_address
-    required: true
-    type: string
-
-  - name: http_port
     required: true
     type: string

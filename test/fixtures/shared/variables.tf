@@ -23,3 +23,15 @@ variable "sa_email" {
   description = "Email for Service Account"
   type        = string
 }
+
+variable "region" {
+  description = "The GCP region to deploy instances into"
+  type        = string
+  default     = "us-east4"
+}
+
+variable "zone" {
+  description = "The GCP zone to deploy instances into"
+  type        = string
+  default     = "us-east4-b"
+}

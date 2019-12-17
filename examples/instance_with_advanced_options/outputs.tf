@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,27 +16,17 @@
 
 output "vm_container_label" {
   description = "The instance label containing container configuration"
-  value       = module.gce-container.vm_container_label
+  value       = module.gce-advanced-container.vm_container_label
 }
 
 output "container" {
   description = "The container metadata provided to the module"
-  value       = module.gce-container.container
+  value       = module.gce-advanced-container.container
 }
 
 output "volumes" {
   description = "The volume metadata provided to the module"
-  value       = module.gce-container.volumes
-}
-
-output "http_address" {
-  description = "The IP address on which the HTTP service is exposed"
-  value       = google_compute_instance.vm.network_interface.0.access_config.0.nat_ip
-}
-
-output "http_port" {
-  description = "The port on which the HTTP service is exposed"
-  value       = var.image_port
+  value       = module.gce-advanced-container.volumes
 }
 
 output "instance_name" {

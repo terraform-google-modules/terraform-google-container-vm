@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,22 +15,11 @@
  */
 
 locals {
-  example_name = "instance-with-attached-disk"
-  machine_type = "n1-standard-1"
-}
-
-resource "tls_private_key" "gce-keypair" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-resource "local_file" "gce-keypair-pk" {
-  content  = tls_private_key.gce-keypair.private_key_pem
-  filename = "${path.module}/ssh/key"
+  example_name = "advanced"
 }
 
 module "example" {
-  source = "../../../examples/instance_with_attached_disk"
+  source = "../../../examples/instance_with_advanced_options"
 
   project_id         = var.project_id
   zone               = var.zone
@@ -38,13 +27,4 @@ module "example" {
   subnetwork         = google_compute_subnetwork.main.name
   instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
   client_email       = var.sa_email
-
-  image_port     = "8080"
-  restart_policy = "Always"
-  machine_type   = local.machine_type
-  image          = "gcr.io/google-samples/hello-app:1.0"
-
-  additional_metadata = {
-    "sshKeys" = "user:${tls_private_key.gce-keypair.public_key_openssh}"
-  }
 }

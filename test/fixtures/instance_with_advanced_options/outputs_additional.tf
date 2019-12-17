@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2019 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-locals {
-  example_name = "simple"
+output "instance_name" {
+  description = "The name of the created instance"
+  value       = module.example.instance_name
 }
 
-module "example" {
-  source = "../../../examples/simple_instance"
-
-  project_id         = var.project_id
-  zone               = var.zone
-  subnetwork_project = var.project_id
-  subnetwork         = google_compute_subnetwork.main.name
-  instance_name      = "cft-test-${local.example_name}-${random_string.suffix.result}"
-  client_email       = var.sa_email
+output "ipv4" {
+  description = "The IP address of the provisioned host"
+  value       = module.example.ipv4
 }
