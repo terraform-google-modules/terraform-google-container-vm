@@ -80,6 +80,8 @@ resource "google_compute_instance" "vm" {
 
   metadata = {
     gce-container-declaration = module.gce-container.metadata_value
+    google-logging-enabled    = "true"
+    google-monitoring-enabled = "true"
   }
 
   labels = {
