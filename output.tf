@@ -25,7 +25,7 @@ output "metadata_value" {
 }
 
 output "source_image" {
-  description = "The COS image to use for the GCE instance"
+  description = "The self_link to the COS image to use for the GCE instance. Equivalent to container_vm.self_link"
   value       = data.google_compute_image.coreos.self_link
 }
 
@@ -35,8 +35,13 @@ output "vm_container_label_key" {
 }
 
 output "vm_container_label" {
-  description = "The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key"
+  description = "The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key. Equivalent to container_vm.name"
   value       = data.google_compute_image.coreos.name
+}
+
+output "container_vm" {
+  description = "The complete container VM image object to use for the GCE instance"
+  value       = data.google_compute_image.coreos
 }
 
 output "container" {
