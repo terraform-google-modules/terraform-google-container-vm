@@ -85,11 +85,12 @@ Then perform the following commands on the root folder:
 | Name | Description |
 |------|-------------|
 | container | The container definition provided |
+| container\_vm | The complete container VM image object to use for the GCE instance |
 | metadata\_key | The key to assign `metadata_value` to, so container information is attached to the instance |
 | metadata\_value | The generated container configuration |
 | restart\_policy | The restart policy provided |
-| source\_image | The COS image to use for the GCE instance |
-| vm\_container\_label | The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key |
+| source\_image | The self_link to the COS image to use for the GCE instance. Equivalent to container_vm.self_link |
+| vm\_container\_label | The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key. Equivalent to container_vm.name |
 | vm\_container\_label\_key | The label key for the COS version deployed to the instance |
 | volumes | The volume definition provided |
 
