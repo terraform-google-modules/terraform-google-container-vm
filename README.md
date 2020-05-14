@@ -12,8 +12,8 @@ This module is meant for use with Terraform 0.12. If you need a Terraform 0.11.x
 
 ```hcl
 module "gce-container" {
-  source = "github.com/terraform-google-modules/terraform-google-container-vm"
-  version = "2.0.0"
+  source = "github.com/terraform-google-modules/container-vm"
+  version = "~> 2.0"
 
   container = {
     image="gcr.io/google-samples/hello-app:1.0"
