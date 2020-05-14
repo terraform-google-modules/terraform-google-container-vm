@@ -12,7 +12,7 @@ This module is meant for use with Terraform 0.12. If you need a Terraform 0.11.x
 
 ```hcl
 module "gce-container" {
-  source = "github.com/terraform-google-modules/container-vm"
+  source = "terraform-google-modules/container-vm/google"
   version = "~> 2.0"
 
   container = {
