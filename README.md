@@ -104,8 +104,8 @@ The `instance_with_advanced_options` example also demonstrates this.
 
 ```hcl
 module "gce-advanced-container" {
-  source = "github.com/terraform-google-modules/terraform-google-container-vm"
-  version = "2.0.0"
+  source = "terraform-google-modules/container-vm/google"
+  version = "~> 2.0"
 
   container = {
     image = "busybox"
