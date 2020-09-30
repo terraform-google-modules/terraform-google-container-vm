@@ -75,6 +75,27 @@ suites:
         key_files:
           - ./test/fixtures/instance_with_attached_disk/ssh/key
         user: user
+  - name: "instance_with_config_file"
+    driver:
+      name: "terraform"
+      command_timeout: 1800
+      root_module_directory: test/fixtures/instance_with_config_file
+    verifier:
+      name: terraform
+      color: false
+      systems:
+      - name: system
+        backend: local
+        controls:
+          - gce
+      - name: remote
+        backend: ssh
+        controls:
+          - docker
+        hosts_output: ipv4
+        key_files:
+          - ./test/fixtures/instance_with_config_file/ssh/key
+        user: user
   - name: "managed_instance_group"
     excludes:
       - local

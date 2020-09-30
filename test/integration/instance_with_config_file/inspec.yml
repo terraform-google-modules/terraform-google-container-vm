@@ -1,0 +1,33 @@
+name: instance_with_config_file
+attributes:
+  - name: project_id
+    required: true
+    type: string
+
+  - name: zone
+    required: true
+    type: string
+
+  - name: network
+    required: false
+    type: string
+
+  - name: subnetwork
+    required: false
+    type: string
+
+  - name: instance_name
+    required: true
+    type: string
+
+  - name: vm_container_label
+    required: true
+    type: string
+
+  - name: container
+    required: true
+    type: hash
+
+  - name: volumes
+    required: true
+    type: array
