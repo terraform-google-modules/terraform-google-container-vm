@@ -52,7 +52,7 @@ variable "zone" {
 }
 
 variable "additional_metadata" {
-  type        = "map"
+  type        = map(string)
   description = "Additional metadata to attach to the instance"
   default     = {}
 }
