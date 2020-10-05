@@ -1,5 +1,5 @@
 /**
- * Copyright 2018 Google LLC
+ * Copyright 2020 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 variable "project_id" {
-  description = "The project ID to deploy resource into"
+  description = "The project ID to deploy resources into"
 }
 
 variable "subnetwork_project" {
@@ -28,27 +28,12 @@ variable "subnetwork" {
 
 variable "instance_name" {
   description = "The desired name to assign to the deployed instance"
-  default     = "disk-instance-vm-test"
-}
-
-variable "image" {
-  description = "The Docker image to deploy to GCE instances"
-}
-
-variable "image_port" {
-  description = "The port the image exposes for HTTP requests"
-}
-
-variable "restart_policy" {
-  description = "The desired Docker restart policy for the deployed image"
-}
-
-variable "machine_type" {
-  description = "The GCP machine type to deploy"
+  default     = "hello-world-container-vm"
 }
 
 variable "zone" {
   description = "The GCP zone to deploy instances into"
+  type        = string
 }
 
 variable "additional_metadata" {
@@ -61,4 +46,9 @@ variable "client_email" {
   description = "Service account email address"
   type        = string
   default     = ""
+}
+
+variable "cos_image_name" {
+  description = "The forced COS image to use instead of latest"
+  default     = "cos-stable-77-12371-89-0"
 }
