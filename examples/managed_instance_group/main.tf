@@ -24,11 +24,11 @@ locals {
 }
 provider "google" {
   project = var.project_id
-  version = "~> 2.7.0"
+  version = "~> 3.53.0"
 }
 provider "google-beta" {
   project = var.project_id
-  version = "~> 2.7.0"
+  version = "~> 3.53.0"
 }
 module "gce-container" {
   source = "../../"
@@ -63,7 +63,7 @@ module "cloud-nat" {
 }
 module "mig_template" {
   source               = "terraform-google-modules/vm/google//modules/instance_template"
-  version              = "~> 1.0.0"
+  version              = "~> 6.0"
   network              = google_compute_network.default.self_link
   subnetwork           = google_compute_subnetwork.default.self_link
   service_account      = var.service_account
@@ -81,7 +81,7 @@ module "mig_template" {
 }
 module "mig" {
   source            = "terraform-google-modules/vm/google//modules/mig"
-  version           = "~> 1.0.0"
+  version           = "~> 6.0"
   instance_template = module.mig_template.self_link
   region            = var.region
   hostname          = var.network
@@ -97,7 +97,7 @@ module "mig" {
 }
 module "http-lb" {
   source  = "GoogleCloudPlatform/lb-http/google"
-  version = "~> 2.0"
+  version = "~> 4.0"
 
   project = var.project_id
   name    = "${var.mig_name}-lb"

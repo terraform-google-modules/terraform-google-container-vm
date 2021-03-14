@@ -6,18 +6,18 @@ This example illustrates how to deploy and expose a container to a Google Comput
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| additional\_metadata | Additional metadata to attach to the instance | map(string) | `<map>` | no |
-| client\_email | Service account email address | string | `""` | no |
-| image | The Docker image to deploy to GCE instances | string | n/a | yes |
-| image\_port | The port the image exposes for HTTP requests | string | n/a | yes |
-| instance\_name | The desired name to assign to the deployed instance | string | `"disk-instance-vm-test"` | no |
-| machine\_type | The GCP machine type to deploy | string | n/a | yes |
-| project\_id | The project ID to deploy resource into | string | n/a | yes |
-| restart\_policy | The desired Docker restart policy for the deployed image | string | n/a | yes |
-| subnetwork | The name of the subnetwork to deploy instances into | string | n/a | yes |
-| subnetwork\_project | The project ID where the desired subnetwork is provisioned | string | n/a | yes |
-| zone | The GCP zone to deploy instances into | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| additional\_metadata | Additional metadata to attach to the instance | `map(string)` | `{}` | no |
+| client\_email | Service account email address | `string` | `""` | no |
+| image | The Docker image to deploy to GCE instances | `any` | n/a | yes |
+| image\_port | The port the image exposes for HTTP requests | `any` | n/a | yes |
+| instance\_name | The desired name to assign to the deployed instance | `string` | `"disk-instance-vm-test"` | no |
+| machine\_type | The GCP machine type to deploy | `any` | n/a | yes |
+| project\_id | The project ID to deploy resource into | `any` | n/a | yes |
+| restart\_policy | The desired Docker restart policy for the deployed image | `any` | n/a | yes |
+| subnetwork | The name of the subnetwork to deploy instances into | `any` | n/a | yes |
+| subnetwork\_project | The project ID where the desired subnetwork is provisioned | `any` | n/a | yes |
+| zone | The GCP zone to deploy instances into | `any` | n/a | yes |
 
 ## Outputs
 
