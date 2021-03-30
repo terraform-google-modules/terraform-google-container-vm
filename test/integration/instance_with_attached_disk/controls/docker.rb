@@ -37,9 +37,9 @@ control "docker" do
     end
 
     let(:mounts) { container.Mounts ? container.Mounts : [] }
-    let(:mount_definitions) { container_definition["volumeMounts"] ? container_definition["volumeMounts"] : [] }
-    let(:persistent_volume_definitions) { volume_definitions.select { |v| v.keys.include?("gcePersistentDisk") } }
-    let(:temporary_volume_definitions) { volume_definitions.select { |v| v.keys.include?("emptyDir") } }
+    let(:mount_definitions) { container_definition[:volumeMounts] ? container_definition[:volumeMounts] : [] }
+    let(:persistent_volume_definitions) { volume_definitions.select { |v| v.keys.include?(:gcePersistentDisk) } }
+    let(:temporary_volume_definitions) { volume_definitions.select { |v| v.keys.include?(:emptyDir) } }
 
     it "should have the right number of disk mounts" do
       expect(mounts.count).to eq mount_definitions.count
@@ -53,9 +53,9 @@ control "docker" do
       fs = mounts.select { |m| m.Source.match(/gce-persistent-disks/) }
       expect(fs.count).to eq persistent_volume_definitions.count
       persistent_volume_definitions.each_with_index do |vd, i|
-        mount_definition = mount_definitions.select { |md| md["name"] == vd["name"] }.first
-        expect(fs[i].Destination).to eq mount_definition["mountPath"]
-        if mount_definition["readOnly"] == false
+        mount_definition = mount_definitions.select { |md| md[:name] == vd[:name] }.first
+        expect(fs[i].Destination).to eq mount_definition[:mountPath]
+        if mount_definition[:readOnly] == false
           expect(fs[i].RW).to eq true
         else
           expect(fs[i].RW).to eq false
@@ -67,9 +67,9 @@ control "docker" do
       fs = mounts.select { |m| m.Source.match(/tmpfss/) }
       expect(fs.count).to eq temporary_volume_definitions.count
       temporary_volume_definitions.each_with_index do |vd, i|
-        mount_definition = mount_definitions.select { |md| md["name"] == vd["name"] }.first
-        expect(fs[i].Destination).to eq mount_definition["mountPath"]
-        if mount_definition["readOnly"] == false
+        mount_definition = mount_definitions.select { |md| md[:name] == vd[:name] }.first
+        expect(fs[i].Destination).to eq mount_definition[:mountPath]
+        if mount_definition[:readOnly] == false
           expect(fs[i].RW).to eq true
         else
           expect(fs[i].RW).to eq false

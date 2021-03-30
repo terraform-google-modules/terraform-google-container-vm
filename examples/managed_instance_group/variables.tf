@@ -66,7 +66,7 @@ variable "network" {
 }
 
 variable "additional_metadata" {
-  type        = map
+  type        = map(any)
   description = "Additional metadata to attach to the instance"
   default     = {}
 }

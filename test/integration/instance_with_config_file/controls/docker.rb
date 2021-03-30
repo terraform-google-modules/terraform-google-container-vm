@@ -37,8 +37,8 @@ control "docker" do
     end
 
     let(:mounts) { container.Mounts ? container.Mounts : [] }
-    let(:mount_definitions) { container_definition["volumeMounts"] ? container_definition["volumeMounts"] : [] }
-    let(:host_path_volume_definitions) { volume_definitions.select { |v| v.keys.include?("hostPath") } }
+    let(:mount_definitions) { container_definition[:volumeMounts] ? container_definition[:volumeMounts] : [] }
+    let(:host_path_volume_definitions) { volume_definitions.select { |v| v.keys.include?(:hostPath) } }
 
     it "should have the right number of disk mounts" do
       expect(mounts.count).to eq mount_definitions.count
@@ -51,18 +51,18 @@ control "docker" do
     it "should have the right number of hostPath volumes on the right mount points" do
       mounts.each do |mount|
         # mount destinations have to be unique, so use it to lookup the mount definition
-        mount_def = mount_definitions.find { |md| md["mountPath"] == mount.Destination }
+        mount_def = mount_definitions.find { |md| md[:mountPath] == mount.Destination }
         expect(mount_def).not_to be_nil
         # use the mount definition name to lookup the volume definition by name
-        volume_def = host_path_volume_definitions.find { |vd| vd["name"] == mount_def["name"] }
+        volume_def = host_path_volume_definitions.find { |vd| vd[:name] == mount_def[:name] }
         expect(volume_def).not_to be_nil
 
         expect(mount).to eq({
-          "Destination" => mount_def["mountPath"],
-          "Mode" => mount_def["readOnly"] ? "ro" : "rw",
+          "Destination" => mount_def[:mountPath],
+          "Mode" => mount_def[:readOnly] ? "ro" : "rw",
           "Propagation" => "rprivate",
-          "RW" => !mount_def["readOnly"],
-          "Source" => volume_def["hostPath"]["path"],
+          "RW" => !mount_def[:readOnly],
+          "Source" => volume_def[:hostPath][:path],
           "Type" => "bind",
         })
       end

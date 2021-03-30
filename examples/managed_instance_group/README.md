@@ -11,7 +11,7 @@ This example requires that some python libraries be installed, as outlined in `r
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| additional\_metadata | Additional metadata to attach to the instance | `map` | `{}` | no |
+| additional\_metadata | Additional metadata to attach to the instance | `map(any)` | `{}` | no |
 | image | The Docker image to deploy to GCE instances | `string` | `"gcr.io/google-samples/hello-app:1.0"` | no |
 | image\_port | The port the image exposes for HTTP requests | `number` | `8080` | no |
 | mig\_instance\_count | The number of instances to place in the managed instance group | `string` | `"2"` | no |
