@@ -10,18 +10,18 @@ This example requires that some python libraries be installed, as outlined in `r
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| additional\_metadata | Additional metadata to attach to the instance | map | `<map>` | no |
-| image | The Docker image to deploy to GCE instances | string | `"gcr.io/google-samples/hello-app:1.0"` | no |
-| image\_port | The port the image exposes for HTTP requests | number | `"8080"` | no |
-| mig\_instance\_count | The number of instances to place in the managed instance group | string | `"2"` | no |
-| mig\_name | The desired name to assign to the deployed managed instance group | string | `"mig-test"` | no |
-| network | The GCP network | string | `"mig-net"` | no |
-| project\_id | The project ID to deploy resource into | string | n/a | yes |
-| region | The GCP region to deploy instances into | string | n/a | yes |
-| service\_account |  | object | `<map>` | no |
-| subnetwork | The name of the subnetwork to deploy instances into | string | `"mig-subnet"` | no |
-| zone | The GCP zone to deploy instances into | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| additional\_metadata | Additional metadata to attach to the instance | `map(any)` | `{}` | no |
+| image | The Docker image to deploy to GCE instances | `string` | `"gcr.io/google-samples/hello-app:1.0"` | no |
+| image\_port | The port the image exposes for HTTP requests | `number` | `8080` | no |
+| mig\_instance\_count | The number of instances to place in the managed instance group | `string` | `"2"` | no |
+| mig\_name | The desired name to assign to the deployed managed instance group | `string` | `"mig-test"` | no |
+| network | The GCP network | `string` | `"mig-net"` | no |
+| project\_id | The project ID to deploy resource into | `string` | n/a | yes |
+| region | The GCP region to deploy instances into | `string` | n/a | yes |
+| service\_account | n/a | <pre>object({<br>    email  = string,<br>    scopes = list(string)<br>  })</pre> | <pre>{<br>  "email": "",<br>  "scopes": [<br>    "cloud-platform"<br>  ]<br>}</pre> | no |
+| subnetwork | The name of the subnetwork to deploy instances into | `string` | `"mig-subnet"` | no |
+| zone | The GCP zone to deploy instances into | `string` | n/a | yes |
 
 ## Outputs
 

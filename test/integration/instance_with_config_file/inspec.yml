@@ -31,3 +31,7 @@ attributes:
   - name: volumes
     required: true
     type: array
+
+lifecycle:
+  post_converge:
+  - local: sleep 60

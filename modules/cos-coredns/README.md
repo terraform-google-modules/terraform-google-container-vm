@@ -32,28 +32,28 @@ module "dns-service" {
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| boot\_disk\_size | Size of the boot disk. | number | `"10"` | no |
-| client\_cidrs | Client IP CIDR ranges to set in the firewall rule. | list(string) | `<list>` | no |
-| container\_image | CoreDNS container version. | string | `"coredns/coredns"` | no |
-| corefile | Path to the CoreDNS configuration file to use. | string | `""` | no |
-| create\_firewall\_rule | Create tag-based firewall rule. | bool | `"false"` | no |
-| instance\_count | Number of instances to create. | number | `"1"` | no |
-| instance\_type | Instance machine type. | string | `"g1-small"` | no |
-| labels | Labels to be attached to the resources | map(string) | `<map>` | no |
-| log\_driver | Docker log driver to use for CoreDNS. | string | `"gcplogs"` | no |
-| network | Self link of the VPC subnet to use for firewall rules. | string | n/a | yes |
-| network\_tag | Network tag that identifies the instances. | string | `"coredns"` | no |
-| prefix | Prefix to prepend to resource names. | string | `""` | no |
-| project\_id | Project id where the instances will be created. | string | n/a | yes |
-| region | Region for external addresses. | string | n/a | yes |
-| scopes | Instance scopes. | list(string) | `<list>` | no |
-| service\_account | Instance service account. | string | `""` | no |
-| stackdriver\_logging | Enable the Stackdriver logging agent. | bool | `"true"` | no |
-| stackdriver\_monitoring | Enable the Stackdriver monitoring agent. | string | `"true"` | no |
-| subnetwork | Self link of the VPC subnet to use for the internal interface. | string | n/a | yes |
-| vm\_tags | Additional network tags for the instances. | list(string) | `<list>` | no |
-| zone | Instance zone. | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| boot\_disk\_size | Size of the boot disk. | `number` | `10` | no |
+| client\_cidrs | Client IP CIDR ranges to set in the firewall rule. | `list(string)` | `[]` | no |
+| container\_image | CoreDNS container version. | `string` | `"coredns/coredns"` | no |
+| corefile | Path to the CoreDNS configuration file to use. | `string` | `""` | no |
+| create\_firewall\_rule | Create tag-based firewall rule. | `bool` | `false` | no |
+| instance\_count | Number of instances to create. | `number` | `1` | no |
+| instance\_type | Instance machine type. | `string` | `"g1-small"` | no |
+| labels | Labels to be attached to the resources | `map(string)` | <pre>{<br>  "service": "coredns"<br>}</pre> | no |
+| log\_driver | Docker log driver to use for CoreDNS. | `string` | `"gcplogs"` | no |
+| network | Self link of the VPC subnet to use for firewall rules. | `string` | n/a | yes |
+| network\_tag | Network tag that identifies the instances. | `string` | `"coredns"` | no |
+| prefix | Prefix to prepend to resource names. | `string` | `""` | no |
+| project\_id | Project id where the instances will be created. | `string` | n/a | yes |
+| region | Region for external addresses. | `string` | n/a | yes |
+| scopes | Instance scopes. | `list(string)` | <pre>[<br>  "https://www.googleapis.com/auth/devstorage.read_only",<br>  "https://www.googleapis.com/auth/logging.write",<br>  "https://www.googleapis.com/auth/monitoring.write",<br>  "https://www.googleapis.com/auth/pubsub",<br>  "https://www.googleapis.com/auth/service.management.readonly",<br>  "https://www.googleapis.com/auth/servicecontrol",<br>  "https://www.googleapis.com/auth/trace.append"<br>]</pre> | no |
+| service\_account | Instance service account. | `string` | `""` | no |
+| stackdriver\_logging | Enable the Stackdriver logging agent. | `bool` | `true` | no |
+| stackdriver\_monitoring | Enable the Stackdriver monitoring agent. | `bool` | `true` | no |
+| subnetwork | Self link of the VPC subnet to use for the internal interface. | `string` | n/a | yes |
+| vm\_tags | Additional network tags for the instances. | `list(string)` | `[]` | no |
+| zone | Instance zone. | `string` | n/a | yes |
 
 ## Outputs
 

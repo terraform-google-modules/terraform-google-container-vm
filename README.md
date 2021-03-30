@@ -5,8 +5,10 @@ This module handles the generation of metadata for [deploying containers on GCE 
 This module itself does not launch an instance or managed instance group. It simply generates the necessary metadata to create an instance or MIG yourself. Examples of using this module can be found in the [examples/](examples) directory.
 
 ## Compatibility
-
-This module is meant for use with Terraform 0.12. If you need a Terraform 0.11.x-compatible version of this module, the last released version intended for Terraform 0.11.x is [0.3.0].
+This module is meant for use with Terraform 0.13. If you haven't
+[upgraded](https://www.terraform.io/upgrade-guides/0-13.html) and need a Terraform
+0.12.x-compatible version of this module, the last released version
+intended for Terraform 0.12.x is [v2.0.0](https://registry.terraform.io/modules/terraform-google-modules/-container-vm/google/v2.0.0).
 
 ## Usage
 
@@ -73,12 +75,12 @@ Then perform the following commands on the root folder:
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| container | A description of the container to deploy | any | `<map>` | no |
-| cos\_image\_family | The COS image family to use (eg: stable, beta, or dev) | string | `"stable"` | no |
-| cos\_image\_name | Name of a specific COS image to use instead of the latest cos family image | string | `"null"` | no |
-| restart\_policy | The restart policy for a Docker container. Defaults to `OnFailure` | string | `"OnFailure"` | no |
-| volumes | A set of Docker Volumes to configure | any | `<list>` | no |
+|------|-------------|------|---------|:--------:|
+| container | A description of the container to deploy | `any` | <pre>{<br>  "command": "ls",<br>  "image": "gcr.io/google-containers/busybox"<br>}</pre> | no |
+| cos\_image\_family | The COS image family to use (eg: stable, beta, or dev) | `string` | `"stable"` | no |
+| cos\_image\_name | Name of a specific COS image to use instead of the latest cos family image | `string` | `null` | no |
+| restart\_policy | The restart policy for a Docker container. Defaults to `OnFailure` | `string` | `"OnFailure"` | no |
+| volumes | A set of Docker Volumes to configure | `any` | `[]` | no |
 
 ## Outputs
 
@@ -89,8 +91,8 @@ Then perform the following commands on the root folder:
 | metadata\_key | The key to assign `metadata_value` to, so container information is attached to the instance |
 | metadata\_value | The generated container configuration |
 | restart\_policy | The restart policy provided |
-| source\_image | The self_link to the COS image to use for the GCE instance. Equivalent to container_vm.self_link |
-| vm\_container\_label | The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key. Equivalent to container_vm.name |
+| source\_image | The self\_link to the COS image to use for the GCE instance. Equivalent to container\_vm.self\_link |
+| vm\_container\_label | The COS version to deploy to the instance. To be used as the value for the `vm_container_label_key` label key. Equivalent to container\_vm.name |
 | vm\_container\_label\_key | The label key for the COS version deployed to the instance |
 | volumes | The volume definition provided |
 
@@ -134,7 +136,7 @@ module "gce-advanced-container" {
 
 ## Requirements
 ### Terraform plugins
-- [Terraform](https://www.terraform.io/downloads.html) 0.10.x
+- [Terraform](https://www.terraform.io/downloads.html) >= 0.13.0
 - [terraform-provider-google](https://github.com/terraform-providers/terraform-provider-google) plugin v1.8.0
 
 ### Python Libraries

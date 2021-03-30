@@ -6,15 +6,15 @@ This example illustrates how to deploy and expose a container to a Google Comput
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| additional\_metadata | Additional metadata to attach to the instance | map(string) | `<map>` | no |
-| client\_email | Service account email address | string | `""` | no |
-| cos\_image\_name | The forced COS image to use instead of latest | string | `"cos-stable-77-12371-89-0"` | no |
-| instance\_name | The desired name to assign to the deployed instance | string | `"hello-world-container-vm"` | no |
-| project\_id | The project ID to deploy resources into | string | n/a | yes |
-| subnetwork | The name of the subnetwork to deploy instances into | string | n/a | yes |
-| subnetwork\_project | The project ID where the desired subnetwork is provisioned | string | n/a | yes |
-| zone | The GCP zone to deploy instances into | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| additional\_metadata | Additional metadata to attach to the instance | `map(string)` | `{}` | no |
+| client\_email | Service account email address | `string` | `""` | no |
+| cos\_image\_name | The forced COS image to use instead of latest | `string` | `"cos-stable-77-12371-89-0"` | no |
+| instance\_name | The desired name to assign to the deployed instance | `string` | `"hello-world-container-vm"` | no |
+| project\_id | The project ID to deploy resources into | `any` | n/a | yes |
+| subnetwork | The name of the subnetwork to deploy instances into | `any` | n/a | yes |
+| subnetwork\_project | The project ID where the desired subnetwork is provisioned | `any` | n/a | yes |
+| zone | The GCP zone to deploy instances into | `string` | n/a | yes |
 
 ## Outputs
 

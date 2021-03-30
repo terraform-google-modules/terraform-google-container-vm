@@ -24,11 +24,11 @@ locals {
 }
 provider "google" {
   project = var.project_id
-  version = "~> 2.7.0"
+  version = "~> 3.53.0"
 }
 provider "google-beta" {
   project = var.project_id
-  version = "~> 2.7.0"
+  version = "~> 3.53.0"
 }
 module "gce-container" {
   source = "../../"
@@ -63,7 +63,7 @@ module "cloud-nat" {
 }
 module "mig_template" {
   source               = "terraform-google-modules/vm/google//modules/instance_template"
-  version              = "~> 1.0.0"
+  version              = "~> 6.0"
   network              = google_compute_network.default.self_link
   subnetwork           = google_compute_subnetwork.default.self_link
   service_account      = var.service_account
@@ -81,7 +81,7 @@ module "mig_template" {
 }
 module "mig" {
   source            = "terraform-google-modules/vm/google//modules/mig"
-  version           = "~> 1.0.0"
+  version           = "~> 6.0"
   instance_template = module.mig_template.self_link
   region            = var.region
   hostname          = var.network
@@ -97,32 +97,68 @@ module "mig" {
 }
 module "http-lb" {
   source  = "GoogleCloudPlatform/lb-http/google"
-  version = "~> 2.0"
+  version = "~> 4.5"
 
-  project = var.project_id
-  name    = "${var.mig_name}-lb"
+  project     = var.project_id
+  name        = "${var.mig_name}-lb"
+  target_tags = local.target_tags
   firewall_networks = [
     google_compute_network.default.self_link
   ]
-  target_tags = local.target_tags
+
   backends = {
-    "0" = [
-      {
-        group                        = module.mig.instance_group
-        balancing_mode               = null
-        capacity_scaler              = null
-        description                  = null
-        max_connections              = null
-        max_connections_per_instance = null
-        max_rate                     = null
-        max_rate_per_instance        = null
-        max_utilization              = null
+    default = {
+      description                     = null
+      protocol                        = "HTTP"
+      port                            = 80
+      port_name                       = "http"
+      timeout_sec                     = 30
+      connection_draining_timeout_sec = null
+      enable_cdn                      = false
+      security_policy                 = null
+      session_affinity                = null
+      affinity_cookie_ttl_sec         = null
+      custom_request_headers          = null
+
+      health_check = {
+        check_interval_sec  = null
+        timeout_sec         = null
+        healthy_threshold   = null
+        unhealthy_threshold = null
+        request_path        = "/"
+        port                = 80
+        host                = null
+        logging             = null
       }
-    ]
+
+      log_config = {
+        enable      = false
+        sample_rate = null
+      }
+
+      groups = [
+        {
+          group                        = module.mig.instance_group
+          balancing_mode               = null
+          capacity_scaler              = null
+          description                  = null
+          max_connections              = null
+          max_connections_per_instance = null
+          max_connections_per_endpoint = null
+          max_rate                     = null
+          max_rate_per_instance        = null
+          max_rate_per_endpoint        = null
+          max_utilization              = null
+        }
+      ]
+
+      iap_config = {
+        enable               = false
+        oauth2_client_id     = ""
+        oauth2_client_secret = ""
+      }
+    }
   }
-  backend_params = [
-    "/,http,${var.image_port},30",
-  ]
 }
 resource "google_compute_firewall" "lb-to-instances" {
   name    = "${var.mig_name}-firewall-lb-to-instances"

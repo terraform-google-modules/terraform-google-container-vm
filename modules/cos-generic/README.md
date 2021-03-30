@@ -83,25 +83,25 @@ runcmd:
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| allow\_stopping\_for\_update | Allow stopping the instance for specific Terraform changes. | bool | `"false"` | no |
-| boot\_disk\_size | Size of the boot disk. | number | `"10"` | no |
-| cloud\_init | Path to a file that will be used for the cloud-config template. | string | `""` | no |
-| cloud\_init\_custom\_var | String passed in to the cloud-config template as custome variable. | string | `""` | no |
-| instance\_count | Number of instances to create. | number | `"1"` | no |
-| instance\_type | Instance machine type. | string | `"g1-small"` | no |
-| labels | Labels to be attached to the resources | map(string) | `<map>` | no |
-| prefix | Prefix to prepend to resource names. | string | `""` | no |
-| project\_id | Project id where the instances will be created. | string | n/a | yes |
-| region | Region for external addresses. | string | n/a | yes |
-| reserve\_ip | Reserve an IP address for the instance instead of using an ephemeral address. | bool | `"false"` | no |
-| scopes | Instance scopes. | list(string) | `<list>` | no |
-| service\_account | Instance service account. | string | `""` | no |
-| stackdriver\_logging | Enable the Stackdriver logging agent. | bool | `"true"` | no |
-| stackdriver\_monitoring | Enable the Stackdriver monitoring agent. | bool | `"true"` | no |
-| subnetwork | Self link of the VPC subnet to use for the internal interface. | string | n/a | yes |
-| vm\_tags | Additional network tags for the instances. | list(string) | `<list>` | no |
-| zone | Instance zone. | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| allow\_stopping\_for\_update | Allow stopping the instance for specific Terraform changes. | `bool` | `false` | no |
+| boot\_disk\_size | Size of the boot disk. | `number` | `10` | no |
+| cloud\_init | Path to a file that will be used for the cloud-config template. | `string` | `""` | no |
+| cloud\_init\_custom\_var | String passed in to the cloud-config template as custome variable. | `string` | `""` | no |
+| instance\_count | Number of instances to create. | `number` | `1` | no |
+| instance\_type | Instance machine type. | `string` | `"g1-small"` | no |
+| labels | Labels to be attached to the resources | `map(string)` | <pre>{<br>  "service": "coredns"<br>}</pre> | no |
+| prefix | Prefix to prepend to resource names. | `string` | `""` | no |
+| project\_id | Project id where the instances will be created. | `string` | n/a | yes |
+| region | Region for external addresses. | `string` | n/a | yes |
+| reserve\_ip | Reserve an IP address for the instance instead of using an ephemeral address. | `bool` | `false` | no |
+| scopes | Instance scopes. | `list(string)` | <pre>[<br>  "https://www.googleapis.com/auth/devstorage.read_only",<br>  "https://www.googleapis.com/auth/logging.write",<br>  "https://www.googleapis.com/auth/monitoring.write",<br>  "https://www.googleapis.com/auth/pubsub",<br>  "https://www.googleapis.com/auth/service.management.readonly",<br>  "https://www.googleapis.com/auth/servicecontrol",<br>  "https://www.googleapis.com/auth/trace.append"<br>]</pre> | no |
+| service\_account | Instance service account. | `string` | `""` | no |
+| stackdriver\_logging | Enable the Stackdriver logging agent. | `bool` | `true` | no |
+| stackdriver\_monitoring | Enable the Stackdriver monitoring agent. | `bool` | `true` | no |
+| subnetwork | Self link of the VPC subnet to use for the internal interface. | `string` | n/a | yes |
+| vm\_tags | Additional network tags for the instances. | `list(string)` | `[]` | no |
+| zone | Instance zone. | `string` | n/a | yes |
 
 ## Outputs
 
