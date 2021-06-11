@@ -24,6 +24,13 @@ variable "container" {
   }
 }
 
+variable "containers" {
+  // This is necessary to work around a limitation in Terraform 0.12. If this is set to `map`, as intended, Terraform expects all values within the map to have the same type, which is not the case here.
+  type        = any
+  description = "A list of containers descriptions to deploy"
+  default     = null
+}
+
 variable "volumes" {
   // This is necessary to work around a limitation in Terraform 0.12. If this is set to `map`, as intended, Terraform expects all values within the map to have the same type, which is not the case here.
   type        = any

@@ -22,7 +22,7 @@ locals {
 
   spec = {
     spec = {
-      containers    = [var.container]
+      containers    = var.containers != null ? var.containers : [var.container]
       volumes       = var.volumes
       restartPolicy = var.restart_policy
     }

@@ -77,6 +77,7 @@ Then perform the following commands on the root folder:
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | container | A description of the container to deploy | `any` | <pre>{<br>  "command": "ls",<br>  "image": "gcr.io/google-containers/busybox"<br>}</pre> | no |
+| containers | A list of containers descriptions to deploy | `any` | `null` | no |
 | cos\_image\_family | The COS image family to use (eg: stable, beta, or dev) | `string` | `"stable"` | no |
 | cos\_image\_name | Name of a specific COS image to use instead of the latest cos family image | `string` | `null` | no |
 | restart\_policy | The restart policy for a Docker container. Defaults to `OnFailure` | `string` | `"OnFailure"` | no |
