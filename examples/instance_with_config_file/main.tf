@@ -58,7 +58,7 @@ module "gce-container" {
 }
 
 data "template_file" "startup_script" {
-  template = "${file("${path.module}/startup.sh.tpl")}"
+  template = file("${path.module}/startup.sh.tpl")
   vars = {
     instance_name = local.instance_name
     config_path   = local.config_path

@@ -104,7 +104,7 @@ resource "google_compute_instance" "vm" {
     access_config {}
   }
 
-  metadata = merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))
+  metadata = merge(var.additional_metadata, { "gce-container-declaration" = module.gce-container.metadata_value })
 
   labels = {
     container-vm = module.gce-container.vm_container_label

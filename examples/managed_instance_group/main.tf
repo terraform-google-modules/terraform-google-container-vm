@@ -71,7 +71,7 @@ module "mig_template" {
   source_image_family  = "cos-stable"
   source_image_project = "cos-cloud"
   source_image         = reverse(split("/", module.gce-container.source_image))[0]
-  metadata             = merge(var.additional_metadata, map("gce-container-declaration", module.gce-container.metadata_value))
+  metadata             = merge(var.additional_metadata, { "gce-container-declaration" = module.gce-container.metadata_value })
   tags = [
     "container-vm-test-mig"
   ]
