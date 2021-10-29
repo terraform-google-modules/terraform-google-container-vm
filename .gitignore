@@ -8,3 +8,6 @@ credentials.json
 .idea
 .vscode
 
+
+# tf lock file
+.terraform.lock.hcl
