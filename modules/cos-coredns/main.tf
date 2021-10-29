@@ -50,7 +50,7 @@ resource "google_compute_instance" "default" {
   count          = var.instance_count
   name           = "${local.prefix}coredns-${count.index + 1}"
   description    = "coreDNS with containers on CoS."
-  tags           = concat(list(var.network_tag), var.vm_tags)
+  tags           = concat([var.network_tag], var.vm_tags)
   labels         = var.labels
   machine_type   = var.instance_type
   project        = var.project_id

@@ -74,7 +74,7 @@ resource "google_compute_instance" "default" {
   count                     = var.instance_count
   name                      = "${local.prefix}mysql-${count.index + 1}"
   description               = "MySQL test with containers on CoS."
-  tags                      = concat(list(var.network_tag), var.vm_tags)
+  tags                      = concat([var.network_tag], var.vm_tags)
   labels                    = var.labels
   machine_type              = var.instance_type
   project                   = var.project_id
@@ -111,7 +111,7 @@ resource "google_compute_instance" "default" {
 
     scopes = compact(concat(
       var.scopes,
-      list(local.use_kms ? "https://www.googleapis.com/auth/cloudkms" : "")
+      [local.use_kms ? "https://www.googleapis.com/auth/cloudkms" : ""]
     ))
   }
 
