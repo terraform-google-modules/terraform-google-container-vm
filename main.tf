@@ -15,16 +15,22 @@
  */
 
 locals {
-  cos_image_name         = var.cos_image_name
-  cos_image_family       = var.cos_image_name == null ? "cos-${var.cos_image_family}" : null
-  cos_project            = "cos-cloud"
-  invalid_restart_policy = var.restart_policy != "OnFailure" && var.restart_policy != "UnlessStopped" && var.restart_policy != "Always" && var.restart_policy != "No" ? 1 : 0
+  restart_policy_enum = tomap({
+    "onfailure" : "OnFailure"
+    "unlessstopped" : "UnlessStopped"
+    "always" : "Always"
+    "no" : "No"
+  })
+
+  cos_image_name   = var.cos_image_name
+  cos_image_family = var.cos_image_name == null ? "cos-${var.cos_image_family}" : null
+  cos_project      = "cos-cloud"
 
   spec = {
     spec = {
       containers    = [var.container]
       volumes       = var.volumes
-      restartPolicy = var.restart_policy
+      restartPolicy = lookup(local.restart_policy_enum, lower(var.restart_policy), null)
     }
   }
 
