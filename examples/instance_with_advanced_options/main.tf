@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-provider "google" {
-}
-
 locals {
   instance_name = format("%s-%s", var.instance_name, substr(md5(module.gce-advanced-container.container.image), 0, 8))
 }

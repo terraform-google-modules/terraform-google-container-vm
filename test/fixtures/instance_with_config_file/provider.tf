@@ -17,15 +17,3 @@
 provider "google" {
   project = var.project_id
 }
-
-provider "local" {
-  version = "~> 1.4"
-}
-
-provider "random" {
-  version = "~> 2.3"
-}
-
-provider "tls" {
-  version = "~> 2.2"
-}

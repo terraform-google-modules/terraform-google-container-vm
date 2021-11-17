@@ -24,11 +24,9 @@ locals {
 }
 provider "google" {
   project = var.project_id
-  version = "~> 3.53.0"
 }
 provider "google-beta" {
   project = var.project_id
-  version = "~> 3.53.0"
 }
 module "gce-container" {
   source = "../../"
