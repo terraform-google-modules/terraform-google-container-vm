@@ -2,7 +2,11 @@
 
 This module handles the generation of metadata for [deploying containers on GCE instances](https://cloud.google.com/compute/docs/containers/deploying-containers).
 
-This module itself does not launch an instance or managed instance group. It simply generates the necessary metadata to create an instance or MIG yourself. Examples of using this module can be found in the [examples/](examples) directory.
+This module itself does not launch an instance or managed instance group. It
+generates the necessary metadata to create an instance or MIG yourself.
+Examples of using this module can be found in the
+[examples/](https://github.com/terraform-google-modules/terraform-google-container-vm/tree/master/examples)
+directory.
 
 ## Compatibility
 This module is meant for use with Terraform 0.13+ and tested using Terraform 1.0+. If you find incompatibilities using Terraform >=0.13, please open an issue.
@@ -488,7 +492,9 @@ The linters are as follows:
 * Trailing whitespaces
 
 ## Known limitations
-Managed instance group [example](examples/managed_instance_group/main.tf) is not migrated to Terraform 0.12
+Managed instance group
+[example](https://github.com/terraform-google-modules/terraform-google-container-vm/tree/master/examples/managed_instance_group/main.tf)
+is not migrated to Terraform 0.12.
 This is tracked as issue [`#28`](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/28)
 Linters and integrations tests skip this example and associated tests for now.
 
