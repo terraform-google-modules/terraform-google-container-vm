@@ -16,11 +16,6 @@
 
 provider "google" {
   project = var.project_id
-  version = "~> 3.53"
-}
-
-provider "template" {
-  version = "~> 2.1"
 }
 
 locals {

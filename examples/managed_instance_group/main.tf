@@ -24,11 +24,9 @@ locals {
 }
 provider "google" {
   project = var.project_id
-  version = "~> 3.53.0"
 }
 provider "google-beta" {
   project = var.project_id
-  version = "~> 3.53.0"
 }
 module "gce-container" {
   source = "../../"
@@ -55,7 +53,7 @@ resource "google_compute_router" "default" {
 }
 module "cloud-nat" {
   source     = "terraform-google-modules/cloud-nat/google"
-  version    = "~> 1.0.0"
+  version    = "~> 2.1"
   router     = google_compute_router.default.name
   project_id = var.project_id
   region     = var.region
@@ -63,7 +61,7 @@ module "cloud-nat" {
 }
 module "mig_template" {
   source               = "terraform-google-modules/vm/google//modules/instance_template"
-  version              = "~> 6.0"
+  version              = "~> 7.3"
   network              = google_compute_network.default.self_link
   subnetwork           = google_compute_subnetwork.default.self_link
   service_account      = var.service_account
@@ -81,7 +79,7 @@ module "mig_template" {
 }
 module "mig" {
   source            = "terraform-google-modules/vm/google//modules/mig"
-  version           = "~> 6.0"
+  version           = "~> 7.3"
   instance_template = module.mig_template.self_link
   region            = var.region
   hostname          = var.network
@@ -97,7 +95,7 @@ module "mig" {
 }
 module "http-lb" {
   source  = "GoogleCloudPlatform/lb-http/google"
-  version = "~> 4.5"
+  version = "~> 6.2"
 
   project     = var.project_id
   name        = "${var.mig_name}-lb"
@@ -119,6 +117,7 @@ module "http-lb" {
       session_affinity                = null
       affinity_cookie_ttl_sec         = null
       custom_request_headers          = null
+      custom_response_headers         = null
 
       health_check = {
         check_interval_sec  = null

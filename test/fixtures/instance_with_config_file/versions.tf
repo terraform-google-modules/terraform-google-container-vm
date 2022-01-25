@@ -15,25 +15,22 @@
  */
 
 terraform {
-  required_version = ">= 0.13"
   required_providers {
-
     google = {
-      source  = "hashicorp/google"
-      version = ">= 3.53, < 5.0"
+      source = "hashicorp/google"
     }
-    google-beta = {
-      source  = "hashicorp/google-beta"
-      version = ">= 3.53, < 5.0"
+    local = {
+      source  = "hashicorp/local"
+      version = "~> 1.4"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 2.3"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = "~> 2.2"
     }
   }
-
-  provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-container-vm:cos-generic/v1.0.0"
-  }
-
-  provider_meta "google-beta" {
-    module_name = "blueprints/terraform/terraform-google-container-vm:cos-generic/v1.0.0"
-  }
-
+  required_version = ">= 0.13"
 }
