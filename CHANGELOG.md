@@ -6,11 +6,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Extending the adopted spec, each change should have a link to its corresponding pull request appended.
 
-## [Unreleased]
+## [3.0.0](https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v2.0.0...v3.0.0) (2022-02-03)
 
-### Added
 
-- Example for showing advanced container options [#55]
+### ⚠ BREAKING CHANGES
+
+* add Terraform 0.13 constraint and module attribution (#70)
+
+### Features
+
+* Add container outputs ([#63](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/63)) ([baa02ef](https://github.com/terraform-google-modules/terraform-google-container-vm/commit/baa02efede3eb42a6fa071761965d4885b9d64d8))
+* add Terraform 0.13 constraint and module attribution ([#70](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/70)) ([5e69eaf](https://github.com/terraform-google-modules/terraform-google-container-vm/commit/5e69eafaaaa8302c5732799e32d1da5c17b7b285))
+* update TPG version constraints to allow 4.0 ([#78](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/78)) ([4b769ec](https://github.com/terraform-google-modules/terraform-google-container-vm/commit/4b769ec7c46cd9b1d714c8782d6fa95fd9f1bc6f))
+* Example for showing advanced container options [#55]
+
+### Bug Fixes
+
+* Coerce case for restart policy ([#77](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/77)) ([5612b31](https://github.com/terraform-google-modules/terraform-google-container-vm/commit/5612b31592aade08544aa083658c331b5e06e712))
 
 ## [2.0.0] - 2019-12-13
 
