@@ -16,6 +16,7 @@ on:
   push:
     branches:
       - master
+      - chore/release-please
 name: release-please
 jobs:
   release-please:
