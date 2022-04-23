@@ -16,15 +16,16 @@
 
 locals {
   net_project_id = var.host_project_id != "" ? var.host_project_id : var.project_id
-  password       = var.password != "" ? var.password : random_id.password.b64_url
+  password       = var.password != "" ? var.password : random_password.password.result
   prefix         = var.prefix == "" ? "" : "${var.prefix}-"
   use_kms        = var.password != "" && length(var.kms_data) == 4
 }
 
 # optional resources
 
-resource "random_id" "password" {
-  byte_length = 8
+resource "random_password" "password" {
+  length  = 32
+  special = false
 }
 
 resource "google_compute_address" "addresses" {
