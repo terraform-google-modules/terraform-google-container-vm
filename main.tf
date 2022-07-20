@@ -19,7 +19,7 @@ locals {
     "onfailure" : "OnFailure"
     "unlessstopped" : "UnlessStopped"
     "always" : "Always"
-    "no" : "No"
+    "never" : "Never"
   })
 
   cos_image_name   = var.cos_image_name
