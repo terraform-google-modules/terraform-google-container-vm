@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Extending the adopted spec, each change should have a link to its corresponding pull request appended.
 
+## [3.0.1](https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v3.0.0...v3.0.1) (2022-07-20)
+
+
+### Bug Fixes
+
+* restart policy kills konlet-startup container fix for the value Never ([#87](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/87)) ([fcbdafa](https://github.com/terraform-google-modules/terraform-google-container-vm/commit/fcbdafa2d5b00792c388dcda1e1715f5e2a615e6))
+
 ## [3.0.0](https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v2.0.0...v3.0.0) (2022-02-03)
 
 
