@@ -48,3 +48,10 @@ variable "cos_image_name" {
   type        = string
   default     = null
 }
+
+variable "cos_project" {
+  description = "COS project where the image is located"
+  type        = string
+  default     = "cos-cloud"
+}
+
