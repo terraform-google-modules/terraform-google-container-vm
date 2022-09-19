@@ -24,7 +24,7 @@ locals {
 
   cos_image_name   = var.cos_image_name
   cos_image_family = var.cos_image_name == null ? "cos-${var.cos_image_family}" : null
-  cos_project      = "cos-cloud"
+  cos_project      = var.cos_project
 
   spec = {
     spec = {
