@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Extending the adopted spec, each change should have a link to its corresponding pull request appended.
 
+## [3.1.0](https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v3.0.1...v3.1.0) (2022-09-19)
+
+
+### Features
+
+* expose cos_project variable ([#91](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/91)) ([b32263d](https://github.com/terraform-google-modules/terraform-google-container-vm/commit/b32263d30cf2a61d20ddbca94733bf3abfb7a446))
+
 ## [3.0.1](https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v3.0.0...v3.0.1) (2022-07-20)
 
 
