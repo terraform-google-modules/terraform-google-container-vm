@@ -29,7 +29,9 @@ provider "google-beta" {
   project = var.project_id
 }
 module "gce-container" {
-  source = "../../"
+  source  = "terraform-google-modules/container-vm/google"
+  version = "~> 3.0"
+
   container = {
     image = var.image
   }

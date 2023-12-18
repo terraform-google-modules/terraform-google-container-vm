@@ -19,7 +19,8 @@ locals {
 }
 
 module "gce-advanced-container" {
-  source = "../../"
+  source  = "terraform-google-modules/container-vm/google"
+  version = "~> 3.0"
 
   container = {
     image = "busybox"
