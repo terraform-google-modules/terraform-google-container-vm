@@ -22,7 +22,8 @@ locals {
 }
 
 module "gce-container" {
-  source = "../../"
+  source  = "terraform-google-modules/container-vm/google"
+  version = "~> 3.0"
 
   cos_image_name = var.cos_image_name
 
