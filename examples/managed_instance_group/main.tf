@@ -92,8 +92,6 @@ module "mig" {
       port = var.image_port
     }
   ]
-  network    = google_compute_network.default.self_link
-  subnetwork = var.subnetwork
 }
 module "http-lb" {
   source  = "GoogleCloudPlatform/lb-http/google"
