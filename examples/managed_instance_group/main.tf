@@ -55,7 +55,7 @@ resource "google_compute_router" "default" {
 }
 module "cloud-nat" {
   source     = "terraform-google-modules/cloud-nat/google"
-  version    = "~> 2.1"
+  version    = "~> 5.0"
   router     = google_compute_router.default.name
   project_id = var.project_id
   region     = var.region
@@ -63,7 +63,7 @@ module "cloud-nat" {
 }
 module "mig_template" {
   source               = "terraform-google-modules/vm/google//modules/instance_template"
-  version              = "~> 7.3"
+  version              = "~> 10.0"
   network              = google_compute_network.default.self_link
   subnetwork           = google_compute_subnetwork.default.self_link
   service_account      = var.service_account
@@ -81,7 +81,7 @@ module "mig_template" {
 }
 module "mig" {
   source            = "terraform-google-modules/vm/google//modules/mig"
-  version           = "~> 7.3"
+  version           = "~> 10.0"
   instance_template = module.mig_template.self_link
   region            = var.region
   hostname          = var.network
@@ -97,7 +97,7 @@ module "mig" {
 }
 module "http-lb" {
   source  = "GoogleCloudPlatform/lb-http/google"
-  version = "~> 6.2"
+  version = "~> 10.0"
 
   project     = var.project_id
   name        = "${var.mig_name}-lb"
