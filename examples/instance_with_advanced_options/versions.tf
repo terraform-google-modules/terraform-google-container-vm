@@ -17,12 +17,11 @@
 terraform {
   required_providers {
     google = {
-      source  = "hashicorp/google"
-      version = ">= 3.53, < 5.0"
+      source = "hashicorp/google"
     }
     template = {
       source  = "hashicorp/template"
-      version = "~> 2.1"
+      version = ">= 2.1"
     }
   }
   required_version = ">= 0.13"
