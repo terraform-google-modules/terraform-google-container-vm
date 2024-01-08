@@ -42,7 +42,7 @@ data "template_file" "cloud-config" {
     image       = var.container_image
     instance_id = count.index + 1
     log_driver  = var.log_driver
-    ip_address  = google_compute_address.addresses.*.address[count.index]
+    ip_address  = google_compute_address.addresses[*].address[count.index]
   }
 }
 
@@ -72,7 +72,7 @@ resource "google_compute_instance" "default" {
 
   network_interface {
     subnetwork = var.subnetwork
-    network_ip = google_compute_address.addresses.*.address[count.index]
+    network_ip = google_compute_address.addresses[*].address[count.index]
     access_config {}
   }
 
@@ -84,7 +84,7 @@ resource "google_compute_instance" "default" {
   metadata = {
     google-logging-enabled    = var.stackdriver_logging
     google-monitoring-enabled = var.stackdriver_monitoring
-    user-data                 = data.template_file.cloud-config.*.rendered[count.index]
+    user-data                 = data.template_file.cloud-config[*].rendered[count.index]
   }
 }
 

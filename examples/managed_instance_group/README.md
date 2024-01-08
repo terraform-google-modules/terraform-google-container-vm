@@ -21,7 +21,6 @@ This example requires that some python libraries be installed, as outlined in `r
 | region | The GCP region to deploy instances into | `string` | n/a | yes |
 | service\_account | n/a | <pre>object({<br>    email  = string,<br>    scopes = list(string)<br>  })</pre> | <pre>{<br>  "email": "",<br>  "scopes": [<br>    "cloud-platform"<br>  ]<br>}</pre> | no |
 | subnetwork | The name of the subnetwork to deploy instances into | `string` | `"mig-subnet"` | no |
-| zone | The GCP zone to deploy instances into | `string` | n/a | yes |
 
 ## Outputs
 

@@ -121,6 +121,7 @@ variable "corefile" {
 
 variable "log_driver" {
   description = "Docker log driver to use for CoreDNS."
+  type        = string
   default     = "gcplogs"
 }
 
@@ -132,6 +133,7 @@ variable "stackdriver_logging" {
 
 variable "stackdriver_monitoring" {
   description = "Enable the Stackdriver monitoring agent."
+  type        = bool
   default     = true
 }
 
