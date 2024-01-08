@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Extending the adopted spec, each change should have a link to its corresponding pull request appended.
 
+## [3.1.1](https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v3.1.0...v3.1.1) (2024-01-08)
+
+
+### Bug Fixes
+
+* **deps:** lint updates for cft/developer-tools v1.18 ([#123](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/123)) ([2d57bef](https://github.com/terraform-google-modules/terraform-google-container-vm/commit/2d57bef2f9ff75f5ca0a0b7f5d21985b823be1a6))
+* upgraded versions.tf to include minor bumps from tpg v5 ([#118](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/118)) ([14fcdf3](https://github.com/terraform-google-modules/terraform-google-container-vm/commit/14fcdf3463b254098a5bc4a6e01003b3eee2d75c))
+
 ## [3.1.0](https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v3.0.1...v3.1.0) (2022-09-19)
 
 
