@@ -16,7 +16,7 @@
 
 output "instances" {
   description = "Instance name => address map."
-  value       = zipmap(google_compute_instance.default.*.name, google_compute_address.addresses.*.address)
+  value       = zipmap(google_compute_instance.default[*].name, google_compute_address.addresses[*].address)
 }
 
 output "password" {

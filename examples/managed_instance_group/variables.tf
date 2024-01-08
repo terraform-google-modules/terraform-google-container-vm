@@ -54,11 +54,6 @@ variable "region" {
   type        = string
 }
 
-variable "zone" {
-  description = "The GCP zone to deploy instances into"
-  type        = string
-}
-
 variable "network" {
   description = "The GCP network"
   type        = string

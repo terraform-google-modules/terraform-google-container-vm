@@ -31,7 +31,7 @@ output "volumes" {
 
 output "http_address" {
   description = "The IP address on which the HTTP service is exposed"
-  value       = google_compute_instance.vm.network_interface.0.access_config.0.nat_ip
+  value       = google_compute_instance.vm.network_interface[0].access_config[0].nat_ip
 }
 
 output "http_port" {
@@ -46,5 +46,5 @@ output "instance_name" {
 
 output "ipv4" {
   description = "The public IP address of the deployed instance"
-  value       = google_compute_instance.vm.network_interface.0.access_config.0.nat_ip
+  value       = google_compute_instance.vm.network_interface[0].access_config[0].nat_ip
 }
