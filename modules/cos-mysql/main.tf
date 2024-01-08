@@ -46,7 +46,7 @@ data "template_file" "cloud-config" {
   vars = {
     image       = var.container_image
     instance_id = count.index + 1
-    ip_address  = google_compute_address.addresses.*.address[count.index]
+    ip_address  = google_compute_address.addresses[*].address[count.index]
     key         = lookup(var.kms_data, "key", "")
     keyring     = lookup(var.kms_data, "keyring", "")
     location    = lookup(var.kms_data, "location", "")
@@ -97,12 +97,12 @@ resource "google_compute_instance" "default" {
 
   network_interface {
     subnetwork = var.subnetwork
-    network_ip = google_compute_address.addresses.*.address[count.index]
+    network_ip = google_compute_address.addresses[*].address[count.index]
     access_config {}
   }
 
   attached_disk {
-    source      = google_compute_disk.disk-data.*.name[count.index]
+    source      = google_compute_disk.disk-data[*].name[count.index]
     device_name = "mysql-data"
   }
 
@@ -116,7 +116,7 @@ resource "google_compute_instance" "default" {
   }
 
   metadata = {
-    user-data                 = data.template_file.cloud-config.*.rendered[count.index]
+    user-data                 = data.template_file.cloud-config[*].rendered[count.index]
     google-logging-enabled    = var.stackdriver_logging
     google-monitoring-enabled = var.stackdriver_monitoring
   }

@@ -14,15 +14,13 @@
  * limitations under the License.
  */
 
-provider "google" {
-}
-
 locals {
   instance_name = format("%s-%s", var.instance_name, substr(md5(module.gce-container.container.image), 0, 8))
 }
 
 module "gce-container" {
-  source = "../../"
+  source  = "terraform-google-modules/container-vm/google"
+  version = "~> 3.0"
 
   container = {
     image = var.image

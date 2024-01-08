@@ -28,7 +28,6 @@ module "example" {
   source     = "../../../examples/managed_instance_group"
   project_id = var.project_id
   region     = var.region
-  zone       = var.zone
   subnetwork = google_compute_subnetwork.main.name
   mig_name   = "cft-test-${local.example_name}-${random_string.suffix.result}"
   image_port = "8080"
