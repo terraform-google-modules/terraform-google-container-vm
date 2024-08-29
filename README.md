@@ -20,7 +20,7 @@ intended for Terraform 0.12.x is [v2.0.0](https://registry.terraform.io/modules/
 ```hcl
 module "gce-container" {
   source = "terraform-google-modules/container-vm/google"
-  version = "~> 3.1"
+  version = "~> 3.2"
 
   container = {
     image="gcr.io/google-samples/hello-app:1.0"
