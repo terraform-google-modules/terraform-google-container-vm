@@ -16,7 +16,7 @@
 
 module "container_vm" {
   source  = "terraform-google-modules/project-factory/google"
-  version = "~> 15.0"
+  version = "~> 16.0"
 
   name              = "ci-container-vm"
   random_project_id = true
