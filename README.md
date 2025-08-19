@@ -1,4 +1,10 @@
-# Terraform Google Container VM Metadata Module
+# Terraform Google Container VM Metadata Module (DEPRECATED)
+
+> [!NOTE]
+> This Terraform module is deprecated. To configure and deploy a container on VM
+or on VMs in a MIG during VM creation, use a startup script or cloud-init. You can also consider
+using one of the managed services such as Google Kubernetes Engine (GKE) or Batch to run containers on the VM.
+For more information, see [Migrate containers that were deployed on VMs during VM creation](https://cloud.google.com/compute/docs/containers/migrate-containers).
 
 This module handles the generation of metadata for [deploying containers on GCE instances](https://cloud.google.com/compute/docs/containers/deploying-containers).
 
