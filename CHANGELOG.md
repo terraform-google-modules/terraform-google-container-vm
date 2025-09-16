@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Extending the adopted spec, each change should have a link to its corresponding pull request appended.
 
+## [3.3.0](https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v3.2.0...v3.3.0) (2025-09-16)
+
+
+### Features
+
+* **deps:** Update Terraform Google Provider to v7 (major) ([#151](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/151)) ([25aeb5e](https://github.com/terraform-google-modules/terraform-google-container-vm/commit/25aeb5e8eb9525fdac47cfeb79eb7b20295d9a10))
+
+
+### Bug Fixes
+
+* **TF>=1.3:** Update cft/developer-tools Docker tag to v1.25 ([#145](https://github.com/terraform-google-modules/terraform-google-container-vm/issues/145)) ([49bb1a8](https://github.com/terraform-google-modules/terraform-google-container-vm/commit/49bb1a86c908b8a626b78977d83b1c01f3b5e39b))
+
 ## [3.2.0](https://github.com/terraform-google-modules/terraform-google-container-vm/compare/v3.1.1...v3.2.0) (2024-08-29)
 
 
