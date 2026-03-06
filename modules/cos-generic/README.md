@@ -57,7 +57,7 @@ write_files:
     Type=oneshot
     ExecStart=/usr/bin/docker run --rm \
       --name=gcs-sync --log-driver=gcplogs --log-opt gcp-log-cmd=true \
-      gcr.io/cloud-builders/gsutil rsync \
+      gcr.io/cloud-builders/gcloud storage rsync \
       gs://dataflow-samples/shakespeare \
       gs://${element(split(",", custom_var), 0)}
 # add a second ExecStart to chain a command (eg launch a pipeline)
