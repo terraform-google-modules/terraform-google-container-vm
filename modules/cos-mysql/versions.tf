@@ -37,11 +37,11 @@ terraform {
   }
 
   provider_meta "google" {
-    module_name = "blueprints/terraform/terraform-google-container-vm:cos-mysql/v3.3.0"
+    module_name = "blueprints/terraform/terraform-google-container-vm:cos-mysql/v3.4.0"
   }
 
   provider_meta "google-beta" {
-    module_name = "blueprints/terraform/terraform-google-container-vm:cos-mysql/v3.3.0"
+    module_name = "blueprints/terraform/terraform-google-container-vm:cos-mysql/v3.4.0"
   }
 
 }
